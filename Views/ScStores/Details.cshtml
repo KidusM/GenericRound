@@ -1,0 +1,67 @@
+﻿@model CSMS.Models.ScStores
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container">
+    <h2>Details</h2>
+
+    <div>
+        <h4>ScStores</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DsId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DsId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StoresId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StoresId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StoresName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StoresName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StoresDescription)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StoresDescription)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StoreAddress)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StoreAddress)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.WebAddress)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WebAddress)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GpsCoordinates)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GpsCoordinates)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.OutletTypeId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OutletTypeId)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

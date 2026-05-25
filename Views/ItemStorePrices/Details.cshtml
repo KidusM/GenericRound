@@ -1,0 +1,84 @@
+﻿@model CSMS.Models.ItemStorePrice
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ItemStorePrice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitUsed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnitUsed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegularPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegularPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrganicFlag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrganicFlag)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Observation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Observation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SaleDiscount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SaleDiscount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CostLocal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CostLocal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemCodeNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItemCodeNavigation.ItemCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.S)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.S.Syscode)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

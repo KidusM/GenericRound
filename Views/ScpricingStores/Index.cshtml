@@ -1,0 +1,120 @@
+﻿@model IEnumerable<CSMS.Models.ScPricingStores>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+
+    <div class="card">
+        <div class="card-body">
+            <br />
+            <h3 class="card-title text-center">List of Outlets</h3>
+
+            <p>
+                <a class="btn btn-info" asp-action="Create">Go Back - Add Outlet</a>
+            </p>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @*<th>
+                            @Html.DisplayNameFor(model => model.DsId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ActualYear)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ActualMonth)
+                        </th>*@
+                            <th>
+                                No.
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.StoresName)
+                            </th>
+                            @*<th>
+                            @Html.DisplayNameFor(model => model.StoresDescription)
+                        </th>*@
+                            @*<th>
+                            @Html.DisplayNameFor(model => model.Exclude)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExRemarks)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Internet)
+                        </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.StoreAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.WebAddress)
+                            </th>
+                            @*<th>
+                            @Html.DisplayNameFor(model => model.GpsCoordinates)
+                        </th>*@
+                            @*<th>
+                            @Html.DisplayNameFor(model => model.OutletTypeId)
+                        </th>*@
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @*<td>
+                                @Html.DisplayFor(modelItem => item.DsId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ActualYear)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ActualMonth)
+                            </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StoresId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StoresName)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.StoresDescription)
+                                </td>*@
+                                @*<td>
+                                @Html.DisplayFor(modelItem => item.Exclude)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExRemarks)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Internet)
+                            </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StoreAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.WebAddress)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.GpsCoordinates)
+                                </td>*@
+                                @*<td>
+                                @Html.DisplayFor(modelItem => item.OutletTypeId)
+                            </td>*@
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { syscode = item.Syscode, id = item.StoresId }, new { @class = "btn btn-info btn-sm" })    
+                                    @Html.ActionLink("Details", "Details", new { syscode = item.Syscode, id = item.StoresId }, new { @class = "btn btn-info btn-sm" }) 
+                                    @Html.ActionLink("Delete", "Delete", new { syscode = item.Syscode, id = item.StoresId }, new { @class = "btn btn-danger btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                <a class="btn btn-info" asp-action="Create">Go Back - Add Outlet</a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,223 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model CSMS.Models.DocumentUpload
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Document Upload</h2>
+        </div>
+
+        <div class="card-body">
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success">
+                    @ViewBag.Message
+                </div>
+            }
+
+        <div class="accordion mb-4" id="uploadInfoAccordion">
+
+            <div class="accordion-item">
+
+                <h2 class="accordion-header" id="headingUploadInfo">
+
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseUploadInfo"
+                            aria-expanded="false"
+                            aria-controls="collapseUploadInfo">
+
+                        <b>Instructions & File Naming Rules</b>
+
+                    </button>
+
+                </h2>
+
+                <div id="collapseUploadInfo"
+                     class="accordion-collapse collapse"
+                     aria-labelledby="headingUploadInfo"
+                     data-bs-parent="#uploadInfoAccordion">
+
+                    <div class="accordion-body">
+
+                        <div class="alert alert-info mb-4">
+
+                            <h5 class="alert-heading">
+                                How this upload works
+                            </h5>
+
+                            <p>
+                                This form uploads documents to their correct folder based on the code written inside the file name.
+                            </p>
+
+                            <p class="mb-0">
+                                Multiple files can be uploaded at the same time.
+                            </p>
+
+                        </div>
+
+                        <div class="card border-secondary">
+
+                            <div class="card-header bg-light">
+                                <strong>File Name Logic</strong>
+                            </div>
+
+                            <div class="card-body">
+
+                                <p>
+                                    Expected file name format:
+                                </p>
+
+                                <div class="bg-light border rounded p-3 mb-3">
+                                    <code>[2026-HQ-PP-SC] 01 File Name.pdf</code>
+                                </div>
+
+                                <p>
+                                    The system reads the part inside the brackets:
+                                </p>
+
+                                <div class="bg-light border rounded p-3 mb-3">
+                                    <code>2026-HQ-PP-SC</code>
+                                </div>
+
+                                <p>
+                                    Then it creates or uses this folder path:
+                                </p>
+
+                                <div class="bg-light border rounded p-3 mb-3">
+                                    <code>documents / 2026 / hq / pp / sc</code>
+                                </div>
+
+                                <p class="mb-0">
+                                    The bracket code is removed from the saved file name, so the final uploaded file becomes:
+                                </p>
+
+                                <div class="bg-light border rounded p-3 mt-3">
+                                    <code>01 File Name.pdf</code>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+            <form asp-action="Index"
+                  asp-controller="DocumentUpload"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+
+                <div class="form-group mb-3">
+
+                    <label asp-for="Files" class="form-label fw-bold">
+                        Select File
+                    </label>
+
+                    <input type="file"
+                           id="Files"
+                           name="Files"
+                           class="form-control"
+                           accept=".xlsx,.xls,.pdf,.doc,.docx"
+                           multiple />
+
+                    <span asp-validation-for="Files" class="text-danger"></span>
+
+                    <small class="form-text text-muted">
+                        Allowed file types: Excel, PDF, Word documents.
+                    </small>
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">
+                        Selected Files
+                    </label>
+
+                    <ul id="fileList" class="list-group">
+                        <li class="list-group-item text-muted">
+                            No files selected.
+                        </li>
+                    </ul>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Upload
+                </button>
+
+                <a asp-action="Delete"
+                   asp-controller="DocumentUpload"
+                   class="btn btn-info ms-2">
+
+                    Manage Existing Documents
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    document.getElementById("Files").addEventListener("change", function () {
+
+        let fileList = document.getElementById("fileList");
+
+        fileList.innerHTML = "";
+
+        if (this.files.length === 0) {
+
+            let li = document.createElement("li");
+
+            li.className = "list-group-item text-muted";
+
+            li.innerText = "No files selected.";
+
+            fileList.appendChild(li);
+
+            return;
+        }
+
+        for (let i = 0; i < this.files.length; i++) {
+
+            let li = document.createElement("li");
+
+            li.className = "list-group-item d-flex justify-content-between align-items-center";
+
+            let fileName = document.createElement("span");
+
+            fileName.innerText = this.files[i].name;
+
+            let badge = document.createElement("span");
+
+            badge.className = "badge bg-secondary rounded-pill";
+
+            badge.innerText = "Ready";
+
+            li.appendChild(fileName);
+
+            li.appendChild(badge);
+
+            fileList.appendChild(li);
+        }
+
+    });
+
+</script>

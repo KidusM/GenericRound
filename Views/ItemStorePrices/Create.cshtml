@@ -1,0 +1,232 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@model CSMS.Models.ItemStorePrice
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+
+    <h2>Price Entry Form</h2>
+
+    <h4>Please enter prices for each item</h4>
+    <hr />
+
+
+    <div class="QuestionnairePageContainer">
+
+
+
+
+
+
+        <section class="forms">
+            <form asp-action="PostAddMore" class="text-left form-validate">
+                <input data-val="true" data-val-length="The field Syscode must be a string with a maximum length of 13." data-val-length-max="13" id="Syscode" name="Syscode" type="hidden" value="@HttpContextAccessor.HttpContext.Session.GetString("_Syscode")" />
+
+
+                <div class="form-group">
+                    <label asp-for="ItemCode" class="control-label">Select Items</label><br>
+                    <select asp-for="ItemCode" class="form-control" asp-items="ViewBag.ItemName"></select>
+
+                </div>
+
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <br />
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <b>Store Id</b>
+                        </div>
+                        <div class="col-md-2">
+                            <b>Brand</b>
+                        </div>
+                        <div class="col-md-1">
+                            <b>Quantity</b>
+                        </div>
+                        <div class="col-md-1">
+                            <b>Unit</b>
+                        </div>
+                        <div class="col-md-2">
+                            <b>Price</b>
+                        </div>
+
+                        <div class="col-md-3">
+                            <b>Comment</b>
+                        </div>
+                    </div>
+                    <partial name="_ItemStorePricePartialView">
+                        @*@Html.Partial("_ScPricingPartialView")*@
+                </div>
+                <div id="addAddMoreDiv"></div>
+                <a id="add_row" class="btn-small"> Add Price</a>
+                <br />
+                <br />
+                <input type="submit" class="btn btn-sm float-left" value="Save" />
+            </form>
+
+
+        </section>
+
+        <br /><br /><br /><hr />
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input data-val="true" data-val-length="The field Syscode must be a string with a maximum length of 13." data-val-length-max="13" id="Syscode" name="Syscode" type="hidden" value="@HttpContextAccessor.HttpContext.Session.GetString("_Syscode")" />
+
+                    <div class="form-group">
+                        <label asp-for="ItemCode" class="control-label">Select Items</label><br>
+                        <select asp-for="ItemCode" class="form-control" asp-items="ViewBag.ItemName"></select>
+
+                        <!-- THIS LISTS ALL ITEM DESCRIPTIONS
+        NEED TO DISPLAY ONLY DESCRIPTION OF THE SELECTED ITEM
+    Test<select asp-for="StoreId" class="form-control" asp-items="ViewBag.ItemDescription"></select>-->
+                    </div>
+
+                    @*<div class="form-group">
+                        <label asp-for="Syscode" class="control-label"></label>
+                        <select asp-for="Syscode" class="form-control" asp-items="ViewBag.Syscode"></select>
+                    </div>*@
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th>Store</th>
+                                <th>Brand</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Price</th>
+                                <th>Organic</th>
+                                <th>Comment</th>
+                                <th>Observation</th>
+                                <th>Discount Price</th>
+                                <th>Regular Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="StoreId" class="control-label">Choose Store</label>*@
+                                        <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreName"></select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="Brand" class="control-label"></label>*@
+                                        <input asp-for="Brand" class="form-control" />
+                                        <span asp-validation-for="Brand" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="Quantity" class="control-label"></label>*@
+                                        <input asp-for="Quantity" class="form-control" />
+                                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="UnitUsed" class="control-label"></label>*@
+                                        <input asp-for="UnitUsed" class="form-control" />
+                                        <span asp-validation-for="UnitUsed" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="CostLocal" class="control-label"></label>*@
+                                        <input asp-for="CostLocal" class="form-control" />
+                                        <span asp-validation-for="CostLocal" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="OrganicFlag" class="control-label"></label>*@
+                                        <input asp-for="OrganicFlag" class="form-control" />
+                                        <span asp-validation-for="OrganicFlag" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="Comment" class="control-label"></label>*@
+                                        <input asp-for="Comment" class="form-control" />
+                                        <span asp-validation-for="Comment" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="Observation" class="control-label"></label>*@
+                                        <input asp-for="Observation" class="form-control" />
+                                        <span asp-validation-for="Observation" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="SaleDiscount" class="control-label"></label>*@
+                                        <input asp-for="SaleDiscount" class="form-control" />
+                                        <span asp-validation-for="SaleDiscount" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        @*<label asp-for="RegularPrice" class="control-label"></label>*@
+                                        <input asp-for="RegularPrice" class="form-control" />
+                                        <span asp-validation-for="RegularPrice" class="text-danger"></span>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+      $('#add_row').on('click', function () {
+        $.ajax({
+            url: '@Url.Action("ItemStorePricePartialView", "ItemStorePrices")',
+            type: 'GET',
+            data: {
+            },
+            success: function (result) {
+                $('#addAddMoreDiv').append(result);
+            },
+            error: function () {
+            }
+        });
+    });
+    </script>
+}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

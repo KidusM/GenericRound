@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "Survey Coordinator Questionnaires";
+}
+
+
+
+
+<div class="row justify-content-center bg-light p-5" style="margin-bottom:-80px">
+
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <br />
+                <h2 class="card-title text-center">Survey Coordinator Forms</h2>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="card shadow-sm">
+            <div class="p-4">
+
+                <div class="card mb-0 bg-light mt-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Welcome to Coordinator's Survey Dashboard</h4>
+                        <p class="card-text">
+                            As a survey coordinator, you are expected to complete two online questionnaires by clicking on the link below.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row justify-content-center bg-light p-5">
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+
+            <div class="p-4 border-top">
+                @*<h5>Coordinator’s Report</h5>*@
+                <div class="card mb-0 mt-3 bg-light">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h4 class="card-title">Coordinator’s Report</h4>
+                        </div><br />
+                        <p class="card-text">
+                            Please complete this section to provide information about the status of various components of the survey in your duty station.
+                        </p>
+                        @*<a href="javascript:void(0)" class="btn btn-primary text-white">
+                                Go
+                                somewhere
+                            </a>*@
+                        <div class="text-center">
+                            <a class="btn btn-success text-white" asp-controller="Screports" asp-action="Create">Coordinator's Report </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+
+            <div class="p-4 border-top">
+                @*<h5>Coordinator’s Report</h5>*@
+                <div class="card mb-0 mt-3 bg-light">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h4 class="card-title">Coordinator's Pricing Book</h4>
+                        </div><br />
+                        <p class="card-text">
+                            Please complete this section to provide information about prices of select items that are not included in the pricing book.
+                        </p>
+                        @*<a href="javascript:void(0)" class="btn btn-primary text-white">
+                                Go
+                                somewhere
+                            </a>*@
+                        <div class="text-center">
+                            <a class="btn btn-info text-white" asp-controller="ScPricingstores" asp-action="Create">Coordinator's Pricing Form </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

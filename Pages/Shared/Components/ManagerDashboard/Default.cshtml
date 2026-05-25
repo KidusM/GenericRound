@@ -1,0 +1,73 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+
+@using CSMS.Models
+@model IQueryable<Survey>
+
+@*@model IEnumerable<ScPricingData>*@
+
+@*<div class="QuestionnairePageContainer">*@
+
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-sm">
+                <tbody>
+                    @if (Model != null)
+                    {
+                        var i = 0;
+                        var prevFocal = "";
+                        var fp = "focalPerson";
+                        var currentDate = DateTime.Now;
+                        var activeSurvey = false;
+
+                        @foreach (var item in Model)
+                        {
+                            activeSurvey = false;
+                            i = i + 1;
+                            @if (item.SurveyBegin <= currentDate & item.SurveyEnd >= currentDate)
+                            {
+                                activeSurvey = true;
+                            }
+                            <tr id="@string.Concat(fp, i.ToString())"> </tr>
+                            @if(prevFocal != @item.Smid)
+                            {
+                <tr>
+                    <td colspan="5" style="font-weight:bold">@Html.DisplayFor(modelItem => item.Sm.FirstName) @Html.DisplayFor(modelItem => item.Sm.LastName)</td>
+                     
+                </tr>
+                            }
+                            @*<tr style="@(prevFocal != @item.Smid? "display:block" : "display:none")">
+                                <td colspan="3" style="font-weight:bold">@Html.DisplayFor(modelItem => item.Sm.FirstName) @Html.DisplayFor(modelItem => item.Sm.LastName)</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>*@
+                                @if (prevFocal == "" || item.Smid != null)
+                                {
+                                    prevFocal = item.Smid;
+                                }
+                            @*</tr>*@
+                <tr>
+                    
+                    <td></td>
+                    <td style="@(@activeSurvey ? "color:green; font-weight:bold" : "" )">@Html.DisplayFor(modelItem => item.Ds.Country)</td>
+                    <td style="@(@activeSurvey ? "color:green; font-weight:bold" : "" )">@Html.DisplayFor(modelItem => item.SurveyType)</td>
+                    <td style="@(@activeSurvey ? "color:green; font-weight:bold" : "" )">@Html.DisplayFor(modelItem => item.SurveyMonth) - @Html.DisplayFor(modelItem => item.SurveyYear)</td>
+
+                    <td><a type="button" class="btn btn-outline-secondary btn-block" style="display:block" href="~/Home/MonitoringTool?dsid=@item.Dsid&number=@item.NoOfStaff  "> Response Rate </a></td>
+                    @*<td>@Html.DisplayFor(modelItem => item.Sm.FirstName) @Html.DisplayFor(modelItem => item.Sm.LastName)</td>*@
+                </tr>
+
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>

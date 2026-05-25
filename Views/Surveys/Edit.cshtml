@@ -1,0 +1,154 @@
+﻿@model CSMS.Models.Survey
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<br />
+
+<div class="container">
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <br />
+                    <h2 class="card-title text-center">Modify Survey</h2>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+
+                    <form asp-action="Edit">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                                <tr>
+                                    <td> <label asp-for="Ds.Country" class="control-label"></label></td>
+                                    <td>
+                                        <select asp-for="Dsid" class="form-control" asp-items="ViewBag.Dsid"></select>
+                                        <span asp-validation-for="Ds.Dsid" class="text-danger"></span>
+                                    </td>
+                                    @*<td><label asp-for="Ds.Country" class="control-label"></label></td>
+                                    <td><select id="dsid" asp-for="Dsid" class="form-control" asp-items="ViewBag.Dsid"></select></td>*@
+                                </tr>
+                                <tr>
+                                    <td> <label asp-for="SurveyType" class="control-label" style="@((Model.SurveyType==null || Model.SurveyType=="          ")? "color:orange" : "")"></label></td>
+                                    <td>
+
+                                        <select id="surveytype" asp-for="SurveyType" class="form-control">
+
+                                            <option selected value="          " style="@((Model.SurveyType==null || Model.SurveyType=="          ")? "display:block" : "display:none")">Please select survey type </option>
+                                            <option value="PP        "> Place to Place</option>
+                                            <option value="H         "> Housing</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> <label asp-for="Round" class="control-label"></label></td>
+                                    <td>
+                                        <input asp-for="Round" class="form-control" />
+                                        <span asp-validation-for="Round" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>  <label asp-for="SurveyMonth" class="control-label"></label> </td>
+                                    <td>
+                                        <input id="month" asp-for="SurveyMonth" class="form-control">
+                                        <span asp-validation-for="SurveyMonth" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label asp-for="SurveyYear" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <input id="year" asp-for="SurveyYear" class="form-control" />
+                                        <span asp-validation-for="SurveyYear" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label asp-for="SurveyBegin" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <input asp-for="SurveyBegin" class="form-control" />
+                                        <span asp-validation-for="SurveyBegin" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label asp-for="SurveyEnd" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <input asp-for="SurveyEnd" class="form-control" />
+                                        <span asp-validation-for="SurveyEnd" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label asp-for="NoOfStaff" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <input asp-for="NoOfStaff" class="form-control" />
+                                        <span asp-validation-for="NoOfStaff" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label asp-for="Scid" class="control-label" style="@((Model.Scid==null || Model.Scid=="")? "color:orange" : "")"></label>
+                                        @*<label asp-for="Scid" class="control-label"></label>*@
+                                    </td>
+                                    <td>
+                                        <select asp-for="Scid" class="form-control" asp-items="ViewBag.Coordinators">
+                                            <option selected value="" style="@((Model.Scid==null || Model.Scid=="")? "display:block" : "display:none")">Please select a value . . .</option>
+                                        </select>
+                                        <span asp-validation-for="Scid" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label asp-for="Smid" class="control-label" style="@((Model.Smid==null || Model.Smid=="")? "color:orange" : "")"></label>
+                                        @*<label asp-for="Smid" class="control-label"></label>*@
+                                    </td>
+                                    <td>
+                                        <select asp-for="Smid" class="form-control" asp-items="ViewBag.FocalPersons">
+                                            <option selected value="" style="@((Model.Smid==null || Model.Smid=="")? "display:block" : "display:none")">Please select a value . . .</option>
+                                        </select>
+                                        <span asp-validation-for="Smid" class="text-danger"></span>
+                                    </td>
+                                </tr>
+
+                                @Html.HiddenFor(m => m.Syscode)
+                             
+                            </tbody>
+                        </table>
+                    
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" /> <a class="btn btn-info" asp-action="Index">Back</a>
+                        </div>
+                    </form>
+
+
+
+                    <div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

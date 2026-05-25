@@ -1,0 +1,612 @@
+﻿@model IEnumerable<CSMS.Models.ScReport>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurveyId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CommercialOutSide)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CommercialInSide)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GovtOutSide)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GovtInSide)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnoutSide)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UninSide)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OtherHousingOutside)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OtherHousingInside)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OtherHousing)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OverallQuality)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OverallQualityComments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Availability)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AvailabilityComments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaintenanceLevel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaintenanceComments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeForNewComer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeForNewComerComments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KeyMoneySecurityDeposit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdditionalSecurityCost)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SecurityCostReimbursed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullyReimbursedAllAgencies)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullyReimbursedSomeAgencies)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PartiallyReimbursedAllAgencies)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PartiallyReimbursedSomeAgencies)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AgenciesProvidingReimbursement)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AlarmInstallationFrequency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AlarmInstallationPercentage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AlarmInstallationMaxAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AlarmInstallationCurrency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AlarmInstallationEffectiveDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AlarmInstallationComments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HiringAlarmSystemFrequency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HiringAlarmSystemPercentage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HiringAlarmSystemMaxAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HiringAlarmSystemCurrency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HiringAlarmSystemEffectiveDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HiringAlarmSystemComments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BarsFrequency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BarsPercentage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BarsMaxAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BarsCurrency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BarsEffectiveDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BarsComments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuardsFrequency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuardsPercentage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuardsMaxAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuardsCurrency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuardsEffectiveDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuardsComments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other1Frequency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other1Percentage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other1MaxAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other1Currency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other1EffectiveDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other1Comments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other2Frequency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other2Percentage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other2MaxAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other2Currency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other2EffectiveDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other2Comments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CommonToEmployDomestic)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SocialInsuranceExists)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SocialInsuranceApplyToDomestic)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployerContributionAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployerContributionCurrency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DomesticHelpComment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PurchaseUsingForeignCurrency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CurrencyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListCurrencies)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxAddedAtPurchase)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity3)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity3)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity4)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity4)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity5)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity5)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity6)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity6)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity7)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity7)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity8)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity8)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity9)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity9)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commodity10)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaxCommodity10)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurveyMonth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurveyYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurveyType)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SurveyId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommercialOutSide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommercialInSide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GovtOutSide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GovtInSide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnoutSide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UninSide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OtherHousingOutside)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OtherHousingInside)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OtherHousing)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OverallQuality)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OverallQualityComments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Availability)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AvailabilityComments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaintenanceLevel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaintenanceComments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TimeForNewComer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TimeForNewComerComments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KeyMoneySecurityDeposit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdditionalSecurityCost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SecurityCostReimbursed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullyReimbursedAllAgencies)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullyReimbursedSomeAgencies)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartiallyReimbursedAllAgencies)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartiallyReimbursedSomeAgencies)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AgenciesProvidingReimbursement)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AlarmInstallationFrequency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AlarmInstallationPercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AlarmInstallationMaxAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AlarmInstallationCurrency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AlarmInstallationEffectiveDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AlarmInstallationComments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HiringAlarmSystemFrequency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HiringAlarmSystemPercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HiringAlarmSystemMaxAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HiringAlarmSystemCurrency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HiringAlarmSystemEffectiveDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HiringAlarmSystemComments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BarsFrequency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BarsPercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BarsMaxAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BarsCurrency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BarsEffectiveDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BarsComments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GuardsFrequency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GuardsPercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GuardsMaxAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GuardsCurrency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GuardsEffectiveDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GuardsComments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other1Frequency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other1Percentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other1MaxAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other1Currency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other1EffectiveDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other1Comments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other2Frequency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other2Percentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other2MaxAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other2Currency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other2EffectiveDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other2Comments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommonToEmployDomestic)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SocialInsuranceExists)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SocialInsuranceApplyToDomestic)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployerContributionAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployerContributionCurrency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DomesticHelpComment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseUsingForeignCurrency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrencyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ListCurrencies)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxAddedAtPurchase)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity4)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity4)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity5)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity5)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity6)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity6)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity7)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity7)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity8)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity8)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity9)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity9)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commodity10)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxCommodity10)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SurveyMonth)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SurveyYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SurveyType)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { syscode = item.Syscode, id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { syscode = item.Syscode, id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { syscode = item.Syscode, id = item.Id })
+
+                        @*<a asp-action="Edit" asp-route-syscode="@item.Syscode">Edit</a> |
+                        <a asp-action="Details" asp-route-syscode="@item.Syscode">Details</a> |
+                        <a asp-action="Delete" asp-route-syscode="@item.Syscode">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

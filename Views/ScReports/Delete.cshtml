@@ -1,0 +1,597 @@
+﻿@model CSMS.Models.ScReport
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ScReport</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SurveyId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CommercialOutSide)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CommercialOutSide)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CommercialInSide)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CommercialInSide)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GovtOutSide)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GovtOutSide)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GovtInSide)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GovtInSide)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UnoutSide)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnoutSide)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UninSide)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UninSide)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherHousingOutside)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OtherHousingOutside)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherHousingInside)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OtherHousingInside)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherHousing)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OtherHousing)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OverallQuality)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OverallQuality)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OverallQualityComments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OverallQualityComments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Availability)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Availability)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailabilityComments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AvailabilityComments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaintenanceLevel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaintenanceLevel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaintenanceComments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaintenanceComments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeForNewComer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeForNewComer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeForNewComerComments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeForNewComerComments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KeyMoneySecurityDeposit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KeyMoneySecurityDeposit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalSecurityCost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalSecurityCost)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityCostReimbursed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityCostReimbursed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullyReimbursedAllAgencies)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullyReimbursedAllAgencies)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullyReimbursedSomeAgencies)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullyReimbursedSomeAgencies)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PartiallyReimbursedAllAgencies)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PartiallyReimbursedAllAgencies)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PartiallyReimbursedSomeAgencies)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PartiallyReimbursedSomeAgencies)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgenciesProvidingReimbursement)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgenciesProvidingReimbursement)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AlarmInstallationFrequency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AlarmInstallationFrequency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AlarmInstallationPercentage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AlarmInstallationPercentage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AlarmInstallationMaxAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AlarmInstallationMaxAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AlarmInstallationCurrency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AlarmInstallationCurrency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AlarmInstallationEffectiveDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AlarmInstallationEffectiveDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AlarmInstallationComments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AlarmInstallationComments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HiringAlarmSystemFrequency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HiringAlarmSystemFrequency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HiringAlarmSystemPercentage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HiringAlarmSystemPercentage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HiringAlarmSystemMaxAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HiringAlarmSystemMaxAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HiringAlarmSystemCurrency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HiringAlarmSystemCurrency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HiringAlarmSystemEffectiveDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HiringAlarmSystemEffectiveDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HiringAlarmSystemComments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HiringAlarmSystemComments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BarsFrequency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BarsFrequency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BarsPercentage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BarsPercentage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BarsMaxAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BarsMaxAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BarsCurrency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BarsCurrency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BarsEffectiveDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BarsEffectiveDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BarsComments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BarsComments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GuardsFrequency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GuardsFrequency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GuardsPercentage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GuardsPercentage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GuardsMaxAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GuardsMaxAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GuardsCurrency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GuardsCurrency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GuardsEffectiveDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GuardsEffectiveDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GuardsComments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GuardsComments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other1Frequency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other1Frequency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other1Percentage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other1Percentage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other1MaxAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other1MaxAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other1Currency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other1Currency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other1EffectiveDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other1EffectiveDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other1Comments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other1Comments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other2Frequency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other2Frequency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other2Percentage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other2Percentage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other2MaxAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other2MaxAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other2Currency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other2Currency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other2EffectiveDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other2EffectiveDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other2Comments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other2Comments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CommonToEmployDomestic)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CommonToEmployDomestic)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SocialInsuranceExists)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SocialInsuranceExists)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SocialInsuranceApplyToDomestic)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SocialInsuranceApplyToDomestic)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployerContributionAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmployerContributionAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployerContributionCurrency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmployerContributionCurrency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DomesticHelpComment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DomesticHelpComment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseUsingForeignCurrency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseUsingForeignCurrency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrencyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CurrencyName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ListCurrencies)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ListCurrencies)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxAddedAtPurchase)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxAddedAtPurchase)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity4)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity4)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity4)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity4)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity5)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity5)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity5)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity5)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity6)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity6)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity6)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity6)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity7)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity7)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity7)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity7)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity8)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity8)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity8)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity8)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity9)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity9)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity9)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity9)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commodity10)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commodity10)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCommodity10)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaxCommodity10)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyMonth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SurveyMonth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SurveyYear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SurveyType)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Syscode" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

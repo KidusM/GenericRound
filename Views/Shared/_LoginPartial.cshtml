@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@*<ul class="navbar-nav">*@
+@*<ul class="nav navbar-nav navbar-right">*@
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" title="Manage">
+            @*<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">*@
+                <i class="fas fa-user-circle fa-3x"></i>
+                <span class="hide-menu">@User.Identity.Name</span>
+            </a>
+</li>
+
+    <li>
+        @*   *@
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "~/" })"  method="post">
+            <a class="waves-effect waves-dark" aria-expanded="false" onclick="this.closest('form').submit();">
+                <i class="fas fa-sign-out-alt" style="padding:8px;"></i>
+                <span class="hide-menu">SIGN OUT</span>
+            </a>
+        </form>
+    </li>
+
+}
+else
+{
+    <li>
+        <a class="waves-effect waves-dark" aria-expanded="false" asp-area="Identity" asp-page="/Account/Login">
+            <i class="fas fa-sign-in-alt"></i>
+            <span class="hide-menu">SIGN IN</span>
+        </a>
+    </li>
+
+
+}
+

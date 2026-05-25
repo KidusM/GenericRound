@@ -1,0 +1,198 @@
+﻿@model CSMS.Models.IccdtTmSchHd
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>IccdtTmSchHd</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SurveyType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProposedYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProposedYear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProposedMonth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProposedMonth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActualYear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualMonth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActualMonth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NoCcaq)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoCcaq)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LeadAgency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LeadAgency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonnelStaff)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PersonnelStaff)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Response)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Response)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ResponseRate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ResponseRate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateVerified)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateVerified)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateResults)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateResults)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateImplemented)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateImplemented)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateReported)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateReported)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Followup)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Followup)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FollowupComments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FollowupComments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cancelled)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cancelled)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataEntryFlag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataEntryFlag)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VerifyFlag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VerifyFlag)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdationFlag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdationFlag)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCv)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateCv)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExRate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExRate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IndicativeFees)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IndicativeFees)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HhMover)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HhMover)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateWebStart)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateWebStart)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateWebEnd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateWebEnd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FsPositions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FsPositions)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ds)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ds.DsId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Syscode">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

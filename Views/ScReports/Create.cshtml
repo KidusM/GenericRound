@@ -1,0 +1,1173 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+
+@model CSMS.Models.ScReport
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/theme/_ThemeLayout_Forms.cshtml";
+}
+
+
+@if (HttpContextAccessor.HttpContext.Session.GetString("_SCReportCompleted") == "Incomplete")
+{
+
+
+    <div class="row">
+
+
+
+
+        <form asp-action="Create" class="mt-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+
+            <input class="form-control" type="text" hidden data-val="true" data-val-length="The field Syscode must be a string with a maximum length of 13." data-val-length-max="13" id="Syscode" maxlength="13" name="Syscode" value="@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserSysCode")" />
+
+<div style="background-image: url(cold/assets/images/Banner.png);background-color:#203752;">
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="text-center">
+               
+                <h2 class="card-title text-white" style="padding:40px 0 5px 0">Survey Coordinator Questionnaire</h2>
+              
+                @{
+                    string display = @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") + " - " + @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCity");
+
+
+                        <h4 class="card-title text-center text-white">
+                            @*<h4 style="@(display? "disply:block" : "display:none")" class="card-title text-center text-white">*@
+                            @display
+                        </h4>
+
+                    <br />
+
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+            <div id="page1">
+                <div class="card">
+                    <div class="card-body">
+                        <br /><br />
+                        <h2 class="text-center card-title">HOUSING CONDITIONS</h2><br /><br />
+                        <h3 class="text-center card-title">Please Indicate all applicable categories</h3><br />
+
+
+
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="questionText">1. Please indicate all types of housing available in the duty station:</div>
+                                <br /><br />
+                                <table class="table">
+                                    <tr>
+                                        <th></th>
+                                        <th>Outside City of Duty Station</th>
+                                        <th>Within City of Duty Station</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Commercial/Private Housing <sup>1</sup></td>
+                                        <td>
+                                            <div style="margin-left:40%" class="form-check mr-sm-2 mb-3">
+                                                <input type="checkbox" class="form-check-input" asp-for="CommercialOutSide" />
+                                                <span asp-validation-for="CommercialOutSide" class="text-danger"></span>
+                                            </div>
+
+
+                                            @*<input asp-for="CommercialOutSide" class="form-control form-control-sm" />
+                                                <span asp-validation-for="CommercialOutSide" class="text-danger"></span>*@
+
+                                        </td>
+                                        <td>
+                                            <div style="margin-left:40%" class="form-check mr-sm-2 mb-3">
+                                                <input type="checkbox" class="form-check-input" asp-for="CommercialInSide" />
+                                                <span asp-validation-for="CommercialInSide" class="text-danger"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Government-Privided Housing</td>
+                                        <td>
+                                            <div style="margin-left:40%" class="form-check mr-sm-2 mb-3">
+                                                <input type="checkbox" class="form-check-input" asp-for="GovtOutSide" />
+                                                <span asp-validation-for="GovtOutSide" class="text-danger"></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="margin-left:40%" class="form-check mr-sm-2 mb-3">
+                                                @*<input type="checkbox" data-size="large" class="js-switch"*@
+                                                <input type="checkbox" class="form-check-input" asp-for="GovtInSide" />
+                                                <span asp-validation-for="GovtInSide" class="text-danger"></span>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>UN-Agency-provided Housing</td>
+                                        <td>
+                                            <div style="margin-left:40%" class="form-check mr-sm-2 mb-3">
+                                                <input type="checkbox" class="form-check-input" asp-for="UnoutSide" />
+                                                <span asp-validation-for="UnoutSide" class="text-danger"></span>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div style="margin-left:40%" class="form-check mr-sm-2 mb-3">
+                                                <input type="checkbox" class="form-check-input" asp-for="UninSide" />
+                                                <span asp-validation-for="UninSide" class="text-danger"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Other: Specify
+                                            <input asp-for="OtherHousing" class="form-control" />
+                                        </td>
+                                        <td>
+                                            <div style="margin-left:40%" class="form-check mr-sm-2 mb-3">
+                                                <input type="checkbox" class="form-check-input" asp-for="OtherHousingOutside" />
+                                                <span asp-validation-for="OtherHousingOutside" class="text-danger"></span>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div style="margin-left:40%" class="form-check mr-sm-2 mb-3">
+                                                <input type="checkbox" class="form-check-input" asp-for="OtherHousingInside" />
+                                                <span asp-validation-for="OtherHousingInside" class="text-danger"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <sup>1</sup> Dwellings available on the open market
+
+                                <br /><br />
+
+                                @*HOUSING CONDITION SECTION ENDS*@
+
+
+
+                                <input type="button" value="Next" class="btn btn-primary btn-block" onclick="getElementById('page1').style.display='none'; getElementById('page2').style.display='block';" />
+
+
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> @*Page 1*@
+
+            <div id="page2">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <br />
+                        <h3 class="text-center card-title">Please rate quality and availability of housing</h3><br />
+
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="questionText">2. Please select the value which best describes the following qualities of housing and facilities:</div>
+                                <br /><br />
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th></th>
+                                        <th style="text-align: center">Rating</th>
+                                        <th style="text-align: center">Comments</th>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td> Overall Quality: </td>
+                                        <td>
+
+                                            <input type="text" asp-for="OverallQuality" class="form-control" id="Quality" hidden />
+
+
+                                            <div class="star-rating">
+                                                <input type="radio" id="Quality5-stars" name="Qualityrating" value="5" asp-for="OverallQuality" onclick="document.getElementById('Quality').value = this.value;" />
+                                                <label for="Quality5-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Quality4-stars" name="Qualityrating" value="4" asp-for="OverallQuality" onclick="document.getElementById('Quality').value = this.value;" />
+                                                <label for="Quality4-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Quality3-stars" name="Qualityrating" value="3" asp-for="OverallQuality" onclick="document.getElementById('Quality').value = this.value;" />
+                                                <label for="Quality3-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Quality2-stars" name="Qualityrating" value="2" asp-for="OverallQuality" onclick="document.getElementById('Quality').value = this.value;" />
+                                                <label for="Quality2-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Quality1-star" name="Qualityrating" value="1" asp-for="OverallQuality" onclick="document.getElementById('Quality').value = this.value;" />
+                                                <label for="Quality1-star" class="star">&#9733;</label>
+                                            </div>
+
+                                        </td>
+
+                                        <td>
+                                            <div class="form-group" style="padding-top:10px">
+                                                <input asp-for="OverallQualityComments" class="form-control" id="teswt" />
+                                                <span asp-validation-for="OverallQualityComments" class="text-danger"></span>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td> Availability: </td>
+                                        <td>
+                                            <input type="text" asp-for="Availability" class="form-control" id="Available" hidden />
+                                            <div class="star-rating">
+                                                <input type="radio" id="Availability5-stars" name="Availabilityrating" value="5" asp-for="Availability" onclick="document.getElementById('Available').value = this.value;" />
+                                                <label for="Availability5-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Availability4-stars" name="Availabilityrating" value="4" asp-for="Availability" onclick="document.getElementById('Available').value = this.value;" />
+                                                <label for="Availability4-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Availability3-stars" name="Availabilityrating" value="3" asp-for="Availability" onclick="document.getElementById('Available').value = this.value;" />
+                                                <label for="Availability3-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Availability2-stars" name="Availabilityrating" value="2" asp-for="Availability" onclick="document.getElementById('Available').value = this.value;" />
+                                                <label for="Availability2-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Availability1-star" name="Availabilityrating" value="1" asp-for="Availability" onclick="document.getElementById('Available').value = this.value;" />
+                                                <label for="Availability1-star" class="star">&#9733;</label>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="form-group" style="padding-top:10px">
+                                                <input asp-for="AvailabilityComments" class="form-control" />
+                                                <span asp-validation-for="AvailabilityComments" class="text-danger"></span>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td> Maintenance level by landlord: </td>
+                                        <td>
+                                            <input type="text" asp-for="MaintenanceLevel" class="form-control" id="Maintenance" hidden />
+                                            <div class="star-rating">
+                                                <input type="radio" id="Maintenance5-stars" name="Maintenancerating" value="5" asp-for="MaintenanceLevel" onclick="document.getElementById('Maintenance').value = this.value;" />
+                                                <label for="Maintenance5-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Maintenance4-stars" name="Maintenancerating" value="4" asp-for="MaintenanceLevel" onclick="document.getElementById('Maintenance').value = this.value;" />
+                                                <label for="Maintenance4-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Maintenance3-stars" name="Maintenancerating" value="3" asp-for="MaintenanceLevel" onclick="document.getElementById('Maintenance').value = this.value;" />
+                                                <label for="Maintenance3-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Maintenance2-stars" name="Maintenancerating" value="2" asp-for="MaintenanceLevel" onclick="document.getElementById('Maintenance').value = this.value;" />
+                                                <label for="Maintenance2-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="Maintenance1-star" name="Maintenancerating" value="1" asp-for="MaintenanceLevel" onclick="document.getElementById('Maintenance').value = this.value;" />
+                                                <label for="Maintenance1-star" class="star">&#9733;</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group" style="padding-top:10px">
+                                                <input asp-for="MaintenanceComments" class="form-control" />
+                                                <span asp-validation-for="MaintenanceComments" class="text-danger"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+
+
+                                    <tr>
+
+                                        <td>Time for Newcomer to find decent dwelling: </td>
+
+
+                                        <td>
+                                            <input type="text" asp-for="TimeForNewComer" class="form-control" id="NewComer" hidden />
+                                            <div class="star-rating">
+                                                <input type="radio" id="NewComer5-stars" name="NewComerrating" value="5" asp-for="TimeForNewComer" onclick="document.getElementById('NewComer').value = this.value;" />
+                                                <label for="NewComer5-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="NewComer4-stars" name="NewComerrating" value="4" asp-for="TimeForNewComer" onclick="document.getElementById('NewComer').value = this.value;" />
+                                                <label for="NewComer4-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="NewComer3-stars" name="NewComerrating" value="3" asp-for="TimeForNewComer" onclick="document.getElementById('NewComer').value = this.value;" />
+                                                <label for="NewComer3-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="NewComer2-stars" name="NewComerrating" value="2" asp-for="TimeForNewComer" onclick="document.getElementById('NewComer').value = this.value;" />
+                                                <label for="NewComer2-stars" class="star">&#9733;</label>
+                                                <input type="radio" id="NewComer1-star" name="NewComerrating" value="1" asp-for="TimeForNewComer" onclick="document.getElementById('NewComer').value = this.value;" />
+                                                <label for="NewComer1-star" class="star">&#9733;</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group" style="padding-top:10px">
+                                                <input asp-for="TimeForNewComerComments" class="form-control" />
+                                                <span asp-validation-for="TimeForNewComerComments" class="text-danger"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+
+                                <br /><br />
+
+                                <div class="questionText">3. Please describe usual practices with regard to key money, security, or other deposits:</div>
+                                <div class="form-group">
+
+                                    <textarea rows="3" asp-for="KeyMoneySecurityDeposit" class="form-control"></textarea>
+                                    <span asp-validation-for="KeyMoneySecurityDeposit" class="text-danger"></span>
+                                </div>
+
+
+
+                                <input type="button" value="Back" class="btn btn-primary btn-block" onclick="getElementById('page2').style.display='none'; getElementById('page1').style.display='block';" />
+                                <input type="button" value="Next" class="btn btn-primary btn-block" onclick="getElementById('page2').style.display='none'; getElementById('page3').style.display='block';" />
+
+                            </div>
+
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> @*Page 2*@
+
+
+            <div id="page3">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                                <br /><br />
+                                <h2 class="text-center card-title">SECURITY COSTS</h2><br /><br />
+                                <br /><br />
+                                <div class="questionText">1. Is it necessary for staff members to incur additional costs for security reasons?</div><br />
+
+                                @*<label asp-for="AdditionalSecurityCost" class="control-label"></label>*@
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input id="additionalSecurityYes" type="radio" class="form-check-input" value="true" asp-for="AdditionalSecurityCost"
+                                                       onclick="document.getElementById('reimbursed').style.display='block';" />
+                                            </div>
+                                        </td>
+                                        <td> </td>
+                                        <td>Yes<br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input id="additionalSecurityNo" type="radio" class="form-check-input" value="false" asp-for="AdditionalSecurityCost"
+                                                       onclick="document.getElementById('reimbursed').style.display = 'none'; document.getElementById('securityReimbursedYes').checked = false; document.getElementById('securityReimbursedNo').checked = false;" />
+                                            </div>
+                                        </td>
+                                        <td> </td>
+                                        <td>No<br /></td>
+                                    </tr>
+                                </table>
+                                <br /><br />
+
+
+                                <div id="reimbursed" style="display:none;">
+                                    <div class="questionText">2. Is any portion of these costs reimbursed by the agencies?</div><br />
+
+
+
+
+                                    @*<label asp-for="AdditionalSecurityCost" class="control-label"></label>*@
+
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-radio">
+                                                    <input id="securityReimbursedYes" type="radio" class="form-check-input" value="true" asp-for="SecurityCostReimbursed" />
+                                                </div>
+                                            </td>
+                                            <td> </td>
+                                            <td>Yes<br /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-radio">
+                                                    <input id="securityReimbursedNo" type="radio" class="form-check-input" value="false" asp-for="SecurityCostReimbursed" />
+                                                </div>
+                                            </td>
+                                            <td> </td>
+                                            <td>No<br /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <br /><br />
+
+                                <br />
+                                <br />
+                                <input type="button" value="Back" class="btn btn-primary btn-block" onclick="getElementById('page3').style.display='none'; getElementById('page2').style.display='block';" />
+                                <input type="button" value="Next" class="btn btn-primary btn-block" onclick="getElementById('page3').style.display='none'; getElementById('page4').style.display='block';" />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> @*Page3*@
+
+            <div id="page4">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                                <br /><br />
+                                <h2 class="text-center card-title">DOMESTIC SERVICES</h2><br /><br />
+                                <br /><br />
+                                <div class="questionText">
+                                    1. Is it common practice among international staff members to employ the services of domestic help?
+                                </div><br />
+
+                                @*<label asp-for="AdditionalSecurityCost" class="control-label"></label>*@
+
+
+
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input id="domesticHelpYes" type="radio" class="form-check-input" value="true" asp-for="CommonToEmployDomestic" />
+                                            </div>
+                                        </td>
+                                        <td> </td>
+                                        <td>Yes<br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input id="domesticHelpNo" type="radio" class="form-check-input" value="false" asp-for="CommonToEmployDomestic" />
+                                            </div>
+                                        </td>
+                                        <td> </td>
+                                        <td>No<br /></td>
+                                    </tr>
+                                </table>
+                                <br /><br />
+
+                                <div id="socialInsurance">
+                                    <div class="questionText">2. Does a social insurance scheme exist for citizens of this country?</div><br />
+
+
+                                    @*  <input type="checkbox" class="js-switch" data-color="#009efb" asp-for="SocialInsuranceApplyToDomestic" />*@
+
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-radio">
+                                                    <input id="domesticHelpYes" type="radio" class="form-check-input" value="true" asp-for="SocialInsuranceApplyToDomestic" />
+                                                </div>
+                                            </td>
+                                            <td> </td>
+                                            <td>Yes<br /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-radio">
+                                                    <input id="domesticHelpNo" type="radio" class="form-check-input" value="false" asp-for="SocialInsuranceApplyToDomestic" />
+                                                </div>
+                                            </td>
+                                            <td> </td>
+                                            <td>No<br /></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <br />
+                                <br />
+
+
+                                <div class="questionText">Any additional comments on security and domestic help</div>
+                                <div class="form-group">
+
+                                    <textarea rows="3" asp-for=" DomesticHelpComment" class="form-control"></textarea>
+                                    <span asp-validation-for=" DomesticHelpComment" class="text-danger"></span>
+                                </div>
+                                <br /><br />
+
+                                <input type="button" value="Back" class="btn btn-primary btn-block" onclick="getElementById('page4').style.display='none'; getElementById('page3').style.display='block';" />
+                                <input type="button" value="Next" class="btn btn-primary btn-block" onclick="getElementById('page4').style.display='none'; getElementById('page5').style.display='block';" />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> @*Page4*@
+
+
+            <div id="page5">
+                <div class="card">
+                    <div class="card-body">
+
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                                <br /><br />
+                                <h2 class="text-center card-title">2.5 CURRENCY PAYMENTS AND LOCAL SALES TAXES</h2><br /><br />
+                                <br /><br />
+                                <div class="questionText">
+                                    Do staff members make purchases in local stores using foreign currency?
+                                </div><br />
+
+
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                @*<input id="PurchaseForeinCurrencyYes" type="radio" class="form-check-input" value="true" asp-for="PurchaseUsingForeignCurrency" />*@
+
+                                                <input id="PurchaseForeinCurrencyYes" type="radio" class="form-check-input" value="true" asp-for="PurchaseUsingForeignCurrency"
+                                                       onclick="document.getElementById('currency').style.display='block';" />
+                                            </div>
+                                        </td>
+                                        <td> </td>
+                                        <td>Yes<br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                @*<input id="PurchaseForeinCurrencyNo" type="radio" class="form-check-input" value="false" asp-for="PurchaseUsingForeignCurrency" />*@
+                                                <input id="PurchaseForeinCurrencyNo" type="radio" class="form-check-input" value="false" asp-for="PurchaseUsingForeignCurrency"
+                                                       onclick="document.getElementById('currency').style.display='none'; document.getElementById('singleCurrency').value=''; document.getElementById('listCurrency').value='';" />
+                                            </div>
+                                        </td>
+                                        <td> </td>
+                                        <td>No<br /></td>
+                                    </tr>
+                                </table>
+
+
+                                <br />
+                                <div id="currency" style="display:none">
+                                    <div class="form-group">
+                                        <label @*asp-for="CurrencyName"*@ class="control-label">Please specify currency </label>
+                                        <input id="singleCurrency" asp-for="CurrencyName" class="form-control" />
+                                        <span asp-validation-for="CurrencyName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="ListCurrencies" class="control-label">If multiple currencies, please list</label>
+                                        <textarea id="listCurrency" rows="3" asp-for="ListCurrencies" class="form-control"></textarea>
+                                        <span asp-validation-for="ListCurrencies" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <br />
+
+
+                                <h4 class="card-title">Provide information on the prevailing sales taxes/VAT if any.</h4><br />
+
+                                <div class="questionText">
+                                    Indicate whether taxes are included in the price as marked on item, or is added at time of purchase.
+                                </div><br />
+
+
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input id="TaxAddedAtPurchaseYes" type="radio" class="form-check-input" value=1 asp-for="TaxAddedAtPurchase"
+                                                       onclick="if (this.checked) {document.getElementById('taxDetail').style.display = 'none'; }" />
+                                            </div>
+                                        </td>
+                                        <td> </td>
+                                        <td>Price as marked on item<br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input id="TaxAddedAtPurchaseNo" type="radio" class="form-check-input" value=2 asp-for="TaxAddedAtPurchase"
+                                                       onclick="if (this.checked) { document.getElementById('taxDetail').style.display = 'block';}" />
+                                            </div>
+                                        </td>
+                                        <td> </td>
+                                        <td>Tax added at time of purchase<br /></td>
+                                    </tr>
+                                </table>
+
+                                <br />
+                                <div id="taxDetail" style="display:none">
+                                    <div class="questionText">
+                                        If taxes vary by type of commodity, provide a list of the applicable taxes.
+                                    </div><br />
+
+
+
+
+
+                                    <table class="table table-sm table-borderless">
+                                        <th>Commodity</th>
+                                        <th>Tax</th>
+
+                                        <tr>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="c1" asp-for="Commodity1" class="form-control" />
+                                                    <span asp-validation-for="Commodity1" class="text-danger"></span>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="t1" asp-for="TaxCommodity1" class="form-control" />
+                                                    <span asp-validation-for="TaxCommodity1" class="text-danger"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="c2" asp-for="Commodity2" class="form-control" />
+                                                    <span asp-validation-for="Commodity2" class="text-danger"></span>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="t2" asp-for="TaxCommodity2" class="form-control" />
+                                                    <span asp-validation-for="TaxCommodity2" class="text-danger"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="c3" asp-for="Commodity3" class="form-control" />
+                                                    <span asp-validation-for="Commodity3" class="text-danger"></span>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="t3" asp-for="TaxCommodity3" class="form-control" />
+                                                    <span asp-validation-for="TaxCommodity3" class="text-danger"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="c4" asp-for="Commodity4" class="form-control" />
+                                                    <span asp-validation-for="Commodity4" class="text-danger"></span>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="t4" asp-for="TaxCommodity4" class="form-control" />
+                                                    <span asp-validation-for="TaxCommodity4" class="text-danger"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="c5" asp-for="Commodity5" class="form-control" />
+                                                    <span asp-validation-for="Commodity5" class="text-danger"></span>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <div class="form-group" style="margin-bottom:-4px">
+                                                    <input id="t5" asp-for="TaxCommodity5" class="form-control" />
+                                                    <span asp-validation-for="TaxCommodity5" class="text-danger"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                                <br />
+                                <br />
+                                <input type="button" value="Back" class="btn btn-primary btn-block" onclick="getElementById('page5').style.display='none'; getElementById('page4').style.display='block';" />
+                                @*<input type="button" value="Next" class="btn btn-primary btn-block" onclick="getElementById('page5').style.display='none'; getElementById('page6').style.display='block';" />*@
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div> @*Page5*@
+
+
+            <commented>
+                @*<div id="page6">
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="FullyReimbursedAllAgencies" /> @Html.DisplayNameFor(model => model.FullyReimbursedAllAgencies)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="FullyReimbursedSomeAgencies" /> @Html.DisplayNameFor(model => model.FullyReimbursedSomeAgencies)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="PartiallyReimbursedAllAgencies" /> @Html.DisplayNameFor(model => model.PartiallyReimbursedAllAgencies)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="PartiallyReimbursedSomeAgencies" /> @Html.DisplayNameFor(model => model.PartiallyReimbursedSomeAgencies)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AgenciesProvidingReimbursement" class="control-label"></label>
+                            <input asp-for="AgenciesProvidingReimbursement" class="form-control" />
+                            <span asp-validation-for="AgenciesProvidingReimbursement" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="AlarmInstallationFrequency" class="control-label"></label>
+                            <input asp-for="AlarmInstallationFrequency" class="form-control" />
+                            <span asp-validation-for="AlarmInstallationFrequency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AlarmInstallationPercentage" class="control-label"></label>
+                            <input asp-for="AlarmInstallationPercentage" class="form-control" />
+                            <span asp-validation-for="AlarmInstallationPercentage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AlarmInstallationMaxAmount" class="control-label"></label>
+                            <input asp-for="AlarmInstallationMaxAmount" class="form-control" />
+                            <span asp-validation-for="AlarmInstallationMaxAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AlarmInstallationCurrency" class="control-label"></label>
+                            <input asp-for="AlarmInstallationCurrency" class="form-control" />
+                            <span asp-validation-for="AlarmInstallationCurrency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AlarmInstallationEffectiveDate" class="control-label"></label>
+                            <input asp-for="AlarmInstallationEffectiveDate" class="form-control" />
+                            <span asp-validation-for="AlarmInstallationEffectiveDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AlarmInstallationComments" class="control-label"></label>
+                            <input asp-for="AlarmInstallationComments" class="form-control" />
+                            <span asp-validation-for="AlarmInstallationComments" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HiringAlarmSystemFrequency" class="control-label"></label>
+                            <input asp-for="HiringAlarmSystemFrequency" class="form-control" />
+                            <span asp-validation-for="HiringAlarmSystemFrequency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HiringAlarmSystemPercentage" class="control-label"></label>
+                            <input asp-for="HiringAlarmSystemPercentage" class="form-control" />
+                            <span asp-validation-for="HiringAlarmSystemPercentage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HiringAlarmSystemMaxAmount" class="control-label"></label>
+                            <input asp-for="HiringAlarmSystemMaxAmount" class="form-control" />
+                            <span asp-validation-for="HiringAlarmSystemMaxAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HiringAlarmSystemCurrency" class="control-label"></label>
+                            <input asp-for="HiringAlarmSystemCurrency" class="form-control" />
+                            <span asp-validation-for="HiringAlarmSystemCurrency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HiringAlarmSystemEffectiveDate" class="control-label"></label>
+                            <input asp-for="HiringAlarmSystemEffectiveDate" class="form-control" />
+                            <span asp-validation-for="HiringAlarmSystemEffectiveDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HiringAlarmSystemComments" class="control-label"></label>
+                            <input asp-for="HiringAlarmSystemComments" class="form-control" />
+                            <span asp-validation-for="HiringAlarmSystemComments" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BarsFrequency" class="control-label"></label>
+                            <input asp-for="BarsFrequency" class="form-control" />
+                            <span asp-validation-for="BarsFrequency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BarsPercentage" class="control-label"></label>
+                            <input asp-for="BarsPercentage" class="form-control" />
+                            <span asp-validation-for="BarsPercentage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BarsMaxAmount" class="control-label"></label>
+                            <input asp-for="BarsMaxAmount" class="form-control" />
+                            <span asp-validation-for="BarsMaxAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BarsCurrency" class="control-label"></label>
+                            <input asp-for="BarsCurrency" class="form-control" />
+                            <span asp-validation-for="BarsCurrency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BarsEffectiveDate" class="control-label"></label>
+                            <input asp-for="BarsEffectiveDate" class="form-control" />
+                            <span asp-validation-for="BarsEffectiveDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BarsComments" class="control-label"></label>
+                            <input asp-for="BarsComments" class="form-control" />
+                            <span asp-validation-for="BarsComments" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="GuardsFrequency" class="control-label"></label>
+                            <input asp-for="GuardsFrequency" class="form-control" />
+                            <span asp-validation-for="GuardsFrequency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="GuardsPercentage" class="control-label"></label>
+                            <input asp-for="GuardsPercentage" class="form-control" />
+                            <span asp-validation-for="GuardsPercentage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="GuardsMaxAmount" class="control-label"></label>
+                            <input asp-for="GuardsMaxAmount" class="form-control" />
+                            <span asp-validation-for="GuardsMaxAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="GuardsCurrency" class="control-label"></label>
+                            <input asp-for="GuardsCurrency" class="form-control" />
+                            <span asp-validation-for="GuardsCurrency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="GuardsEffectiveDate" class="control-label"></label>
+                            <input asp-for="GuardsEffectiveDate" class="form-control" />
+                            <span asp-validation-for="GuardsEffectiveDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="GuardsComments" class="control-label"></label>
+                            <input asp-for="GuardsComments" class="form-control" />
+                            <span asp-validation-for="GuardsComments" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other1Frequency" class="control-label"></label>
+                            <input asp-for="Other1Frequency" class="form-control" />
+                            <span asp-validation-for="Other1Frequency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other1Percentage" class="control-label"></label>
+                            <input asp-for="Other1Percentage" class="form-control" />
+                            <span asp-validation-for="Other1Percentage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other1MaxAmount" class="control-label"></label>
+                            <input asp-for="Other1MaxAmount" class="form-control" />
+                            <span asp-validation-for="Other1MaxAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other1Currency" class="control-label"></label>
+                            <input asp-for="Other1Currency" class="form-control" />
+                            <span asp-validation-for="Other1Currency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other1EffectiveDate" class="control-label"></label>
+                            <input asp-for="Other1EffectiveDate" class="form-control" />
+                            <span asp-validation-for="Other1EffectiveDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other1Comments" class="control-label"></label>
+                            <input asp-for="Other1Comments" class="form-control" />
+                            <span asp-validation-for="Other1Comments" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other2Frequency" class="control-label"></label>
+                            <input asp-for="Other2Frequency" class="form-control" />
+                            <span asp-validation-for="Other2Frequency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other2Percentage" class="control-label"></label>
+                            <input asp-for="Other2Percentage" class="form-control" />
+                            <span asp-validation-for="Other2Percentage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other2MaxAmount" class="control-label"></label>
+                            <input asp-for="Other2MaxAmount" class="form-control" />
+                            <span asp-validation-for="Other2MaxAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other2Currency" class="control-label"></label>
+                            <input asp-for="Other2Currency" class="form-control" />
+                            <span asp-validation-for="Other2Currency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other2EffectiveDate" class="control-label"></label>
+                            <input asp-for="Other2EffectiveDate" class="form-control" />
+                            <span asp-validation-for="Other2EffectiveDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Other2Comments" class="control-label"></label>
+                            <input asp-for="Other2Comments" class="form-control" />
+                            <span asp-validation-for="Other2Comments" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CommonToEmployDomestic" class="control-label"></label>
+                            <input asp-for="CommonToEmployDomestic" class="form-control" />
+                            <span asp-validation-for="CommonToEmployDomestic" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SocialInsuranceExists" class="control-label"></label>
+                            <input asp-for="SocialInsuranceExists" class="form-control" />
+                            <span asp-validation-for="SocialInsuranceExists" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SocialInsuranceApplyToDomestic" class="control-label"></label>
+                            <input asp-for="SocialInsuranceApplyToDomestic" class="form-control" />
+                            <span asp-validation-for="SocialInsuranceApplyToDomestic" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EmployerContributionAmount" class="control-label"></label>
+                            <input asp-for="EmployerContributionAmount" class="form-control" />
+                            <span asp-validation-for="EmployerContributionAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EmployerContributionCurrency" class="control-label"></label>
+                            <input asp-for="EmployerContributionCurrency" class="form-control" />
+                            <span asp-validation-for="EmployerContributionCurrency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DomesticHelpComment" class="control-label"></label>
+                            <input asp-for="DomesticHelpComment" class="form-control" />
+                            <span asp-validation-for="DomesticHelpComment" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PurchaseUsingForeignCurrency" class="control-label"></label>
+                            <input asp-for="PurchaseUsingForeignCurrency" class="form-control" />
+                            <span asp-validation-for="PurchaseUsingForeignCurrency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CurrencyName" class="control-label"></label>
+                            <input asp-for="CurrencyName" class="form-control" />
+                            <span asp-validation-for="CurrencyName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ListCurrencies" class="control-label"></label>
+                            <input asp-for="ListCurrencies" class="form-control" />
+                            <span asp-validation-for="ListCurrencies" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxAddedAtPurchase" class="control-label"></label>
+                            <input asp-for="TaxAddedAtPurchase" class="form-control" />
+                            <span asp-validation-for="TaxAddedAtPurchase" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity1" class="control-label"></label>
+                            <input asp-for="Commodity1" class="form-control" />
+                            <span asp-validation-for="Commodity1" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity1" class="control-label"></label>
+                            <input asp-for="TaxCommodity1" class="form-control" />
+                            <span asp-validation-for="TaxCommodity1" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity2" class="control-label"></label>
+                            <input asp-for="Commodity2" class="form-control" />
+                            <span asp-validation-for="Commodity2" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity2" class="control-label"></label>
+                            <input asp-for="TaxCommodity2" class="form-control" />
+                            <span asp-validation-for="TaxCommodity2" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity3" class="control-label"></label>
+                            <input asp-for="Commodity3" class="form-control" />
+                            <span asp-validation-for="Commodity3" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity3" class="control-label"></label>
+                            <input asp-for="TaxCommodity3" class="form-control" />
+                            <span asp-validation-for="TaxCommodity3" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity4" class="control-label"></label>
+                            <input asp-for="Commodity4" class="form-control" />
+                            <span asp-validation-for="Commodity4" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity4" class="control-label"></label>
+                            <input asp-for="TaxCommodity4" class="form-control" />
+                            <span asp-validation-for="TaxCommodity4" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity5" class="control-label"></label>
+                            <input asp-for="Commodity5" class="form-control" />
+                            <span asp-validation-for="Commodity5" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity5" class="control-label"></label>
+                            <input asp-for="TaxCommodity5" class="form-control" />
+                            <span asp-validation-for="TaxCommodity5" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity6" class="control-label"></label>
+                            <input asp-for="Commodity6" class="form-control" />
+                            <span asp-validation-for="Commodity6" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity6" class="control-label"></label>
+                            <input asp-for="TaxCommodity6" class="form-control" />
+                            <span asp-validation-for="TaxCommodity6" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity7" class="control-label"></label>
+                            <input asp-for="Commodity7" class="form-control" />
+                            <span asp-validation-for="Commodity7" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity7" class="control-label"></label>
+                            <input asp-for="TaxCommodity7" class="form-control" />
+                            <span asp-validation-for="TaxCommodity7" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity8" class="control-label"></label>
+                            <input asp-for="Commodity8" class="form-control" />
+                            <span asp-validation-for="Commodity8" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity8" class="control-label"></label>
+                            <input asp-for="TaxCommodity8" class="form-control" />
+                            <span asp-validation-for="TaxCommodity8" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity9" class="control-label"></label>
+                            <input asp-for="Commodity9" class="form-control" />
+                            <span asp-validation-for="Commodity9" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity9" class="control-label"></label>
+                            <input asp-for="TaxCommodity9" class="form-control" />
+                            <span asp-validation-for="TaxCommodity9" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Commodity10" class="control-label"></label>
+                            <input asp-for="Commodity10" class="form-control" />
+                            <span asp-validation-for="Commodity10" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxCommodity10" class="control-label"></label>
+                            <input asp-for="TaxCommodity10" class="form-control" />
+                            <span asp-validation-for="TaxCommodity10" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SurveyMonth" class="control-label"></label>
+                            <input asp-for="SurveyMonth" class="form-control" />
+                            <span asp-validation-for="SurveyMonth" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SurveyYear" class="control-label"></label>
+                            <input asp-for="SurveyYear" class="form-control" />
+                            <span asp-validation-for="SurveyYear" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SurveyType" class="control-label"></label>
+                            <input asp-for="SurveyType" class="form-control" />
+                            <span asp-validation-for="SurveyType" class="text-danger"></span>
+                        </div>
+                    </div>*@
+            </commented>
+            <br />
+            <br />
+
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+
+                    <div class="form-group">
+
+                        <a class="btn btn-danger" asp-controller="ScReports" asp-action="Create">Cancel</a><input type="submit" value="Submit" class="btn btn-info" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+}
+else
+{
+
+<div class="row">
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+
+                <div class="card-body">
+                    <h4 class="card-title text-center" style="margin-top:100px; margin-bottom:100px;">
+                        Thank you for completing the Coordinator's report. You have the option to
+                        <div class="card-body">
+                            @Html.ActionLink("Make Changes", "Edit", new { syscode = HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserSysCode") })
+                            @*<a class="btn btn-info" asp-controller="ScReports" asp-action="Edit">Make Changes </a>*@
+                            until the survey closes.
+                            @*<br /><br /><br />
+                                Please remember to complete the <a asp-controller="ScPricingstores" asp-action="Create">Pricing Form </a>if you haven't already done so.*@
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-2">
+        </div>
+    </div>
+
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+
+
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

@@ -1,0 +1,62 @@
+﻿@model CSMS.Models.ScPricingStores
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="container">
+    <h2>Delete</h2>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DsId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DsId)
+            </dd>
+          
+            <dt>
+                @Html.DisplayNameFor(model => model.StoresName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StoresName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StoresDescription)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StoresDescription)
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.StoreAddress)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StoreAddress)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.WebAddress)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WebAddress)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GpsCoordinates)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GpsCoordinates)
+            </dd>
+            
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Syscode" />
+            <input type="hidden" asp-for="StoresId" />
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+</div>

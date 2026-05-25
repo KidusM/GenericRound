@@ -1,0 +1,104 @@
+﻿@model CSMS.Models.Survey
+
+@{
+    ViewData["Title"] = "Details";
+}
+<br />
+
+    
+<div class="container">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <br />
+                    <h2 class="card-title text-center">Survey Details</h2>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+
+
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <br />
+                        <table class="table table-hover table-sm">
+
+                            <tbody>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.SurveyType)</td>
+                                    <td> @Html.DisplayFor(model => model.SurveyType)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Round)</td>
+                                    <td>@Html.DisplayFor(model => model.Round)</td>
+                                </tr>
+                                <tr>
+                                    <td> @Html.DisplayNameFor(model => model.SurveyMonth)</td>
+                                    <td>@Html.DisplayFor(model => model.SurveyMonth)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.SurveyYear)</td>
+                                    <td>@Html.DisplayFor(model => model.SurveyYear)</td>
+                                </tr>
+                                <tr>
+                                    <td>Start date</td>
+                                    <td>  @Html.DisplayFor(model => model.SurveyBegin)</td>
+                                </tr>
+                                <tr>
+                                    <td>End date</td>
+                                    <td> @Html.DisplayFor(model => model.SurveyEnd)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.NoOfStaff)</td>
+                                    <td>@Html.DisplayFor(model => model.NoOfStaff)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Ds)</td>
+                                    <td> @ViewData["SurveyDsid"]</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Sc)</td>
+                                    <td>@Html.DisplayFor(model => model.Sc.FirstName) @Html.DisplayFor(model => model.Sc.LastName)</td>
+                                </tr>
+                                <tr>
+                                    <td> @Html.DisplayNameFor(model => model.Sm)</td>
+                                    <td>@Html.DisplayFor(model => model.Sm.FirstName) @Html.DisplayFor(model => model.Sm.LastName)</td>
+                                </tr>
+                                <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Syscode)</td>
+                                        <td>@Html.DisplayFor(model => model.Syscode)</td>
+                                    </tr>
+
+                            </tbody>
+                        </table>
+
+                        <br />
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                        <a asp-action="Index" class="btn btn-info">Back to List</a>
+                    </div>
+
+                </div>
+
+                <div class="col-md-2"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

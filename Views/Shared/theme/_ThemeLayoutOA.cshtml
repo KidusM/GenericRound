@@ -1,0 +1,219 @@
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager;
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="icon" type="image/ico" sizes="16x16" href="~/favicon.ico" />
+    <title>International Civil Service Commission - Cost-of-Living Survey Management System </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href="~/theme/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+
+    <link href="~/theme/assets/node_modules/toast-master/css/jquery.toast.css" rel="stylesheet">
+
+    <link href="~/theme/theme/dist/css/style.css" rel="stylesheet">
+
+    <link href="~/theme/theme/dist/css/pages/dashboard1.css" rel="stylesheet">
+
+</head>
+
+<body class="skin-blue fixed-layout">
+
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">ICSC</p>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="~/Home/index/3">
+
+                        <img src="~/assets/images/UN-Logo-White.png" height="40" width="50" />
+
+                        <br />
+
+                    </a>
+                </div>
+
+                <div class="navbar-collapse">
+
+                        <ul class="navbar-nav me-auto">
+
+                            <li class="nav-item"> <a class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                            <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
+
+                        </ul>
+
+                        <ul class="navbar-nav my-lg-0">
+
+
+                        </ul>
+                    </div>
+            </nav>
+        </header>
+
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!--<li class="user-pro">
+    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">-->
+                        @*<img src="~/theme/assets/images/users/1.jpg" alt="user-img" class="img-circle">*@
+                        @*<i class="fas fa-user-circle"></i>*@
+                        <!--<span class="hide-menu"><partial name="_UserPartial" /></span>
+
+        </a>
+        <ul aria-expanded="false" class="collapse">
+            <li><a href="javascript:void(0)"><i class="ti-user"></i> My Profile</a></li>
+            <li><a href="javascript:void(0)"><i class="ti-settings"></i> Account Setting</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-power-off"></i> Logout</a></li>
+        </ul>
+    </li>-->
+                        @*<li class="nav-item">
+            <a class="nav-link text-dark" href="~/Home/index/3"></a>
+        </li>*@
+
+                        <li class="nav-small-cap"> <hr /> </li>
+                        <li><br /><br /></li>
+                        <li>
+                            <a href="#" target="_OA">
+                                <i class="fas fa-door-open"></i>
+                                <span>Welcome</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_OA">
+                                <i class="fas fa-square-poll-horizontal"></i>
+                                <span style="color:darkorange">OA Survey</span>
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#faq" target="_OA">
+                                <i class="fas fa-clipboard-question"></i>
+                                <span> FAQ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://unicsc.org/Resources/COLD/Booklets/PABooklet.pdf?r=02103686" target="_OA">
+                                <i class="fas fa-book-open"></i>
+                                <span> PA Manual</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" asp-area="" asp-controller="Document" asp-action="Index" asp-route-id="9" aria-expanded="false">
+                                <i class="fas fa-folder-open"></i>
+                                <span class="hide-menu">Documents</span>
+                            </a>
+                        </li>
+
+                        @*<partial name="_RedirectorPartialElite" />
+
+        <partial name="_LoginPartial" />*@
+
+
+
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+
+        <div class="page-wrapper">
+
+            <div class="container-fluid">
+
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        @*<h4 class="text-themecolor">@HttpContextAccessor.HttpContext.Session.GetString("_userRole")</h4>*@
+                    </div>
+                    <div class="col-md-7 align-self-center text-end">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="breadcrumb-item active">@HttpContextAccessor.HttpContext.Session.GetString("_userRole")</li>
+                            </ol>
+                            @*<button type="button" class="btn btn-info d-none d-lg-block m-l-15 text-white"><i class="fa fa-plus-circle"></i> Create New</button>*@
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div style="font-size:0.9rem;">
+                    @RenderBody()
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            @*© 2021 Eliteadmin by themedesigner.in*@
+            @*<a href="https://www.wrappixel.com/">WrapPixel</a>*@
+
+            © 2021 International Civil Service Commission
+            <p> Cost-of-Living Division</p>
+
+        </footer>
+
+    </div>
+
+    <script src="~/theme/assets/node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/theme/assets/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="~/theme/theme/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="~/theme/theme/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/theme/theme/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/theme/theme/dist/js/custom.min.js"></script>
+
+    <script src="~/theme/assets/node_modules/raphael/raphael-min.js"></script>
+    <script src="~/theme/assets/node_modules/morrisjs/morris.min.js"></script>
+    <script src="~/theme/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!-- Popup message jquery -->
+    <script src="~/theme/assets/node_modules/toast-master/js/jquery.toast.js"></script>
+
+    <script src="~/theme/theme/dist/js/dashboard1.js"></script>
+    <script src="~/theme/assets/node_modules/toast-master/js/jquery.toast.js"></script>
+
+
+
+
+
+</body>
+
+
+
+</html>
+
+
+

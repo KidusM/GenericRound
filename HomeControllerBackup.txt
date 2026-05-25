@@ -1,0 +1,341 @@
+﻿using CSMS.Data;
+using CSMS.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+
+namespace CSMS.Controllers
+{
+    public class HomeController : Controller
+    {
+
+        // private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
+        //private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _context;
+        private string myTry;
+        //private readonly IDMSDbContext _IDMScontext;
+        private DateTime todaysDate = DateTime.UtcNow;
+        public HomeController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context/*, IDMSDbContext idmsdbcontext*/)
+        {
+            //_logger = logger;
+            _context = context;
+            //    _IDMScontext = idmsdbcontext;
+            _userManager = userManager;
+            // _roleManager = roleManager;
+            _signInManager = signInManager;
+        }
+
+
+        public IActionResult Index(int id)
+        {
+            var dissd = "";
+            var currentUserId = _userManager.GetUserId(HttpContext.User);
+            var userIDD = "";
+            var userloggedinchecker = HttpContext.Session.GetString("_loggedInUserId");
+
+
+
+
+
+
+            //if (userloggedinchecker is null)
+            //{
+            //userIDD = "";
+
+            //var userDS = _context.Surveys.Include(a => a.Ds).ThenInclude(a => a.Country);
+            //}
+
+            if (!(currentUserId is null))
+            {
+                userIDD = currentUserId.ToString();
+
+                //HttpContext.Session.SetString("_loggedInUserId", currentUserId);
+            }
+
+            HttpContext.Session.SetString("_loggedInUserId", userIDD);
+
+
+            if (_signInManager.IsSignedIn(User))
+            {
+
+                if (HttpContext.User.IsInRole("Survey Coordinator"))
+                {
+                    HttpContext.Session.SetString("_userRole", "Coordinator");
+
+
+                    var activeSurvey = _context.Surveys
+                        .Include(a => a.Ds)
+                        .Where(a => a.Scid == currentUserId.ToString()
+                          && a.SurveyBegin <= DateTime.Now && a.SurveyEnd >= DateTime.Now);
+
+                    if (activeSurvey is null)
+                    {
+                        HttpContext.Session.SetString("_coordinatorStatus", "Inactive");
+                    }
+
+
+
+                    try
+                    {
+
+                        dissd = _context.Surveys
+                              .Where(a => a.Scid == currentUserId.ToString()).FirstOrDefault().Dsid.ToString().Trim();
+                    }
+                    catch (Exception e)
+                    {
+                        myTry = "Error";
+                        HttpContext.Session.SetString("_coordinatorStatus", "Error");
+                        HttpContext.Session.SetString("_coordinatorError", e.Message);
+                        //throw ;
+                    }
+                    if (myTry != "Error")
+                    {
+                        var dsdetails = _context.Surveys.Include(a => a.Ds)
+                            .Where(a => a.Dsid == dissd && a.Scid == currentUserId.ToString())
+                            .Select(a => new { a.Ds.Country, a.Ds.City, a.SurveyMonth, a.SurveyYear, a.SurveyType, a.Syscode }).FirstOrDefault();
+
+
+                        var ctry = dsdetails.Country.ToString().Trim();
+                        var city = dsdetails.City.ToString().Trim();
+                        var srvMonth = dsdetails.SurveyMonth.ToString().Trim();
+                        var srvYear = dsdetails.SurveyYear.ToString().Trim();
+                        var srvType = dsdetails.SurveyType.ToString().Trim();
+                        var sysCode = dsdetails.Syscode.ToString().Trim();
+                        int month = DateTime.ParseExact(srvMonth, "MMMM", CultureInfo.CurrentCulture).Month;
+
+                        //string monthStr = "";
+                        //if (month < 10)
+                        //{
+                        //    monthStr = "0" + month.ToString();
+                        //}
+                        //else
+                        //{
+                        //    monthStr = month.ToString();
+                        //}
+
+                        //var sysCode = (dissd + monthStr + srvYear + srvType.Substring(0, 1)).ToUpper();
+
+                        HttpContext.Session.SetString("_loggedInUserSurveyYear", srvYear);
+                        HttpContext.Session.SetString("_loggedInUserSurveyMonth", srvMonth);
+                        HttpContext.Session.SetString("_loggedInUserCountry", ctry);
+                        HttpContext.Session.SetString("_loggedInUserCity", city);
+                        HttpContext.Session.SetString("_loggedInUserSurvType", srvType);
+                        HttpContext.Session.SetString("_loggedInUserSysCode", sysCode);
+                        HttpContext.Session.SetString("_loggedInUserDSID", dissd);
+                        HttpContext.Session.SetString("_loggedInUserSysCode", sysCode);
+                        HttpContext.Session.SetString("_loggedInUserMonthNo", month.ToString());
+                        HttpContext.Session.SetString("_Syscode", sysCode);
+
+                        //var FromSurveyTable = _context.Surveys
+                        //      .Where(a => a.Scid == currentUserId.ToString() &&
+                        //                  a.Syscode != null).FirstOrDefault();
+
+                        //if (FromSurveyTable.Syscode == "")
+                        //{ HttpContext.Session.SetString("_Syscode", ""); }
+                        //else
+                        //{
+                        //HttpContext.Session.SetString("_Syscode", FromSurveyTable.Syscode.ToString());
+                        //}
+
+                        if (id == 2 | id == 0)
+                        {
+                            return View("SC_Overview");
+                        }
+                        else if (id == 1)
+                        {
+                            return View();
+                        }
+                        //else if (id == 0)
+                        //{
+                        //    return View("Index");
+                        //}
+                    }
+
+                }
+                else if (HttpContext.User.IsInRole("ICSC Focal Person") | HttpContext.User.IsInRole("Administrator"))
+                {
+                    HttpContext.Session.SetString("_userRole", "ICSC");
+                    return View("Dashboard");
+                }
+                else if (HttpContext.User.IsInRole("Pricing Agent"))
+                {
+                    HttpContext.Session.SetString("_userRole", "PricingAgent");
+                    return RedirectToAction("Index", "Document");
+                    //return View("Dashboard");
+                }
+
+            }
+            else
+            {
+                if (id == 2)
+                {
+                    return View("SC_Overview");
+                }
+                else if (id == 1 || id == 0 || id == 3)
+                {
+
+                    if (HttpContext.Session.GetString("_SelectedDsGroup") is null)
+                    {
+                        var DSList = _context.Surveys.Include(a => a.Ds)
+                            .Where(x => x.SurveyBegin <= todaysDate && x.SurveyEnd > todaysDate)
+                            .Select(aa => new { aa.Dsid, aa.Ds.Country })
+                            .Distinct().ToList();
+
+
+                        ViewData["DutyStationList"] = new SelectList(DSList, "Dsid", "Country");
+
+                    }
+
+                    return View("SelectDS");
+                    //return View("Index");
+                }
+                //else if(id == 3)
+                //{
+                //    HttpContext.Session.SetString("_SelectedDsGroup", "");
+                //    HttpContext.Session.SetString("_SelectedDsCountry", "");
+                //    HttpContext.Session.SetString("_SelectedDsCity", "");
+                //    HttpContext.Session.SetString("_SelectedDsSurveyType", "");
+                //    HttpContext.Session.SetString("_SelectedDsDSID", "");
+
+                //    return View("SelectDS");
+                //}
+                //else if (id == 0)
+                //{
+                //    //return View("Overview");
+                //    return View("Index");
+                //}
+                HttpContext.Session.SetString("_userRole", "Staff");
+                HttpContext.Session.SetString("_loggedInUserDSID", "none");
+                HttpContext.Session.SetString("_Syscode", "none");
+
+
+
+            }
+
+
+
+
+
+            //HttpContext.Session.SetString("_loggedInUserDSId", userIDD);
+
+            return View("Index");
+
+
+
+
+
+        }
+
+
+        public IActionResult Redirector(int id)
+        {
+            bool userLoggedIn = _signInManager.IsSignedIn(User);
+            string userRole = HttpContext.Session.GetString("_userRole");
+            string selectedDS = HttpContext.Session.GetString("_selectedDSCountry");
+            string dsSurveyType = HttpContext.Session.GetString("_loggedInUserSurvType");
+
+            return (View());
+        }
+
+        public IActionResult SelectDS()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SelectDS(string dsIdSelected)
+        {
+            //HttpContext.Session.SetString("_SelectedDsGroup", "");
+            //HttpContext.Session.SetString("_SelectedDsCountry", "");
+            //HttpContext.Session.SetString("_SelectedDsCity", "");
+            //HttpContext.Session.SetString("_SelectedDsSurveyType", "");
+            //HttpContext.Session.SetString("_SelectedDsDSID", "");
+
+            var dsInfo = _context.Surveys.Include(a => a.Ds)
+                            .Where(x => x.Dsid == dsIdSelected && x.SurveyBegin <= todaysDate && x.SurveyEnd > todaysDate)
+                            .Select(aa => new { aa.Dsid, aa.Ds.Country, aa.Ds.City, aa.Ds.Dsgroup, aa.SurveyBegin, aa.SurveyEnd, aa.SurveyType })
+                            .FirstOrDefault();
+
+            HttpContext.Session.SetString("_SelectedDsGroup", dsInfo.Dsgroup.ToString().Trim());
+            HttpContext.Session.SetString("_SelectedDsCountry", dsInfo.Country.ToString().Trim());
+            HttpContext.Session.SetString("_SelectedDsCity", dsInfo.City.ToString().Trim());
+            HttpContext.Session.SetString("_SelectedDsSurveyType", dsInfo.SurveyType.ToString().Trim());
+            HttpContext.Session.SetString("_SelectedDsDSID", dsIdSelected.ToString().Trim());
+
+
+            //ViewBag.DSDetails = string.Format("Duty Station and Group:  {0}, {1}", dsIdSelected, dsGroup);
+            return View();
+        }
+
+        public IActionResult Questionnaires()
+        {
+            return View();
+        }
+
+
+        // This Method determines if the current logged survey coordinator completed a survey or not
+
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult MonitoringTool()
+        {
+            return View();
+        }
+
+        public IActionResult Vertical()
+        {
+            return View();
+        }
+
+        public IActionResult getScMonitoringReport(string dsid)
+        {
+            SqlParameter dsidParameter = new SqlParameter("@ds", dsid);
+            // var sqlcmd = "execute [ICC_COLD_SURVEYS_2021].[dbo].[cold_web_report1]({@ds})";
+            //var MonitoringReport = (await _context.scMontoringReport.FromSqlRaw(sqlcmd).ToListAsync());
+
+            //var test = await _context.scMontoringReport.FromSqlRaw("execute ICC_COLD_SURVEYS_2021.dbo.cold_web_report1 " + dsid).ToListAsync();
+            // var ds = new SqlParameter("@ds", dsid);
+            if (dsid == "'ITA001'" || dsid == "'CAN004'" || dsid == "'CAN001'" || dsid == "'CAN006'" || dsid == "'FRA001'" || dsid == "'FRA002'")
+            {
+                dsid = dsid.Substring(0, 4) + "'";
+                var test = _context.scMontoringReport
+                // .FromSqlRaw("execute ICC_COLD_SURVEYS_2021.dbo.cold_web_report1 " + dsid)
+                .FromSqlRaw("execute ICC_COLD_SURVEYS_2021.dbo.cold_web_report2 " + dsid)
+                .ToList();
+
+                return Ok(test);
+            }
+            else
+            {
+
+                var test1 = _context.scMontoringReport
+                // .FromSqlRaw("execute ICC_COLD_SURVEYS_2021.dbo.cold_web_report1 " + dsid)
+                .FromSqlRaw("execute ICC_COLD_SURVEYS_2021.dbo.cold_web_report1 " + dsid)
+                .ToList();
+
+                return Ok(test1);
+            }
+
+        }
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
+}

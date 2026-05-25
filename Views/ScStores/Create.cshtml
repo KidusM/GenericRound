@@ -1,0 +1,78 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@model CSMS.Models.ScStores
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+    <h2>Create</h2>
+
+    <h4>ScStores</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*<div class="form-group">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>*@
+                <div class="form-group">
+                    <label asp-for="DsId" class="control-label"></label>
+                    @*<input asp-for="DsId" class="form-control" />*@
+                    <select asp-for="DsId" class="form-control">
+                        <option selected value="@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserDSID")">@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") </option>
+                    </select>
+                    <span asp-validation-for="DsId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StoresId" class="control-label"></label>
+                    <input asp-for="StoresId" class="form-control" />
+                    <span asp-validation-for="StoresId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StoresName" class="control-label"></label>
+                    <input asp-for="StoresName" class="form-control" />
+                    <span asp-validation-for="StoresName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StoresDescription" class="control-label"></label>
+                    <input asp-for="StoresDescription" class="form-control" />
+                    <span asp-validation-for="StoresDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StoreAddress" class="control-label"></label>
+                    <input asp-for="StoreAddress" class="form-control" />
+                    <span asp-validation-for="StoreAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WebAddress" class="control-label"></label>
+                    <input asp-for="WebAddress" class="form-control" />
+                    <span asp-validation-for="WebAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GpsCoordinates" class="control-label"></label>
+                    <input asp-for="GpsCoordinates" class="form-control" />
+                    <span asp-validation-for="GpsCoordinates" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OutletTypeId" class="control-label"></label>
+                    <input asp-for="OutletTypeId" class="form-control" />
+                    <span asp-validation-for="OutletTypeId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

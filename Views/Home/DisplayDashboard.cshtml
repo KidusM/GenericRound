@@ -1,0 +1,364 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+
+@model CSMS.Models.Survey
+
+
+
+@{
+    ViewData["Title"] = "ICSC Dashboard";
+}
+
+
+
+
+<div class="row justify-content-center bg-light p-5" style="margin-bottom:-80px">
+
+
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="p-4">
+
+                <div class="card mb-0 bg-light mt-3">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Survey Management Dashboard
+                            @HttpContextAccessor.HttpContext.Session.GetString("_scRegistrationPW")
+                        </h2>
+                        <h4 class="card-title text-center">
+                            @HttpContextAccessor.HttpContext.Session.GetString("_userRole")
+                        </h4>
+                        @*<p class="card-text">
+                                .
+                            </p>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*###############
+    ADMIN DASHBOARD*@
+<br />
+<br />
+
+
+@if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Adminstrator")
+{
+    <br>
+    <div class="row justify-content-center bg-light p-5">
+
+
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">User Roles</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to view all users and their roles.
+                            </p>
+                            @*<a href="javascript:void(0)" class="btn btn-primary text-white">
+                                    Go
+                                    somewhere
+                                </a>*@
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="Role" asp-action="Index">Add/Edit User Role</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">Add or Edit Duty Stations</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to add or edit duty station details.
+                            </p>
+                            @*<a href="javascript:void(0)" class="btn btn-primary text-white">
+                                    Go
+                                    somewhere
+                                </a>*@
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="DutyStations" asp-action="Index">Add/Edit Duty Station</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">Create or Modify Surveys</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to add, create or modify surveys.
+                            </p>
+
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="Surveys" asp-action="Index">Create or Modify Surveys</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row justify-content-center bg-light p-5" style="margin-top:-60px;">
+
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+
+                <div class="p-3 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">Survey Assignments</h4>
+                            </div><br />
+
+                            <div id="test" style="@(@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Adminstrator" ? "display:block" : "display:none")">
+                                <div>
+                                    @await Component.InvokeAsync("ManagerDashboard")
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin")
+{
+    <br>
+    <div class="row justify-content-center bg-light p-5">
+
+
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">Manage Round of Surveys</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to manage new survey rounds.
+                            </p>
+                            @*<a href="javascript:void(0)" class="btn btn-primary text-white">
+                        Go
+                        somewhere
+                        </a>*@
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="CreateARound" asp-action="Index">Round of Surveys</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">Manage Survey Documents</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to add or remove survey documents.
+                            </p>
+                            @*<a href="javascript:void(0)" class="btn btn-primary text-white">
+                        Go
+                        somewhere
+                        </a>*@
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="DocumentUpload" asp-action="Index">Add/Remove Documents</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">Manage FAQs</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to add edit or remove Frequently Asked Questions.
+                            </p>
+
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="Faqs" asp-action="Index">Create or Modify Surveys</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+
+}
+else
+
+{
+
+    <div class="row justify-content-center bg-light p-5">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">New Survey</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to create new survey.
+                            </p>
+                            @*<a href="javascript:void(0)" class="btn btn-primary text-white">
+                                    Go
+                                    somewhere
+                                </a>*@
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="Surveys" asp-action="Create">Create New Survey</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">Modify Survey</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to modify survey details.
+                            </p>
+                            @*<a href="javascript:void(0)" class="btn btn-primary text-white">
+                                    Go
+                                    somewhere
+                                </a>*@
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="Surveys" asp-action="Index">Modify Survey Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">Register Coordinator</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click on the button below to register a new Survey Coordinator
+                            </p>
+                            @*<a href="javascript:void(0)" class="btn btn-primary text-white">
+                                    Go
+                                    somewhere
+                                </a>*@
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-address-card"></i> Register </a>
+                                @*<a class="btn btn-info text-white" asp-controller="ScPricingstores" asp-action="Create">Coordinator's Pricing Form </a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">My Surveys</h4>
+                            </div><br />
+
+                            <div>
+                                @await Component.InvokeAsync("FocalPointDashboard", new { id = HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserId") })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+}
+
+
+
+
+
+

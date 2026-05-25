@@ -1,0 +1,375 @@
+﻿.banner-top {
+    width: 100%;
+    height: auto;
+    background: #383977;
+    padding: 20px 0;
+    color: white;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    /*font-size:1.1em;*/
+    /*margin:0 auto;*/
+    z-index: 200;
+}
+body {
+    /*background-color: #f2f3f5;*/
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.05em;
+}
+
+div.login-logout-tab div.card-header {
+    padding: 0px 0px 12px 0px;
+}
+
+div.login-logout-tab ul.nav-tabs {
+    margin: 0px 0px -12px 0px;
+}
+
+div.login-logout-tab li.nav-item {
+    width: 50%;
+}
+
+div.login-logout-tab a.nav-link {
+    font-size: 1em;
+    color: #495057;
+    text-align: center;
+}
+
+div.card-content {
+    padding: 10px 20px;
+}
+
+div.login-form-icon {
+    text-align: center;
+}
+
+
+    /*
+    From old Site
+*/
+    hr {
+    margin: 10px 0;
+}
+
+.sticky {
+    top: 0px;
+    position: sticky;
+}
+
+.menuContainer {
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ffb466;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+    color: #bc6101;
+    /*position: fixed;*/
+    background-color: white;
+    z-index: 10;
+}
+
+.menuContainerSub {
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+}
+
+.bodyText {
+    font-family: 'Montserrat', sans-serif;
+    /*font-size: 0.9em;*/
+    padding: 10px;
+    margin: 15px;
+    text-align: justify;
+}
+
+.boxit {
+    padding: 7px;
+    border: 1px solid #d1d1d1;
+    margin: 5px;
+}
+
+    .boxit:hover {
+        cursor: pointer;
+    }
+
+
+.center {
+    text-align: center;
+}
+
+.parent {
+    display: table;
+}
+
+.child {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.link_box,
+.link {
+    text-decoration: none;
+    color: #066fef;
+    font-size: 0.9em;
+}
+
+.link_box {
+    width: 300px;
+    height: 70px;
+    box-shadow: 0px 0px 2px gray;
+    padding: 10px;
+    /*border-radius:2px;*/
+    background-color: #ad6b35;
+    width: 40%;
+    color: white;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+    .link_box:hover {
+        text-decoration: none;
+        color: yellow;
+    }
+
+.link:hover {
+    text-decoration: none;
+    color: #ff8800;
+}
+
+.questionContainer {
+    width: 100%;
+    height: auto;
+    padding: 30px;
+    /*background-color: #fff8f2;*/
+    min-width: 200px;
+}
+
+.headerText {
+    font-size: 1.3em;
+    color: #70391d;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.BH {
+    width: 90%;
+    height: 60px;
+    /*border:1px solid green;*/
+    border-radius: 3px;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+}
+
+.question {
+    width: 50%;
+    height: auto;
+    /*border:1px solid green;*/
+    /*border-radius: 3px;*/
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: white;
+    color: gray;
+}
+
+.middle {
+    width: 90%;
+    /*min-width: 400px;*/
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 5px;
+    /*box-shadow: 5px 5px 6px gray;*/
+    min-width: 200px;
+    padding: 40px;
+}
+
+.CL-middle {
+    width: 100%;
+    /*min-width: 400px;*/
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 5px 5px 6px gray;
+    min-width: 200px;
+    padding: 5%;
+    /*border: 1px solid green;*/
+}
+
+.small_font {
+    font-size: 0.9em;
+}
+
+.header_font {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.login_failed {
+    color: white;
+    width: 50%;
+    height: 60px;
+    box-shadow: 0 0 3px gray;
+    /*border: 1px solid white;*/
+    background: #ef5306;
+    padding: 10px;
+    font-size: 0.9em;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.TextBodyContainer {
+    width: 70%;
+    max-width: 2000px;
+    padding: 10px 10px;
+    background-color: white;
+    box-shadow: 2px 2px 5px gray;
+    margin: 0 auto;
+}
+
+.footer {
+    width: 100%;
+    height: auto;
+    background-color: black; /*#5f5f5f;*/
+    color: white;
+    border-top: solid white 1px;
+    padding:10px;
+    /*box-shadow: 0px -5px 5px white;*/
+}
+
+.accordion-left {
+    text-align: left;
+    text-decoration:none;
+}
+
+.btn-link:hover, .btn-link, .btn-link:focus {
+    text-decoration: none;
+    text-align:left;
+}
+
+.form-control.checkboxx{
+    width:150px;
+    height:15px;
+}
+
+.rb-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/*Radio Button*/
+.rb-containerCentered {
+    display: block;
+    position: relative;
+    left: 35%;
+    padding-left: 35px;
+    margin: 0;
+    cursor: pointer;
+    width: 5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.rb-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.rb-containerCentered input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Hide the browser's default radio button */
+.rb-container input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Create a custom radio button */
+.checkmarkR {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #e2e2e2;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.rb-container:hover input ~ .checkmarkR {
+    background-color: #ccc;
+}
+
+.rb-containerCentered:hover input ~ .checkmarkR {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a green background */
+.rb-container input:checked ~ .checkmarkR {
+    background-color: dodgerblue;
+    /*#066fef;*/
+}
+
+.rb-containerCentered input:checked ~ .checkmarkR {
+    background-color: dodgerblue;
+    /*#00b51d;*/
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmarkR:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.rb-container input:checked ~ .checkmarkR:after {
+    display: block;
+}
+
+.rb-containerCentered input:checked ~ .checkmarkR:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.rb-container .checkmarkR:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.rb-containerCentered .checkmarkR:after {
+    top: 8px;
+    left: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+.questionText{
+    color: brown;
+    padding:20px 0 20px 0;
+    font-weight:bold;
+}

@@ -1,0 +1,194 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "OutOfArea";
+    //Layout = "~/Views/Shared/theme/_ThemeLayoutOA.cshtml";
+
+}
+@if (HttpContextAccessor.HttpContext.Session.GetString("_outOfArea") != "1")
+{ HttpContextAccessor.HttpContext.Session.SetString("_outOfArea", "1"); } 
+
+<div class="card">
+    <div class="card-body">
+        <div style="        background-image: url(cold/assets/images/Banner.png);background-color:#014508;">
+            <br />
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="text-center">
+                        <h2 class="card-title text-white" style="padding:40px 0 0 0">INTERNATIONAL CIVIL SERVICE COMMISSION (ICSC)</h2>
+                        <h3 class="card-title text-white">Global Out-of-Area Expenditure Survey</h3><br />
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="container">
+
+
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+
+
+                        <br />
+                        <div>
+                            <h2 class="card-title text-center" style="color:#01610b">Welcome</h2>
+
+                            <hr>
+                            <br />
+
+                            <p>
+                                <!--  -->
+                                This survey is conducted by the International Civil Service Commission (ICSC)
+                                and is addressed to staff of United Nations Common System organizations in the
+                                <b>Professional and higher categories (P-1 to D-2) and Field Service category (FS-6 and FS-7).</b>
+
+                                <br /><br />
+
+                                The purpose of the survey is to identify countries or areas where UN Common System staff members incur expenditures
+                                outside of the country or area of their duty station.
+                                The goal is to update the list of countries and their respective weights used for the
+                                determination of the out-of-area index, one of the major components of the Post Adjustment Index (PAI).
+                                The out-of-area index is a global index common to all duty stations.
+
+                                <br /><br />
+
+
+                                The out-of-area component is a unique feature of the PAI designed to reflect the fact that a portion of the remuneration of international staff is normally spent outside the country or area of assignment. Such expenditures include:
+                            </p>
+
+                        </div>
+
+                        <div>
+
+                            <ol class="list-icons">
+                                <li>Expenditures on items that staff import directly because of limitations of the local market or out of personal choice;</li>
+                                <li>Costs of private travel outside the country of the duty station (home leave – net of any subsidy or reimbursement received from the organization -, vacations, etc.);</li>
+                                <li>Fees for education (net of education grant) and remittances for support of other dependents living abroad;</li>
+                                <li>Costs for the maintenance of a dwelling in the home country; and</li>
+                                <li>Other financial commitments outside the country of the duty station (so-called nonconsumption commitments (NCCs)), such as mortgages, homeowner’s insurance, property taxes, national insurance, savings, life insurance and income tax, etc.</li>
+                                
+                            </ol>
+
+                            <br />
+
+                            <p>The information provided will be treated with strict confidentiality and processed by the ICSC secretariat for statistical purposes only. No individual data will be communicated to unauthorized persons.</p>
+
+                        </div>
+
+
+                        <div id="faq" class="card">
+                            <div class="card-body">
+
+                                <h2 class="card-title text-center" style="color:#01610b">Some Frequently Asked Questions</h2>
+
+                                <hr>
+                                <br />
+
+                                <h4 class="card-title">Should I participate?</h4>
+
+
+                                All internationally recruited staff members in the <b>Professional and higher categories (P-1 to D-2) and Field Service category (FS-6 and FS-7) </b> are expected to participate in the survey  irrespective of their contract type as long as they have joined the organization before <b>1 July 2024.</b>
+
+                                <br /><br />
+
+                                <h4 class="card-title">What is the out-of-area component?</h4>
+
+                                The out-of-area component is one of the five major components of the PAI, the other four being (in-area excluding housing, housing, pension contribution and medical insurance). Each of these components requires a weight and an index which are then aggregated to arrive at the PAI. This survey addresses only the index of the out-of-area component, common to all duty stations, while the weight for this component is derived from the respective cost-of-living survey conducted at each duty station.
+                                <br /><br />
+
+                                The out-of-area index measures price movements and exchange rate fluctuations in a chosen set of countries with the objective of providing an estimate of inflation in United States dollars for expenditures made outside the country of assignment. The countries are chosen to represent a world price level indexed to the United States dollar. In post adjustment calculations, it is assumed that this “world price level” is the same for all staff.
+                                <br /><br />
+
+
+                                <h4 class="card-title">Why is the Out-of-area Survey important?</h4>
+
+                                The out-of-area survey seeks to identify countries where UN Common System staff members incur expenditures outside of the country of their duty station. In view of the importance of the out-of-area index in the calculation of post adjustments, the ICSC decided at its sixty-third session that a survey of staff should be conducted every five years to maintain the relevance of the list of countries included. (See the <a href="https://unicsc.org/Resources/General/AnnualReports/AR2008.pdf?r=01499811" target="_OA">ICSC 2008 Annual report</a>,  A/63/30, paragraph 136(e) for for more details).
+                                <br /><br />
+                                The out-of-area index was first incorporated as a component of the PAI in 1987. At that time, it was based on a basket of consumer price indices and exchange rates of 21 countries, established by the ICSC. The list of countries was selected on the basis of convertible or hard currency economies. It included countries in the European Currency Units (ECU), as well as Austria, Hong Kong, Japan, Scandinavian countries, Singapore, Switzerland, the United Kingdom and the United States. Over time, the list of countries has expanded to 26 through the out-of-area survey conducted for every round of surveys (except for the 2021 round).
+                                <br /><br />
+
+                                <h4 class="card-title">Which countries form the current basket are used for the out-of-area index?</h4>
+
+                                There are currently 26 countries in the list. They are:
+                                <ul>
+                                    <li>Australia</li>
+                                    <li> Austria</li>
+                                    <li> Belgium</li>
+                                    <li> Brazil</li>
+                                    <li> Canada</li>
+                                    <li> China</li>
+                                    <li> Denmark</li>
+                                    <li> France</li>
+                                    <li> Germany</li>
+                                    <li> Ghana</li>
+                                    <li> India</li>
+                                    <li> Italy</li>
+                                    <li> Japan</li>
+                                    <li> Kenya</li>
+                                    <li> Netherlands</li>
+                                    <li> Nigeria</li>
+                                    <li> Philippines</li>
+                                    <li> Russia</li>
+                                    <li> Senegal</li>
+                                    <li> South Africa</li>
+                                    <li> Spain</li>
+                                    <li> Sweden</li>
+                                    <li> Switzerland</li>
+                                    <li> Thailand</li>
+                                    <li> United Kingdom</li>
+                                    <li> and United States of America.</li>
+
+
+                                </ul>
+                                <br /><br />
+
+
+
+                                <h4 class="card-title">How will the survey affect me?</h4>
+
+                                The result of this survey will be used to update the list of countries included in the out-of-area index, to be incorporated in the PAI for all duty stations as part of the next cost-of-living survey round. Therefore, the result of the survey has an impact on the PAI of all duty stations. The accuracy of the results depends directly on your participation. A more precise measurement of this component, based on a large volume of completed questionnaires from eligible staff members, will lead to a more accurate PAI.
+                                <br /><br />
+
+
+                                <h4 class="card-title">How much time is needed to complete the survey?</h4>
+
+                                The out-of-area survey is very short compared to other surveys conducted by the ICSC. In addition to general information such as email address, organization, duty station etc., there are only three major questions that require responses (overall out-of-expenditure as proportion of net salary, NCC as proportion of net salary and top five out-of-area destination countries or areas). The survey is not expected to require more than 5-7 minutes to complete it.
+
+
+                                <br /><br />
+
+                                <h4 class="card-title">If I live outside of the country of duty station, what should I report as out-of-area expenditure?</h4>
+
+                                If you live outside of the country of duty station, irrespective of the distance from the border, any expenditure in the country of residence including rent should be treated as out-of-area expenditure.
+
+
+                                <br /><br />
+                                <h4 class="card-title">
+                                    My spouse/partner also works in the UN, how should we report the proportions of out-of-area expenditures?
+                                    Should we complete one or separate questionnaires?
+                                </h4>
+
+                                In this case, each person should complete their own questionnaire reporting only a proportion of the expenditure against their own net salary. 
+                                This survey uses the staff’s own net salary as the benchmark and not household income.
+
+
+                                <br /><br />
+
+                                <h4 class="card-title">Where can I find additional information about the post adjustment methodology?</h4>
+
+                                You may refer the <a href="https://unicsc.org/Resources/COLD/Booklets/PABooklet.pdf" target="_OA">post adjustment manual</a> on the ICSC website. For additional information about the survey, please refer to the dedicated microsite.
+
+                                <br />
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

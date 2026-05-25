@@ -1,0 +1,17 @@
+bin/
+obj/
+.vs/
+.vscode/
+
+appsettings.json
+appsettings.*.json
+
+*.user
+*.suo
+
+wwwroot/theme/assets/node_modules/
+node_modules/
+
+*.zip
+*.bak
+*.log

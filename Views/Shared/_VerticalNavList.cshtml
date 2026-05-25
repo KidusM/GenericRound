@@ -1,0 +1,253 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+
+
+
+
+
+<!-- Vertical navbar -->
+
+
+
+
+
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Survey Coordinator"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Overview </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Document" asp-action="Index">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Documents </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="ScChecklists" asp-action="Index">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Checklist </a>
+            </li>
+            <li class="nav-item">
+                @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Survey status</a>*@
+                <a class="nav-link text-dark" href="https://icsc.un.org/colsurveys/Files/sadmin_t.asp" target="Survey">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Monitor </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Questionnaires">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Questionnaires </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Faqs" asp-action="Index">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>FAQs</a>
+            </li>
+        }
+        else if (SignInManager.IsSignedIn(User) && User.IsInRole("Pricing Agent"))
+        {
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Document" asp-action="Index">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Documents </a>
+            </li>
+
+        }
+        else if (SignInManager.IsSignedIn(User) && User.IsInRole("ICSC Focal Person"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Register coordinator </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Coordinator questionnaires </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Data entry</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Modify surveys</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Add Coordinator</a>
+            </li>
+        }
+        else if (SignInManager.IsSignedIn(User) && User.IsInRole("ICSC Survey Manager"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Dashboard </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="DutyStations" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Duty stations </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Surveys" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Surveys </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="UserRoles" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Users </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">
+                    <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Register</a>
+            </li>
+
+        }
+        else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Roles </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty stations </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="UserRoles" asp-action="Index">Users </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>
+
+        }
+        else
+        {
+            <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Overview </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Document" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Documents </a>
+        </li>
+        <li class="nav-item">
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Survey </a>*@
+            <a class="nav-link text-dark" href="https://unicsc.org/resources/surveys/cold/hsghh18/login.asp" target="Survey">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>Survey </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Faqs" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>FAQs </a>
+        </li>
+        }
+
+
+
+
+
+
+
+
+
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<ul class="nav flex-column bg-white mb-0">
+
+        <li class="nav-item">
+            <a class="nav-link text-dark font-italic bg-light" asp-area="" asp-controller="Home" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Overview
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Document" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Documents
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="ScChecklists" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Checklist 
+            </a>
+        </li>
+        <li class="nav-item">-->
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Survey status</a>*@
+            <!--<a class="nav-link text-dark" href="https://icsc.un.org/colsurveys/Files/sadmin_t.asp" target="Survey">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Monitor 
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Questionnaires">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                Questionnaires 
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Faqs" asp-action="Index">
+                <p class="fa fa-th-large mr-3 text-primary fa-fw"></p>
+                FAQs
+            </a>
+        </li>
+
+    </ul>-->
+    
+
+
+        <p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Account</p>
+
+        <ul class="nav flex-column bg-white mb-0">
+
+         <partial name="_LoginPartial" />         
+    @*<li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-area-chart mr-3 text-primary fa-fw"></i>
+                    Area charts
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
+                    Bar charts
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-pie-chart mr-3 text-primary fa-fw"></i>
+                    Pie charts
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-line-chart mr-3 text-primary fa-fw"></i>
+                    Line charts
+                </a>
+            </li>*@
+        </ul>
+
+<!-- End vertical navbar -->
+<!-- Page content holder -->

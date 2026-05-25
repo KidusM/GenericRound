@@ -1,0 +1,67 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@model IEnumerable<CSMS.Models.ScChecklist>
+
+@{
+    ViewData["Title"] = "Checklist of tasks";
+    Layout = "~/Views/Shared/_accordionLayout.cshtml";
+}
+
+<div style="background-image: url(cold/assets/images/Banner.png);background-color:#203752;">
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="text-center">
+                <h2 class="card-title text-white" style="padding:40px 0 5px 0">Checklist of tasks</h2>
+                <h4 class="card-title text-center text-white">@HttpContextAccessor.HttpContext.Session.GetString("_dsNameToDisplay")</h4>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+
+@{var surveyType = HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay");}
+@{string dsGroup = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay"); }
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10">
+
+                <!--Insert Partial view here-->
+                @if (dsGroup != "2" && surveyType != "H")
+                {
+                    <partial name="_G1Checklist" />
+                }
+                else if(dsGroup == "2" && surveyType != "H")
+            {
+                <partial name="_G2Checklist" />
+            }
+                else if (surveyType == "H") 
+                {
+                    <partial name="_HChecklist" />
+                }
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,130 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@model IEnumerable<CSMS.Models.ScChecklist>
+
+@{string dsGroup = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay"); }
+
+@{var i = 1;
+}
+<br />
+<h4 style="font-weight:bold">Before the survey </h4>
+<br />
+
+@foreach (var item in Model)
+{
+    string chck = "chck" + i.ToString();
+    if (item.CbId.Contains("1-") && !(item.CbId.Contains("H1-")))
+    {
+
+        <div class="tabs">
+            <div class="tab">
+                @if (dsGroup == "2" && item.DetailTask != null)
+                {
+
+                    <input type="checkbox" id="@chck">
+
+                    <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium; @((item.GroupId == "4" && dsGroup != "0") ? "display:none" : "display:block")">
+                        @Html.Raw(item.Task)
+                    </label>
+
+
+                    <div class="tab-content">
+
+
+
+                        @Html.Raw(item.DetailTask)
+                        @*@Html.DisplayFor(modelItem => item.DetailTask)*@
+                       
+
+
+                    </div>                }
+                </div>
+        </div>
+
+    }
+    i++;
+}
+
+
+
+
+
+
+
+
+@{i = 1; }
+<br />
+<h4 style="font-weight:bold">During the survey </h4>
+<br />
+
+
+
+
+@foreach (var item in Model)
+{
+    string chck = "chck" + i.ToString();
+
+    if (item.CbId.Contains("2-") && !(item.CbId.Contains("H2-")))
+    {
+
+        <div class="tabs">
+            <div class="tab">
+                @if (dsGroup == "2" && item.DetailTask != null)
+                {
+                    <input type="checkbox" id="@chck">
+
+                    <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium;">@Html.Raw(item.Task)</label>
+                    <div class="tab-content">
+
+
+                        @Html.Raw(item.DetailTask)
+                        @*@Html.DisplayFor(modelItem => item.DetailTask)*@
+                        
+
+
+
+                    </div>}
+                </div>
+        </div>
+
+    }
+    i++;
+}
+
+
+
+
+
+@{i = 1; }
+<br />
+<h4 style="font-weight:bold">After the survey </h4>
+<br />
+
+
+@foreach (var item in Model)
+{
+    string chck = "chck" + i.ToString();
+    if (item.CbId.Contains("3-") && !(item.CbId.Contains("H3-")))
+    {
+
+        <div class="tabs">
+            <div class="tab">
+                @if (dsGroup == "2" && item.DetailTask != null)
+                {
+                    <input type="checkbox" id="@chck">
+
+                    <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium;">@Html.Raw(item.Task)</label>
+                    <div class="tab-content">
+
+
+                        @Html.Raw(item.DetailTask)
+                        @*@Html.DisplayFor(modelItem => item.DetailTask)*@
+                        
+
+                    </div>}
+                </div>
+        </div>
+
+    }
+    i++;
+}

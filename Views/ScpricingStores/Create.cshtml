@@ -1,0 +1,258 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@model CSMS.Models.ScPricingStores
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/theme/_ThemeLayout_Forms.cshtml";
+}
+<style>
+    .btn-group.special {
+        display: flex;
+    }
+
+    .special .btn {
+        flex: 1
+    }
+</style>
+<div class="container">
+
+</div> @*page1*@
+
+
+<div class="container">
+    <div id="page1">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+                        <br />
+                        <h3 class="card-title text-center">Selected Outlets Entry Form</h3>
+                        <br />
+
+
+                        <Instruction>
+                            <div class="modal long-modal" tabindex="-1" role="dialog" aria-labelledby="longmodal" aria-hidden="true" style="display: none;">
+
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="longmodal">Instruction on how to complete the Survey Coordinator Pricing Book</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4></h4>
+                                            <p>
+                                                It is the Survey Coordinator's responsibility to price Goods and Services are applicable to UN Staff.<br />
+                                                There are 25 items to price.
+                                            </p>
+                                            <p>Before you proceed, you need to prepare a list of outlets following the template provided</p>
+                                            <p>Select at least 5 companies/providers applicable or patronized by UN Staff for each item.</p>
+                                            <p>
+                                                After compiling list of outlets, you have two options to upload the information.
+                                                <ol>
+                                                    <li> <a href="~/assets/documents/Outlet List Upload Template.xlsx">Download </a> an Exce template, to populate and upload OR</li>
+                                                    <li>Enter each outlet information one by one using the data entry form provided on this page.</li>
+                                                </ol>
+                                            </p>
+                                            <p>Once the outlets are uploaded, Proceed to price data entry</p>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger waves-effect text-start text-white" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                            <h4 class="">Please read the <input type="button" value="Instruction" data-bs-toggle="modal" data-bs-target=".long-modal" class="model_img btn btn-info" /> before you begin </h4>
+                            <br />
+                        </Instruction>
+
+                    </div>
+                    <div class="col-md-2">
+                    </div><div class="col-md-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h4 class="card-title"> <a class="btn btn-info" style="padding:5%"  href="~/assets/documents/Outlet List Upload Template.xlsx"> Download data entry template </a></h4>
+                                    </td>
+                                    <td>
+                                        <form method="post" asp-controller="ScpricingStores" asp-action="Import_xls" enctype="multipart/form-data" class="btn btn-outline-info">
+                                            <input type="file" name="xlsfile" />
+                                            <button class="btn btn-success" type="submit"> Import </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <br />
+
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h3 class="card-title text-center">Add New Outlet</h3>
+
+
+
+
+                    <br />
+                </div>
+            </div>
+
+
+            <form asp-action="Create">
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <input data-val="true" data-val-length="The field DsId must be a string with a maximum length of 6." data-val-length-max="6" id="DsId" name="DsId" type="hidden" value="@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserDSID")" />
+
+                        @* @Html.HiddenFor(m => m.Syscode, new { value = @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserDSID") })*@
+                        <input data-val="true" data-val-length="The field Syscode must be a string with a maximum length of 13." data-val-length-max="13" id="Syscode" name="Syscode" type="hidden" value="@HttpContextAccessor.HttpContext.Session.GetString("_Syscode")" />
+                        @{int i = Convert.ToByte(HttpContextAccessor.HttpContext.Session.GetString("_outletNumber")) + 1; }
+
+
+                        <div class="form-group" hidden>
+                            <input asp-for="StoresId" class="form-control" value="@i" />
+                            <span asp-validation-for="StoresId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" hidden>
+                            <label asp-for="ActualYear" class="control-label"></label>
+                            <input asp-for="ActualYear" class="form-control" value="@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserSurveyYear")" />
+                            <span asp-validation-for="ActualYear" class="text-danger"></span>
+                        </div>
+
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label asp-for="StoresName" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <input asp-for="StoresName" class="form-control" />
+                                        <span asp-validation-for="StoresName" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label asp-for="StoreAddress" class="control-label"></label></td>
+                                    <td>
+                                        <input asp-for="StoreAddress" class="form-control" />
+                                        <span asp-validation-for="StoreAddress" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label asp-for="WebAddress" class="control-label"></label></td>
+                                    <td>
+                                        <input asp-for="WebAddress" class="form-control" />
+                                        <span asp-validation-for="WebAddress" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <input type="submit" value="Add Outlet" class="btn btn-info btn-block" style="width:49%" onclick="location.href = '@Url.Action("Create","ScPricingStores")'; getElementById('page1').style.display='none';" />
+                            @if (!(HttpContextAccessor.HttpContext.Session.GetString("_outletNumber") is null))
+                            {
+                                <a asp-controller="ScpricingStores" asp-action="Index" class="btn btn-outline-info" style="width:49%">View list of @HttpContextAccessor.HttpContext.Session.GetString("_outletNumber") Outlets</a>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <br />
+            @*<div>
+                    <a asp-action="Index">Back to List</a>
+                </div>*@
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <a class="btn btn-danger" style="width:49%" asp-controller="Home" asp-action="Questionnaires">Cancel</a>
+                        @* <input type="button" value="Back" class="btn btn-primary" onclick="getElementById('page2').style.display='none'; getElementById('page1').style.display='block';" />*@
+
+                        @* <input type="button" value="Next" class="btn btn-default" onclick="getElementById('page2').style.display='none'; getElementById('page3').style.display='block';" />*@
+                        <input type="button" value="Finish and Go to Prices" class="btn btn-info" style="width:49%" onclick="location.href = '@Url.Action("Create","ScPricingData")';" />
+
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div id="page3">
+            <div class="form-group">
+                <div>
+                    <h2>Page 3</h2>
+                </div>
+                <input type="button" value="Back" class="btn btn-default" onclick="getElementById('page3').style.display='none'; getElementById('page2').style.display='block';" />
+            </div>
+        </div>*@
+
+
+
+
+    <br />
+    <br />
+    <br />
+
+</div>
+
+<br />
+
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

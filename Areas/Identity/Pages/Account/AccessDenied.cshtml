@@ -1,0 +1,38 @@
+﻿@page
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+@*<header>
+    <h1 class="text-danger">@ViewData["Title"]</h1>
+    <p class="text-danger">You do not have access to this resource.</p>
+</header>*@
+
+
+<div class="container">
+
+
+
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="text-center">
+                    <br /><h1 class="text-danger"> <b> @ViewData["Title"]</b></h1><br />
+                    <br />
+                    <p class="text-danger"><b>You do not have permission to perform this action or to view this resource!</b></p>
+                    <button class="btn btn-danger" onclick="window.history.back();">Go Back</button>
+                    <br />
+                    <br />
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+
+
+</div>

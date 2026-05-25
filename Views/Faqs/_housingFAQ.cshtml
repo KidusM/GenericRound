@@ -1,0 +1,141 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@*@model IEnumerable<CSMS.Models.Faq>*@
+
+<!-- HOUSING -->
+@*<div class="card-title" style="@(dsSurveyType == "H"? "display:block" : "display:none")">
+    @dsSurveyType H*@
+    <!-- HOUSING -->
+    <div class="card">
+        <div class="card-body">
+
+
+
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                    
+
+                    <accordion>
+                        @{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin"; }
+                        @* <a asp-action="create" class="btn btn-sm btn-primary">Add an FAQ</a> *@
+                        <br />
+                        <h3 class="card-title">General Questions (Pre-Survey) </h3>
+                        <br />
+                        @{var i = 1; }
+
+
+                        @foreach (var item in Model)
+                        {
+                            string chck = "GQchck" + i.ToString();
+                            if (item.Qtype.ToString().Equals("1") && !(item.GroupId.ToString().Equals("12")))
+                            {
+                                if (role)
+                                {
+                                    <div>
+                                        <a asp-action="Edit" asp-route-pk="@item.Pk" class="btn btn-sm btn-primary">Edit</a>
+                                        <a asp-action="Details" asp-route-id="@item.Pk" class="btn btn-sm btn-info">Details</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Pk" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+                                    </div>
+                                }
+
+                                <div class="tabs">
+                                    <div class="tab">
+                                        <input type="checkbox" id="@chck">
+
+                                        <label class="tab-label" style="font-weight: normal; font-size:medium;" for="@chck">@i -  @Html.Raw(item.Question)</label>
+                                        <div class="tab-content">
+                                            @Html.Raw(item.Answer)
+                                        </div>
+                                    </div>
+                                </div>
+                                i = i + 1;
+                            }
+
+                        }
+
+
+                        @{i = 1; }
+                        <br />
+                        <h3 class="card-title">Questions During the survey</h3>
+                        <br />
+
+                        @foreach (var item in Model)
+                        {
+                            string chck = "DSchck" + i.ToString();
+                            if (item.Qtype.ToString().Equals("2") && !(item.GroupId.ToString().Equals("12")))
+                            {
+                                if (role)
+                                {
+                                    <div>
+                                        <a asp-action="Edit" asp-route-pk="@item.Pk" class="btn btn-sm btn-primary">Edit</a>
+                                        <a asp-action="Details" asp-route-id="@item.Pk" class="btn btn-sm btn-info">Details</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Pk" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+                                    </div>
+                                }
+                                <div class="tabs">
+                                    <div class="tab">
+                                        <input type="checkbox" id="@chck">
+
+                                        <label class="tab-label" style="font-weight: normal; font-size:medium;" for="@chck">@i -  @Html.Raw(item.Question)</label>
+                                        <div class="tab-content">
+                                            @Html.Raw(item.Answer)
+                                        </div>
+                                    </div>
+                                </div>
+                                i = i + 1;
+                            }
+
+                        }
+
+
+
+                        <br />
+                        <h3 class="card-title">Technical Questions about Post Adjustment</h3>
+
+                        <br />
+                        @{i = 1; }
+                        @foreach (var item in Model)
+                        {
+                            string chck = "TQchck" + i.ToString();
+                            if (item.Qtype.ToString().Equals("3") && !(item.GroupId.ToString().Equals("3")) && item.GroupId != 12)
+                            {
+
+                                if (role)
+                                {
+                                    <div>
+                                    <a asp-action="Edit" asp-route-pk="@item.Pk" class="btn btn-sm btn-primary">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.Pk" class="btn btn-sm btn-info">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Pk" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+                                    </div>
+                                }
+
+                                <div class="tabs">
+                                    <div class="tab">
+                                        <input type="checkbox" id="@chck">
+
+                                        <label class="tab-label" style="font-weight: normal; font-size:medium;" for="@chck">@i -  @Html.Raw(item.Question)</label>
+                                        <div class="tab-content">
+                                            @Html.Raw(item.Answer)
+                                        </div>
+                                    </div>
+                                </div>
+                                i = i + 1;
+                            }
+
+                        }
+
+                        @{i = 1; }
+                        <br />
+                        <br />
+
+                    </accordion>
+
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+    </div>
+@*</div>*@

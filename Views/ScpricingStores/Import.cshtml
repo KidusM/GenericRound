@@ -1,0 +1,14 @@
+﻿@*@model IEnumerable<CSMS.Models.ScpricingStores>*@
+
+@{
+    ViewData["Title"] = "Import";
+}
+<div class="container">
+
+    <form method="post" asp-controller="ScpricingStores" asp-action="Import_xls" enctype="multipart/form-data">
+        <input type="file" name="xlsfile" />
+        <button type="submit"> Import </button>
+    </form>
+
+    
+</div>

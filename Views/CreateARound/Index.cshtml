@@ -1,0 +1,201 @@
+﻿@{
+    ViewData["Title"] = "Create / Delete Round";
+}
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+
+            <div class="col-md-10">
+                <div class="container mt-4">
+
+                    <h2>Create / Delete Round</h2>
+
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="alert alert-info mt-3">
+                            @ViewBag.Message
+                        </div>
+                    }
+
+                    <div class="alert alert-warning mt-4">
+                        <h4>Important</h4>
+                        <p>
+                            Creating or deleting a Cost-of-Living Survey round changes the folder structure used by this Microsite.
+                            This action can only be done by a Site Admin.
+                        </p>
+                    </div>
+
+                    <div class="card border-primary mt-4">
+                        <div class="card-header bg-info text-white">
+                            Create New Round of Cost-of-Living Survey
+                        </div>
+
+                        <div class="card-body">
+                            <p>
+                                This will create a new round of Cost-of-Living Surveys and copy the folder structure
+                                of the previous round. Documents relevant to this round should be uploaded separately.
+                            </p>
+
+                            <form asp-action="Index" asp-controller="CreateARound" method="post">
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-group mb-3">
+                                    <label>New Round Year</label>
+                                    <input type="text"
+                                           name="year"
+                                           class="form-control"
+                                           placeholder="Enter a new Round - YYYY" />
+                                </div>
+
+                                <button type="submit" class="btn btn-info">
+                                    Create the Round of Surveys
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card border-danger mt-5">
+                        <div class="card-header bg-danger text-white">
+                            Delete Round
+                        </div>
+
+                        <div class="card-body">
+                            <div class="alert alert-danger">
+                                <strong>Warning:</strong>
+                                Removing a round permanently deletes the round folder and all empty subfolders.
+                                Make sure there are no documents anywhere inside the folder by going to the
+                                <a asp-controller="DocumentUpload" asp-action="Delete">Manage Documents</a> page.
+                            </div>
+
+                            @if (ViewBag.AvailableRounds != null && ViewBag.AvailableRounds.Count > 0)
+                            {
+                                <div class="alert alert-secondary">
+                                    <strong>Available round folders:</strong>
+
+                                    <div class="mt-2">
+                                        @foreach (var round in ViewBag.AvailableRounds)
+                                        {
+                                            <button type="button"
+                                                    class="btn btn-outline-danger btn-sm me-2 mb-2"
+                                                    onclick="document.getElementById('yearToDelete').value='@round'">
+                                                @round Round of Surveys
+                                            </button>
+                                        }
+                                    </div>
+
+                                    <small class="text-muted">
+                                        Click a folder above to fill the delete box.
+                                    </small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-secondary">
+                                    No round folders were found.
+                                </div>
+                            }
+
+                            <form id="deleteRoundForm"
+                                  asp-action="DeleteRound"
+                                  asp-controller="CreateARound"
+                                  method="post">
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-group mb-3">
+                                    <label>Round Year to Delete</label>
+                                    <input type="text"
+                                           name="yearToDelete"
+                                           id="yearToDelete"
+                                           class="form-control"
+                                           placeholder="Enter the Round to remove - YYYY" />
+                                </div>
+
+                                <button type="button"
+                                        class="btn btn-danger"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteRoundModal">
+                                    Review Delete Request
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="deleteRoundModal" tabindex="-1" aria-labelledby="deleteRoundModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content border-danger">
+
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title" id="deleteRoundModalLabel">
+                                    Confirm Round Deletion
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="alert alert-danger">
+                                    <strong>This is a major action.</strong>
+                                    <br />
+                                    The selected round folder and all of its empty subfolders will be permanently deleted.
+                                </div>
+
+                                <p>
+                                    The system will refuse to delete the round if any document exists anywhere inside it.
+                                </p>
+
+                                <p>
+                                    Check the year carefully before continuing.
+                                </p>
+
+                                <div class="alert alert-warning mb-0">
+                                    <strong>Selected round:</strong>
+                                    <span id="selectedRoundPreview">Not selected</span>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal">
+                                    Cancel
+                                </button>
+
+                                <button type="submit"
+                                        form="deleteRoundForm"
+                                        class="btn btn-danger">
+                                    Yes, Delete This Round
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    var deleteRoundModal = document.getElementById('deleteRoundModal');
+
+                    if (deleteRoundModal) {
+                        deleteRoundModal.addEventListener('show.bs.modal', function () {
+                            var yearToDelete = document.getElementById('yearToDelete').value;
+                            var preview = document.getElementById('selectedRoundPreview');
+
+                            if (yearToDelete.trim() === '') {
+                                preview.innerText = 'Not selected';
+                            } else {
+                                preview.innerText = yearToDelete;
+                            }
+                        });
+                    }
+                </script>
+
+            </div>
+
+            <div class="col-md-1"></div>
+        </div>
+
+    </div>
+</div>

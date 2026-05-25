@@ -1,0 +1,57 @@
+﻿Session Variables	Description								Controller
+
+_userRole =>		Role of logged in User.					Home Controller
+_dsGroup
+_surveyType
+_loggedInUserId												Home Controller
+ _loggedInUserDSID										    Home Controller
+_Syscode                                                    Home Controller
+
+
+Once duty station is selected by user
+
+_SelectedDsGroup => Home Controller 
+_SelectedDsCountry => Home Controller 
+_SelectedDsCity => Home Controller 
+_SelectedDsSurveyType => Home Controller  
+_SelectedDsDSID => Home Controller 
+
+
+
+
+
+        public async Task<List<ScPricingStores>> Import_xls(IFormFile xlsfile)
+        {
+            var list = new List<ScPricingStores>();
+            using (var stream = new MemoryStream())
+            {
+                await xlsfile.CopyToAsync(stream);
+                using (var package = new ExcelPackage(stream))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                    var rowcount = worksheet.Dimension.Rows;
+                    string StrZero = "0";
+                    for (int row = 2; row <= rowcount; row++)
+                    {
+                        list.Add(new ScPricingStores
+                        {
+                            ActualYear = Convert.ToInt16((worksheet.Cells[row, 1].Value ?? "0").ToString().Trim()),
+                            ActualMonth = Convert.ToByte((worksheet.Cells[row, 2].Value ?? "0").ToString().Trim()),
+                            StoresId = (worksheet.Cells[row, 3].Value ?? string.Empty).ToString().Trim(),
+                            StoresName = (worksheet.Cells[row, 4].Value ?? string.Empty).ToString().Trim(),
+                            StoresDescription = (worksheet.Cells[row, 5].Value ?? string.Empty).ToString().Trim(),
+                            StoreAddress = (worksheet.Cells[row, 6].Value ?? string.Empty).ToString().Trim(),
+                            WebAddress = (worksheet.Cells[row, 7].Value ?? string.Empty).ToString().Trim(),
+                            GpsCoordinates = (worksheet.Cells[row, 8].Value ?? string.Empty).ToString().Trim(),
+                            DsId = (worksheet.Cells[row, 9].Value ?? string.Empty).ToString().Trim(),
+                            Syscode = worksheet.Cells[row, 10].Value.ToString().Trim(),
+                            OutletTypeId = Convert.ToInt16((worksheet.Cells[row, 11].Value ?? "0").ToString().Trim()),
+                            Exclude = (worksheet.Cells[row, 12].Value ?? string.Empty).ToString().Trim(),
+                            ExRemarks = (worksheet.Cells[row, 13].Value ?? string.Empty).ToString().Trim(),
+                            Internet = (worksheet.Cells[row, 14].Value ?? string.Empty).ToString().Trim()
+                        });
+                    }
+                }
+            }
+            return list;
+        }

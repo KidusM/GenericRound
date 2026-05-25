@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+   
+        @*<a class="nav-link text-dark" >*@
+            <i class="fas fa-user-circle fa-3x"></i>
+            <span class="hide-menu">@User.Identity.Name</span>
+        @*</a>*@
+   
+   
+}
+else
+{
+    
+
+}
+

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-md-12">
+    <div class="card shadow-sm">
+        <div class="p-4">
+
+            <div class="card mb-0 bg-light mt-3">
+                <div class="card-body">
+                    <h2 class="card-title text-center">
+                        ICSC User Roles
+                    </h2>
+                    <h4 class="card-title text-center">
+                       
+                    </h4>
+                    @*<p class="card-text">
+                            .
+                        </p>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="container">
+
+            
+            <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>User Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var @i = 1;
+                            foreach (var role in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        @role.Name
+                                    </td>
+
+
+                                </tr>
+                                i++;
+                            }
+                        }
+
+
+
+                    </tbody>
+                </table>
+                <a class="btn btn-info btn-block" asp-action="Create">Add New Role</a><br />
+            </div>
+            <div class="col-md-2">
+            </div>
+                </div>
+
+            @*<div class="progress-table-wrap">
+            <div class="progress-table">
+                <div class="table-head">
+                    <div class="serial">S.No</div>
+                    <div class="country">User Role</div>
+                </div>
+                @{var @i = 1; }
+                @foreach (var role in Model)
+                {
+                    <div class="table-row">
+                        <div class="serial">@i</div>
+                        <div class="visit">@role.Name</div>
+                    </div>
+                    i++;
+                }
+            </div>
+        </div>*@
+            <br />
+            <br />
+        </div>
+        </div>
+</div>

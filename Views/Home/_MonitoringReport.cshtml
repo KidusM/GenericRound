@@ -1,0 +1,176 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+
+
+
+
+<script src="~/theme/assets/node_modules/jquery/dist/jquery.min.js"></script>
+
+<h4 class="text-center card-title">@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") - @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCity")</h4>
+
+
+@{
+    var dsiddd = this.Context.Request.Query.FirstOrDefault(x => x.Key.Equals("dsid"));
+    var numberr = this.Context.Request.Query.FirstOrDefault(x => x.Key.Equals("number"));
+    if (dsiddd.Value == "" || dsiddd.Key == null)
+    {
+        @*<div id="myDSID" style="display:none">@HttpContextAccessor.HttpContext.Session.GetString("_focalPointMonitoringDSID")</div>*@
+        <div id="myDSID" style="display:none">@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserDSID")</div>
+    }
+    else
+    {
+        <div id="myDSID" style="display:none">@dsiddd.Value</div>
+    }
+}
+
+@*@if (@HttpContextAccessor.HttpContext.Session.GetString("_focalPointMonitoringDSID") != "")
+    {
+        <div id="myDSID" style="display:none">@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserDSID")</div>
+    }
+    else
+    {
+
+    }*@
+
+<span id="totalPersonnelSession" hidden>@HttpContextAccessor.HttpContext.Session.GetString("_numberOfStaff")</span>
+<span id="totalPersonnel1" hidden>@numberr.Value</span>
+<script>
+    $(document).ready(function () {
+
+
+        var myTest = document.getElementById("myDSID").innerText;
+
+       // alert("getScMonitoringReport?dsid=" + "'" + myTest + "'");
+        $.getJSON("getScMonitoringReport?dsid=" + "'"+ myTest + "'" ,
+            function (json) {
+                var responseRate;
+                var tr;
+
+
+                //Append each row to html table
+                for (var i = 0; i < json.length; i++) {
+                    tr = $('<tr/>');
+                    if (i == json.length - 1)
+                    {
+                        tr.append("<td style='font-weight:bold'>" + json[i].org + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].xx + "</td>")
+                        tr.append("<td style='font-weight:bold'>" + json[i].p1 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].p2 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].p3 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].p4 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].p5 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].p61 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].d1 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].d2 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].fS4 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].fS5 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].fS6 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].fS7 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].total + "</td>");
+
+                        if (document.getElementById('totalPersonnel1').innerHTML != "" ) {
+                            var totalPersonnel = document.getElementById('totalPersonnel1').innerHTML;
+                            //alert("icsc" + totalPersonnel);
+                        }
+                        else
+                        {
+                            var totalPersonnel = document.getElementById('totalPersonnelSession').innerHTML;
+                            //alert("sc" + totalPersonnel);
+                        }
+                        
+
+
+                        //alert(totalPersonnel);
+                        @*"" + @HttpContextAccessor.HttpContext.Session.GetString("_numberOfStaff");*@
+                        //alert(totalPersonnel);
+                         var registeredStaff = json[i].total.substring(json[i].total.indexOf("/") + 1, 10);
+                        var completedStaff = json[i].total.substring(0, json[i].total.indexOf("/"));
+
+                        
+                        if (document.getElementById('totalPersonnelSession').innerHTML != "")
+                        {
+    
+                              var response_Rate = ((parseFloat(json[i].total.substring(0, json[i].total.indexOf("/"))) / parseFloat(@HttpContextAccessor.HttpContext.Session.GetString("_numberOfStaff"))) * 100).toFixed(1) + "%";
+                        }
+                        else
+                        {
+                            var response_Rate = ((parseFloat(json[i].total.substring(0, json[i].total.indexOf("/"))) / parseFloat(@numberr.Value)) * 100).toFixed(1) + "%";
+                        }
+
+                        @*if (@HttpContextAccessor.HttpContext.Session.GetString("_numberOfStaff") != "" && @HttpContextAccessor.HttpContext.Session.GetString("_numberOfStaff") != null)
+                        {
+                            var response_Rate = ((parseFloat(json[i].total.substring(0, json[i].total.indexOf("/"))) / parseFloat(@HttpContextAccessor.HttpContext.Session.GetString("_numberOfStaff"))) * 100).toFixed(1) + "%";
+                        }
+                        else
+                        {
+                                var response_Rate = ((parseFloat(json[i].total.substring(0, json[i].total.indexOf("/"))) / parseFloat(@numberr.Value)) * 100).toFixed(1) + "%";
+                        }*@
+                        $('#personnel').append("<span style='color:saddlebrown'>" + totalPersonnel + "</span>");
+                        $('#registered').append("<span style='color:saddlebrown'>" + registeredStaff + "</span>");
+                        $('#completed').append("<span style='color:saddlebrown'>" + completedStaff + "</span>");
+                        $('#response__Rate').append(response_Rate);@**@
+
+                    }
+                    else
+                    {
+                        tr.append("<td>" + json[i].org + "</td>");
+                        tr.append("<td>" + json[i].xx + "</td>");
+                        tr.append("<td>" + json[i].p1 + "</td>");
+                        tr.append("<td>" + json[i].p2 + "</td>");
+                        tr.append("<td>" + json[i].p3 + "</td>");
+                        tr.append("<td>" + json[i].p4 + "</td>");
+                        tr.append("<td>" + json[i].p5 + "</td>");
+                        tr.append("<td>" + json[i].p61 + "</td>");
+                        tr.append("<td>" + json[i].d1 + "</td>");
+                        tr.append("<td>" + json[i].d2 + "</td>");
+                        tr.append("<td>" + json[i].fS4 + "</td>");
+                        tr.append("<td>" + json[i].fS5 + "</td>");
+                        tr.append("<td>" + json[i].fS6 + "</td>");
+                        tr.append("<td>" + json[i].fS7 + "</td>");
+                        tr.append("<td style='font-weight:bold'>" + json[i].total + "</td>");
+                    }
+
+                    $('table').append(tr);
+
+                }
+            });
+    });
+</script>
+
+<div id="personnel" class="text-center" style="font-weight:bold">Total number of staff in the duty station : </div>
+<div id="registered" class="text-center" style="font-weight:bold">Total number of staff registered on the survey : </div>
+<div id="completed" class="text-center" style="font-weight:bold">Total number of staff that completed the survey : </div><br />
+<div id="response__Rate" class="text-center"  style="font-weight:bold; color:saddlebrown">Overall Response Rate : </div>
+<br />
+
+
+@*<br /><h4 id="respnoseRate" class="text-center"></h4>
+    <br />
+    <h3 id="response__Rate" class="text-center">Response rate =  </h3>
+    <br />*@
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Organization</th>
+                <th style="color:red">**</th>
+                <th>P-1</th>
+                <th>P-2</th>
+                <th>P-3</th>
+                <th>P-4</th>
+                <th>P-5</th>
+                <th>P-6</th>
+                <th>D-1</th>
+                <th>D-2</th>
+                <th>FS-4</th>
+                <th>FS-5</th>
+                <th>FS-6</th>
+                <th>FS-7</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <p><span style="color:red">**</span> Shows staff members that registered but did not start the survey</p>
+
+</div>

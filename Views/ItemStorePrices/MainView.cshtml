@@ -1,0 +1,67 @@
+﻿<style>
+    .form-group-material {
+        position: relative;
+        margin-bottom: 0px !important;
+    }
+</style>
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@    
+<div class="container">
+    <section class="forms">
+
+     
+        <form asp-action="PostAddMore" class="text-left form-validate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <br />
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-md-1">
+                        <b>Store Id</b>
+                    </div>
+                    <div class="col-md-2">
+                        <b>Brand</b>
+                    </div>
+                    <div class="col-md-1">
+                        <b>Quantity</b>
+                    </div>
+                    <div class="col-md-1">
+                        <b>Unit</b>
+                    </div>
+                    <div class="col-md-2">
+                        <b>Price</b>
+                    </div>
+
+                    <div class="col-md-3">
+                        <b>Comment</b>
+                    </div>
+                </div>
+                <partial name="_ItemStorePricePartialView">
+                    @*@Html.Partial("_ScPricingPartialView")*@
+            </div>
+            <div id="addAddMoreDiv"></div>
+            <a id="add_row" class="btn-small"> Add Price</a>
+            <br />
+            <br />
+            <input type="submit" class="btn btn-sm float-left" value="Save" />
+        </form>
+
+
+    </section>
+</div>
+@section Scripts {
+    <script>
+      $('#add_row').on('click', function () {
+        $.ajax({
+            url: '@Url.Action("ItemStorePricePartialView", "ItemStorePrices")',
+            type: 'GET',
+            data: {
+            },
+            success: function (result) {
+                $('#addAddMoreDiv').append(result);
+            },
+            error: function () {
+            }
+        });
+    });
+    </script>
+}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

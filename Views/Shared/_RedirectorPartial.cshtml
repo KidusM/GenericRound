@@ -1,0 +1,143 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Survey Coordinator"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Overview </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Document" asp-action="Index">Documents </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="ScChecklists" asp-action="Index">Checklist </a>
+    </li>
+    <li class="nav-item">
+        @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Survey status</a>*@
+        <a class="nav-link text-dark" href="https://icsc.un.org/colsurveys/Files/sadmin_t.asp" target="Survey">Monitor </a>
+
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Questionnaires">Questionnaires </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Faqs" asp-action="Index">FAQs</a>
+    </li>
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("Pricing Agent"))
+{
+
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Document" asp-action="Index">Documents </a>
+    </li>
+
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("ICSC Focal Person"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Register coordinator </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Coordinator questionnaires </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Data entry</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Modify surveys</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Add Coordinator</a>
+    </li>
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("ICSC Survey Manager"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty stations </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="UserRoles" asp-action="Index">Users </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Roles </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty stations </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="UserRoles" asp-action="Index">Users </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("SiteAdmin"))
+{
+    <li class="nav-item">
+        <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="CreateARound" asp-action="Index">New Survey Rounds</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="DocumentUpload" asp-action="Index">Manage Documents</a>
+    </li>
+    <li class="nav-item">
+        <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Faqs" asp-action="Index">FAQs </a>
+    </li>
+    <li class="nav-item">
+        <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="ScChecklist" asp-action="Index">Checklist of Tasks </a>
+    </li>
+    <li class="nav-item">
+        <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty stations </a>
+    </li>
+    <li class="nav-item">
+        <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys </a>
+    </li>
+    <li class="nav-item">
+        <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="UserRoles" asp-action="Index">Users </a>
+    </li>
+    <li class="nav-item">
+        <a class="waves-effect waves-dark" aria-expanded="false" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+
+}
+else
+{
+
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Overview </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Document" asp-action="Index">Documents </a>
+    </li>
+    <li class="nav-item">
+        @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Survey </a>*@
+        <a class="nav-link text-dark" href="https://unicsc.org/resources/surveys/cold/hsghh18/login.asp" target="Survey">Survey </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Faqs" asp-action="Index">FAQs </a>
+    </li>
+}

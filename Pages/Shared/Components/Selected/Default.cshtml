@@ -1,0 +1,89 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+
+@using CSMS.Models
+@model IEnumerable<ScPricingData>
+
+@*<div class="QuestionnairePageContainer">*@
+
+
+<div class="card">
+    <div class="card-body">
+        @*<h4 class="card-title">Danger Table</h4>
+        <h6 class="card-subtitle">Add class <code>.full-color-table .full-danger-table .hover-table</code></h6>*@
+       @*SELECTED ITEM : @HttpContextAccessor.HttpContext.Session.GetString("_selectedItemCode")*@
+        <div class="table-responsive">
+
+            <table class="table color-bordered-table info-bordered-table table-sm">
+                <thead>
+                    <tr>
+
+                        <th>
+                            ITEM CODE
+                        </th>
+                        <th>
+                            STORE ID
+                        </th>
+                        <th>
+                            BRAND
+                        </th>
+                        <th>
+                            QUANTITY
+                        </th>
+                        <th>
+                            UNIT
+                        </th>
+                        <th>
+                            PRICE
+                        </th>
+                        <th>
+                            COMMENTS
+                        </th>
+
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ItemCodeNavigation.ItemCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StoreId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Brand)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Unit)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Comments)
+                            </td>
+
+
+                            <td>
+                                <button class="btn btn-xs btn-secondary"><a href="Edit/@item.Id">Edit</a></button>
+                                <button class="btn btn-xs btn-secondary"><a href="Details/@item.Id">Details</a></button>
+                                <button class="btn btn-xs  btn-secondary"><a href="Delete/@item.Id">Delete</a></button>
+                                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

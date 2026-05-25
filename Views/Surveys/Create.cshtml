@@ -1,0 +1,185 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@using System.Globalization;
+
+@model CSMS.Models.Survey
+
+@{ ViewData["Title"] = "Create"; }
+<div class="container">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <br />
+                    <h2 class="card-title text-center">Create New Survey</h2>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+        </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+
+                                    <br />
+
+                                    <form asp-action="Create">
+
+                                        <table class="table table-sm table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td><label asp-for="Ds.Country" class="control-label"></label></td>
+                                                    <td><select id="dsid" asp-for="Dsid" class="form-control" asp-items="ViewBag.Dsid"></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label asp-for="SurveyType" class="control-label"></label></td>
+                                                    <td><select id="surveytype" asp-for="SurveyType" class="form-control" asp-items="ViewBag.SurveyTypeName"></select></td>
+                                                </tr>
+                                                <tr>
+
+
+                                                    <td><label asp-for="Round" class="control-label"></label></td>
+                                                    <td>
+                                                        <input asp-for="Round" class="form-control" />
+                                                        <span asp-validation-for="Round" class="text-danger"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label asp-for="SurveyMonth" class="control-label"></label></td>
+                                                    <td>
+                                                        <select id="month" asp-for="SurveyMonth" class="form-control" asp-items="ViewBag.months"></select>
+                                                        <span asp-validation-for="SurveyMonth" class="text-danger"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label asp-for="SurveyYear" class="control-label"></label></td>
+                                                    <td>
+                                                        <input id="year" asp-for="SurveyYear" class="form-control" />
+                                                        <span asp-validation-for="SurveyYear" class="text-danger"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label asp-for="SurveyBegin" class="control-label"></label></td>
+                                                    <td>
+                                                        <input asp-for="SurveyBegin" class="form-control" />
+                                                        <span asp-validation-for="SurveyBegin" class="text-danger"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label asp-for="SurveyEnd" class="control-label"></label></td>
+                                                    <td>
+                                                        <input asp-for="SurveyEnd" class="form-control" />
+                                                        <span asp-validation-for="SurveyEnd" class="text-danger"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label asp-for="NoOfStaff" class="control-label"></label></td>
+                                                    <td>
+                                                        <input asp-for="NoOfStaff" class="form-control" />
+                                                        <span asp-validation-for="NoOfStaff" class="text-danger"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label asp-for="Scid" class="control-label"></label></td>
+                                                    <td>
+                                                        @*<select asp-for="Scid" class="form-control" asp-items="ViewBag.Coordinators"></select>*@
+                                                        <select asp-for="Scid" class="form-control">
+                                                            <option value="" disabled selected>Select Coordinator . . .</option>
+                                                            @foreach (var item in ViewBag.Coordinators)
+                                                            {
+                                                                <option value="@item.Value">@item.Text</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label asp-for="Smid" class="control-label"></label><br /></td>
+                                                    <td>
+                                                        <select asp-for="Smid" class="form-control">
+                                                            <option value="" disabled selected>Select a focal person . . .</option>
+                                                            @foreach (var item in ViewBag.FocalPersons)
+                                                            {   
+                                                               <option value="@item.Value">@item.Text</option>
+                                                            }
+                                                            </select>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label hidden asp-for="Syscode" class="control-label"></label></td>
+                                                    <td>
+                                                        <input hidden id="syscode" asp-for="Syscode" class="form-control" />
+                                                        <span asp-validation-for="Syscode" class="text-danger"></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+
+                                        </table>
+
+
+                                        <div class="form-group">
+                                            <input id="bton" type="submit" value="Create" class="btn btn-primary" /> <a class="btn btn-info" asp-action="Index">Back</a>
+                                        </div>
+                                    </form>
+
+
+
+
+                                    <div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    //document.getElementById("syscode").onchange = alert("TEST");
+
+                    document.getElementById("bton").onclick = function () { generateSyscode() };
+
+                    function generateSyscode() {
+                        var dsid = document.getElementById("dsid").value;
+                        var monthh = getMonthNumber(document.getElementById("month").value);
+                        if (monthh.length == 1)
+                        {
+                            monthh = "0" + monthh;
+                        }
+                        var yearr = document.getElementById("year").value;
+                        var survtype = document.getElementById("surveytype").value;
+                        var syscode = dsid.trim() + monthh.trim() + yearr.trim() + survtype.substring(0, 1);
+                        
+                        if (syscode.length == 13) {
+
+                            document.getElementById("syscode").value = syscode;
+                        }
+                        else {
+                            alert("Mising syscode! Please alert website admin")
+                        }
+
+                    }
+
+
+                    function getMonthNumber(monthName) {
+                        var number = new Date(Date.parse(monthName + " 1, 2012")).getMonth() + 1
+                        if (number > 10) {
+                            monthNo = number.toString();
+                        }
+                        else {
+                            monthNo = "0" + number.toString();
+                        }
+                        return monthNo;
+                    }
+
+
+
+                </script>
+

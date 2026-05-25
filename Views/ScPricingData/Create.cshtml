@@ -1,0 +1,134 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+
+@model CSMS.Models.ScPricingData
+
+@{ ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/theme/_ThemeLayoutDataTables.cshtml";
+    }
+<div class="container">
+    <h2 class="text-center">Survey Coordinator Pricing Form</h2>
+
+@*Instruction MODAL *@     
+
+
+
+    <div class="modal long-modal" tabindex="-1" role="dialog" aria-labelledby="longmodal" aria-hidden="true" style="display: none;">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="longmodal">Instruction on how to complete the Survey Coordinator Pricing Book</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <h4></h4>
+                    <p>It is the Survey Coordinator's responsibility to price the goods and services that are listed in the dropdown below.  There are 27 items to price.</p>
+                    <p>Remember to compile and upload the list of outlets in the previous section by clicking the "Back to Stores" button below.</p>
+                    @*<p>After compiling list of outlets, you can either save it in an excel file using a template that you can <a href="#">download here</a> OR enter each outlet using the data entry form. </p>*@
+                    <p>Then follow the following steps</p>
+                    <ol>
+                        <li>Select an item from the dropdown. - This will populate detailed specifications and description</li>
+                        <li>Choose an outlet from the dropdown</li>
+                        <li>Enter Brand, Quantity, Price and Comments (if any) </li>
+                        <li>Unit is populated by default - Change it if different from the default</li>
+                        <li>Coplete item specific fields as needed</li>
+                        <li>Click on "Add Price" - This will add the new price in the list of all items </li>
+                        <li>You can Edit, see Details or Delete any item from the list</li>
+                        <li>If you need to add, edit or remove an outlet you can do so by clicking the "Back to Stores" button</li>
+                        <li>When finished, click on "Finish and Submit"</li>
+                        <li class="text-danger">REMEMER TO ALSO COMPLETE THE COORDINATOR'S REPORT</li>
+
+                    </ol>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-start text-white" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <h5>Before you begin please read the <input type="button" value="Instruction" data-bs-toggle="modal" data-bs-target=".long-modal" class="model_img btn btn-info" /> </h5>
+    @*<img src="../assets/images/alert/model2.png" alt="default" data-bs-toggle="modal" data-bs-target=".long-modal" class="model_img img-responsive" />*@
+
+
+
+
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+
+
+
+
+
+
+            <form asp-action="Create">
+
+                <div id="page1">
+
+
+                    <table>
+                        <tr>
+                            <td>
+                                <select asp-for="DutyStation" class="form-control">
+                                    <option selected value="@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserDSID")">@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") </option>
+                                </select>
+                                <span asp-validation-for="DutyStation" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <select asp-for="City" class="form-control">
+                                    <option selected>@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCity") </option>
+                                </select>
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <select asp-for="SurveyMonth" class="form-control">
+                                    <option selected>@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserSurveyMonth") </option>
+                                </select>
+                                <span asp-validation-for="SurveyMonth" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <select asp-for="SurveyYear" class="form-control">
+                                    <option selected>@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserSurveyYear") </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br />
+
+
+
+                    
+                            <div id="divPartial">
+                                <partial name="_PricingDataPartial" />
+                            </div>
+                            
+                            @*<div id="itemCodeHidden">TEST</div>*@
+
+                            @*<input type="button" value="Back" class="btn btn-info" onclick="getElementById('page2').style.display='none'; getElementById('page1').style.display='block';" />*@
+
+                       
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @*<div>
+            <a asp-action="Index">Back to List</a>
+        </div>*@
+</div>
+
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
+
+

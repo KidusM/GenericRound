@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/Vertical.css" rel="stylesheet" />
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/template/template2/assets/css/fontawesome-all.min.css" rel="stylesheet" />
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+
+<body>
+    <div class="vertical-nav bg-white" id="sidebar">
+        <div class="py-4 px-3 mb-4 bg-light">
+            <div class="media d-flex align-items-center">
+                <img src="~/template/template2/assets/img/logo/logo.png" alt="">
+                @*<img src="https://res.cloudinary.com/mhmd/image/upload/v1556074849/avatar-1_tcnd60.png" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">*@
+                <div class="media-body">
+                    <h4 class="m-0">ICSC</h4>
+                    <p class="font-weight-light text-muted mb-0">Cost of Living Division</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
+
+        
+
+            
+
+
+        <ul class="nav flex-column bg-white mb-0">
+            
+                <partial name="_VerticalNavList" />
+               
+
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+
+</body>
+
+<!-- End demo content -->
+</html>
+
+<script>
+    $(function () {
+        // Sidebar toggle behavior
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+        });
+    });
+</script>

@@ -1,0 +1,174 @@
+﻿@model CSMS.Models.ScPricingData
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+
+
+
+                    <h2 class="card-title">@Html.DisplayFor(model => model.ItemCode) Details</h2>
+
+
+                    <br />
+                    <hr />
+
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.StoreId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.StoreId)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Brand)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Brand)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Quantity)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Unit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Unit)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Price)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Comments)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Comments)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.BasicChargeUnit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.BasicChargeUnit)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.BasicChargeRate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.BasicChargeRate)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.AdditionalChargeUnit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.AdditionalChargeUnit)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.AdditionalChargeRate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.AdditionalChargeRate)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.OtherChargeUnit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.OtherChargeUnit)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.OtherChargeRate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.OtherChargeRate)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.ThirdParty)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.ThirdParty)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Comprehensive)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Comprehensive)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Collision)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Collision)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.RegistrationFee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.RegistrationFee)
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+
+                    <br />
+                    @*<div>
+            @Html.ActionLink("Edit", "Edit", new { syscode = Model.Syscode, id = Model.StoresId }, new { @class = "btn btn-info" })
+            <a class="btn btn-info" asp-action="Index">Back to List</a>
+        </div>*@
+                    <div>
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> 
+                        <a class="btn btn-danger" asp-action="Create">Back</a>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

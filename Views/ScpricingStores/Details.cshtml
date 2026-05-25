@@ -1,0 +1,55 @@
+﻿@model CSMS.Models.ScPricingStores
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+
+
+
+                    <h2 class="card-title">@Html.DisplayFor(model => model.StoresName) Details</h2>
+
+                    
+                        <br />
+                        <hr />
+
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td style="font-weight:bold">Outlet Name</td>
+                                    <td>@Html.DisplayFor(model => model.StoresName)</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:bold">Description</td>
+                                    <td>@Html.DisplayFor(model => model.StoresDescription)</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:bold">Physical Address</td>
+                                    <td>@Html.DisplayFor(model => model.StoreAddress)</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:bold">Website (URL)</td>
+                                    <td>@Html.DisplayFor(model => model.WebAddress)</td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+
+                       
+                   <br />
+                    <div>
+                        @Html.ActionLink("Edit", "Edit", new { syscode = Model.Syscode, id = Model.StoresId }, new { @class = "btn btn-info" } ) 
+                        <a class="btn btn-info" asp-action="Index">Back to List</a>
+                    </div>
+
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>

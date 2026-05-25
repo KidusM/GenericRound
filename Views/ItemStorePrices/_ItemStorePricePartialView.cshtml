@@ -1,0 +1,50 @@
+﻿@model CSMS.Models.ItemStorePrice
+@{
+    Layout = null;
+}
+@using HtmlHelpers.BeginCollectionItemCore;
+@{
+    //BeginCollectionItemCore already created in HtmlHelper.cs class
+}
+<link href="~/css/test.css" rel="stylesheet" />
+@using (Html.BeginCollectionItem("ItemStorePricesa"))
+{
+    <!-------"AddMoreList"----- this is ItemStorePrice List Object wich is define ViewModel file -->
+
+    <div id="removeAddMoreDiv" class="col-xs-12 col-sm-12 form-group">
+        <div class="row">
+            <div class="col-md-1">
+                <input asp-for="StoreId" placeholder="Store Id" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <input asp-for="Brand" placeholder="Brand" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <input asp-for="Quantity" placeholder="Quantity" class="form-control" />
+            </div>
+            <div class="col-md-1">
+                <input asp-for="UnitUsed" placeholder="Unit" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <input asp-for="CostLocal" placeholder="Price" class="form-control" />
+            </div>
+
+            <div class="col-md-2">
+                <input asp-for="Comment" placeholder="Comment" class="form-control" />
+            </div>
+
+            <div class="col-md-2">
+                <button type="button" class="btn-small-danger removeDiv">
+                    Remove
+                </button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+}
+<script>
+    $(".removeDiv").click(function () {
+        $(this).parents("#removeAddMoreDiv").remove();
+    });
+</script>

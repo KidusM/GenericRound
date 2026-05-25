@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+@*    <meta name="viewport" content="width=device-width, initial-scale=1.0" />*@
+    <title>@ViewData["Title"] COLD Survey Management System</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bindu - Multipurpose Html5 Template">
+  @*  <meta name="keywords" content="business, responsive, multipurpose, onepage, corporate, clean">*@
+
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+
+    @*<link href="~/lib/bootstrap/dist/css/bootstrap_Superhero.min.css" rel="stylesheet" />*@
+    @*<link href="~/lib/bootstrap/dist/css/bootstrap_Simplex.min.css" rel="stylesheet" />*@
+    @*<!--<link href="~/lib/bootstrap/dist/css/bootstrap_Minty.min.css" rel="stylesheet" />-->*@
+    @*<link href="~/lib/bootstrap/dist/css/bootstrap_Yeti.min.css" rel="stylesheet" />*@
+    @*<link href="~/lib/bootstrap/dist/css/bootstrap_Lux.css" rel="stylesheet" />*@
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap" rel="stylesheet">
+
+    @*<link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/css/UserSite.css" rel="stylesheet" />*@
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet" />
+
+    @* THEME CSS
+        ###################################################
+    *@
+
+    <!-- Site title -->
+    <!-- Bootstrap css -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!--Font Awesome css -->
+    <link href="~/assets/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Normalizer css -->
+    <link href="~/assets/css/normalize.css" rel="stylesheet">
+
+    <!-- imagehover css -->
+    <link href="~/assets/css/imagehover.min.css" rel="stylesheet">
+
+    <!-- Owl Carousel css -->
+    <link href="~/assets/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/assets/css/owl.transitions.css" rel="stylesheet">
+
+    <!-- Magnific popup css -->
+    <link href="~/assets/css/magnific-popup.css" rel="stylesheet">
+
+    <!-- Site css -->
+    <link href="~/assets/css/style.css" rel="stylesheet">
+
+    <!-- Responsive css -->
+    <link href="~/assets/css/responsive.css" rel="stylesheet">
+
+
+
+
+
+
+
+</head>
+<body>
+    <header>
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CSMS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">*@
+        <div class="menu-holder clearfix">
+            <div class="menu-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mainmenu">
+                                <div class="navbar navbar-nobg">
+                                    <div class="navbar-header">
+                                        <a class="navbar-brand" href="index.html"><img src="~/assets/img/logo.png" alt=""></a>
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+
+                                    <div class="navbar-collapse collapse">
+                                        <nav>
+                                            <ul class="nav navbar-nav">
+                                                <partial name="_RedirectorPartial" />
+                                                </ul>
+                                            @*<ul>*@
+
+                                                <partial name="_LoginPartial" />
+
+                                                @*<li class="dropdown">
+                                                    <a href="index.html" class="dropdown-toggle" data-toggle="dropdown">HOME <b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="index.html">HOME 1</a></li>
+                                                        <li><a href="index2.html">HOME 2</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="about.html">ABOUT</a>
+                                                </li>
+                                                <li>
+                                                    <a href="services.html">SERVICES</a>
+                                                </li>
+                                                <li><a href="works.html">WORKS</a></li>
+                                                <li class="dropdown">
+                                                    <a href="blog.html" class="dropdown-toggle" data-toggle="dropdown">BLOG <b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="blog.html">BLOG</a></li>
+                                                        <li><a href="single-post.html">SINGLE POST</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="contact.html">CONTACT</a></li>*@
+                                            @*</ul>*@
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Navigation ends -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation area ends -->
+
+
+
+        @* <partial name="_RedirectorPartial" />*@
+
+        @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Roles</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty Stations</a>
+        </li>
+        </ul>*@
+
+        @* <partial name="_LoginPartial" />*@
+
+
+        @*</div>
+            </div>
+        </nav>*@
+    </header>
+
+
+
+    @*<div class="container">*@
+        @*<main role="main" class="pb-3">*@
+            @RenderBody()
+        @*</main>*@
+    @*</div>*@
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - CSMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+
+    @* THEME SCRIPTS
+        ###################################################
+    *@
+
+
+
+
+    <!-- Latest jQuery -->
+    <script src="~/assets/js/jquery.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="~/assets/js/bootstrap.min.js"></script>
+
+    <!-- Owl Carousel js -->
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+
+    <!-- Mixitup js -->
+    <script src="~/assets/js/jquery.mixitup.js"></script>
+
+    <!-- Magnific popup js -->
+    <script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+
+    <!-- Waypoint js -->
+    <script src="~/assets/js/jquery.waypoints.min.js"></script>
+
+    <!-- Ajax Mailchimp js -->
+    <script src="~/assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Main js-->
+    <script src="~/assets/js/main_script.js"></script>
+
+
+    <script>
+        $('.mydatatable').DataTable({
+            order: [[0, 'asc']],
+            pagingType: 'full_numbers'
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

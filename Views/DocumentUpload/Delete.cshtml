@@ -1,0 +1,299 @@
+﻿@model CSMS.Models.DocumentUpload
+
+<div class="container mt-4">
+
+    <h2>Delete Documents</h2>
+
+    <p>
+        <strong>Current Folder:</strong>
+        @(string.IsNullOrEmpty(Model.CurrentPath) ? "documents" : Model.CurrentPath)
+    </p>
+
+    <a asp-action="Index"
+       asp-controller="DocumentUpload"
+       class="btn btn-info mb-3">
+        Back to Upload
+    </a>
+
+    @if (!string.IsNullOrEmpty(Model.CurrentPath))
+    {
+        var separator = System.IO.Path.DirectorySeparatorChar;
+
+        var parentPath = Model.CurrentPath.Contains(separator)
+        ? Model.CurrentPath.Substring(0, Model.CurrentPath.LastIndexOf(separator))
+        : "";
+
+        <a asp-action="Delete"
+           asp-controller="DocumentUpload"
+           asp-route-currentPath="@parentPath"
+           class="btn btn-outline-secondary mb-3">
+            Back One Folder
+        </a>
+    }
+
+    <hr />
+
+    <h4 style="font-weight:bold">FOLDERS - Round&gt; Group&gt; Survey Type&gt; User</h4>
+
+    @if (Model.Folders != null && Model.Folders.Any())
+    {
+        <div class="list-group mb-4">
+
+            @foreach (var folder in Model.Folders)
+            {
+                var nextPath = string.IsNullOrEmpty(Model.CurrentPath)
+                ? folder
+                : System.IO.Path.Combine(Model.CurrentPath, folder);
+
+                <a asp-action="Delete"
+                   asp-controller="DocumentUpload"
+                   asp-route-currentPath="@nextPath"
+                   class="list-group-item list-group-item-action">
+
+                    📁 @folder
+
+                </a>
+            }
+
+        </div>
+    }
+    else
+    {
+        <p>No subfolders in this folder.</p>
+    }
+
+    <hr />
+
+    <h4>
+        Upload Document to
+        @(string.IsNullOrEmpty(Model.CurrentPath)
+            ? "documents"
+            : Model.CurrentPath)
+    </h4>
+
+    @if (TempData["UploadMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["UploadMessage"]
+        </div>
+    }
+
+    @if (TempData["UploadError"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["UploadError"]
+        </div>
+    }
+
+    <form asp-action="UploadToCurrentFolder"
+          asp-controller="DocumentUpload"
+          method="post"
+          enctype="multipart/form-data"
+          class="mb-4">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden"
+               name="currentPath"
+               value="@(Model.CurrentPath ?? "")" />
+
+        <div class="input-group">
+
+            <input type="file"
+                   name="uploadFiles"
+                   class="form-control"
+                   required />
+
+            <button type="submit"
+                    class="btn btn-primary">
+
+                Upload to This Folder
+
+            </button>
+
+        </div>
+
+    </form>
+
+    <hr />
+
+    <h4>Documents in This Folder</h4>
+
+    @if (Model.UploadedFiles != null && Model.UploadedFiles.Any())
+    {
+        <table class="table table-bordered table-striped">
+
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th style="width:220px;">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var file in Model.UploadedFiles)
+                {
+                    var fileUrl = "/assets/documents";
+
+                    if (!string.IsNullOrEmpty(Model.CurrentPath))
+                    {
+                        fileUrl += "/" + Model.CurrentPath.Replace("\\", "/");
+                    }
+
+                    fileUrl += "/" + file;
+
+                    <tr>
+
+                        <td>
+                            📄 @file
+                        </td>
+
+                        <td>
+
+                            <a href="@fileUrl"
+                               target="_blank"
+                               class="btn btn-info btn-sm me-2">
+
+                                View
+
+                            </a>
+
+                            <form asp-action="DeleteFile"
+                                  asp-controller="DocumentUpload"
+                                  method="post"
+                                  style="display:inline;">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden"
+                                       name="currentPath"
+                                       value="@(Model.CurrentPath ?? "")" />
+
+                                <input type="hidden"
+                                       name="fileName"
+                                       value="@file" />
+
+                                <button type="button"
+                                        class="btn btn-danger btn-sm delete-btn"
+                                        data-file="@file">
+
+                                    Delete
+
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p>No documents in this folder.</p>
+    }
+
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade"
+     id="deleteModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header bg-danger text-white">
+
+                <h5 class="modal-title">
+                    Confirm File Deletion
+                </h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+                    Are you sure you want to permanently delete:
+                </p>
+
+                <strong id="deleteFileName"></strong>
+
+                <p class="mt-3 text-danger">
+                    This action cannot be undone.
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button type="button"
+                        class="btn btn-danger"
+                        id="confirmDeleteBtn">
+
+                    Delete File
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    let formToSubmit = null;
+
+    document.querySelectorAll(".delete-btn").forEach(button => {
+
+        button.addEventListener("click", function () {
+
+            formToSubmit = this.closest("form");
+
+            const fileName = this.getAttribute("data-file");
+
+            document.getElementById("deleteFileName").textContent = fileName;
+
+            const modal = new bootstrap.Modal(
+                document.getElementById("deleteModal")
+            );
+
+            modal.show();
+
+        });
+
+    });
+
+    document.getElementById("confirmDeleteBtn")
+        .addEventListener("click", function () {
+
+            if (formToSubmit) {
+                formToSubmit.submit();
+            }
+
+        });
+
+</script>

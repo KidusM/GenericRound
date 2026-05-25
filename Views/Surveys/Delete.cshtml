@@ -1,0 +1,77 @@
+﻿@model CSMS.Models.Survey
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<br />
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+
+                <div class="text-center">
+
+                    <br /><br />
+                    <h1 class="text-danger">Are you sure you want to delete  </h1>
+                    <h4>
+                        <b>
+                            @Html.DisplayFor(model => model.Ds.Country) - @Html.DisplayFor(model => model.Ds.City) - @Html.DisplayFor(model => model.SurveyType)
+                            <br /> @Html.DisplayFor(model => model.SurveyMonth) -  @Html.DisplayFor(model => model.SurveyYear)?
+                        </b>
+                    </h4>
+                    <br />
+                </div>
+            </div>
+            <div class="card">
+
+
+                <table class="table">
+                 
+                  
+                        <tr>
+                            <th></th>
+                            <th> @Html.DisplayNameFor(model => model.Round)</th>
+                            <td> @Html.DisplayFor(model => model.Round)</td>
+                        </tr>
+                        <tr><th></th>
+                            <th> @Html.DisplayNameFor(model => model.SurveyMonth)</th>
+                            <td> @Html.DisplayFor(model => model.SurveyMonth)</td>
+                        </tr>
+                        <tr><th></th>
+                            <th>@Html.DisplayNameFor(model => model.SurveyYear)</th>
+                            <td>@Html.DisplayFor(model => model.SurveyYear)</td>
+                        </tr>
+                        <tr><th></th>
+                            <th>@Html.DisplayNameFor(model => model.Sc)</th>
+                            <td>@Html.DisplayFor(model => model.Sc.FirstName) @Html.DisplayFor(model => model.Sc.LastName)</td>
+                        </tr>
+                        <tr><th></th>
+                            <th>@Html.DisplayNameFor(model => model.Sm)</th>
+                            <td>@Html.DisplayFor(model => model.Sm.FirstName) @Html.DisplayFor(model => model.Sm.LastName)</td>
+                        </tr>
+
+                </table>
+
+            </div>
+            <div class="card">
+
+                <div class="text-center"><br />
+                
+                    <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" /> 
+                    <a asp-action="Index" class="btn btn-info">Cancel </a>
+                </form>
+                    </div>
+                <br />
+            </div>
+        </div>
+        </div>
+        
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>

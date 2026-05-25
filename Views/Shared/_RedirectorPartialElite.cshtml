@@ -1,0 +1,405 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore;
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Survey Coordinator"))
+{
+    <li>
+
+        <a class="waves-effect waves-dark" aria-expanded="false" href="#">
+            <i class="fas fa-home"></i>
+            <span class="hide-menu" style="color:#AD4500">HOME </span>
+        </a>
+    </li>
+}
+else if (HttpContextAccessor.HttpContext.Session.GetString("_outOfArea") == "1")
+{
+    <li class="nav-small-cap"> <hr /> </li>
+    <li><br /><br /></li>
+    <li>
+        <a asp-controller="Home" asp-action="OutOfArea">
+            <i class="fas fa-door-open"></i>
+            <span style="color:#01610b">Welcome</span>
+        </a>
+    </li>
+    @*<li>
+            <a href="https://www.surveymonkey.com/r/?sm=DiCD8NKOdgnfQjdXAOp3ckB8sXfi9E1FckhfQGD0O4kuKEiR2E3aYITqs8JDXNmS" target="_OA">
+                <i class="fas fa-square-poll-horizontal"></i>
+                <span style="color:darkorange">OA Survey</span>
+
+            </a>
+        </li>*@
+    <li>
+        @*<a asp-controller="Home" asp-action="OutOfArea" target="_OA">*@
+        <a href="OutOfArea#faq">
+            <i class="fas fa-clipboard-question"></i>
+            <span style="color:#01610b"> FAQ</span>
+        </a>
+    </li>
+    <li>
+        <a href="https://unicsc.org/Resources/COLD/Booklets/PABooklet.pdf" target="_OA">
+            <i class="fas fa-book-open"></i>
+            <span style="color:#01610b"> PA Manual</span>
+        </a>
+    </li>
+    <li>
+        <a class="waves-effect waves-dark" asp-area="" asp-controller="Document" asp-action="Index" asp-route-id="9" aria-expanded="false">
+            <i class="fas fa-folder-open"></i>
+            <span class="hide-menu" style="color:#01610b">Documents</span>
+        </a>
+    </li>
+}
+else
+
+{<li>
+
+
+        <a class="waves-effect waves-dark" aria-expanded="false" href="~/Home/index/3">
+            <i class="fas fa-home"></i>
+            <span class="hide-menu" style="color:#AD4500">HOME </span>
+        </a>
+    </li>
+}
+
+@if (HttpContextAccessor.HttpContext.Session.GetString("_outOfArea") != "1")
+{
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Survey Coordinator"))
+    {
+        <li>
+            <a class="waves-effect waves-dark" aria-expanded="false">
+                <i class="fas fa-user-cog"></i>
+                <span class="hide-menu" style="color:#AD4500">Survey Coordinator </span>
+            </a>
+        </li>
+        <li>
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="2">
+                <i class="icon-speedometer"></i>
+                <span class="hide-menu"> Overview </span>
+            </a>
+
+        </li>
+        <li>
+            <a class="waves-effect waves-dark" asp-area="" asp-controller="Document" asp-action="Index" asp-route-id="2" aria-expanded="false">
+                <i class="fas fa-folder-open"></i>
+                <span class="hide-menu">Documents</span>
+            </a>
+        </li>
+
+        <li>
+            <a class="waves-effect waves-dark" asp-area="" asp-controller="Faqs" asp-action="Index" aria-expanded="false">
+                <i class="fas fa-info-circle"></i>
+                <span class="hide-menu">FAQs</span>
+            </a>
+        </li>
+        <li>
+            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                <i class="fas fa-tools"></i>
+                <span class="hide-menu">Tools</span>
+            </a>
+            <ul aria-expanded="false" class="collapse">
+                <li>
+                    <a asp-area="" asp-controller="ScChecklists" asp-action="Index">Checklist </a>
+                </li>
+                @if (HttpContextAccessor.HttpContext.Session.GetString("_coordinatorStatus") != "Inactive")
+                {
+                    <!--<li>-->
+
+                    @*<a asp-area="" asp-controller="Home" asp-action="Questionnaires">Questionnaires </a>*@
+                    <!--<a asp-area="" asp-controller="Screports" asp-action="Create">Questionnaire </a>
+                    </li>-->
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="MonitoringTool">Survey Status</a>
+                        @*<a href="https://icsc.un.org/colsurveys/Files/sadmin_t.asp" target="Survey">Survey Monitoring </a>*@
+                    </li>
+                }
+
+            </ul>
+        </li>
+
+        <li style="padding-left:20px; color: gray;padding-right:10px">
+            <hr />
+        </li>
+
+
+        //Link to Staff
+        <li>
+            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false" style="color: #002a52">
+                @*<i class="icon-speedometer"></i>*@
+                <i class="fas fa-users"></i>
+                <span class="hide-menu" style="color:#AD4500">Staff at Large </span>
+            </a>
+            <ul aria-expanded="false" class="collapse">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="1">Welcome </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Document" asp-action="Index" asp-route-id="1">Documents </a>
+                </li>
+                <li>
+                    <a href="https://surveys.unicsc.org/COLDSurvey2021/welcome" target="Survey">Survey </a>
+                </li>
+            </ul>
+        </li>
+        //Link to Pricing Agent
+        @if (HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserSurvType") != "H")
+        {
+            <li>
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false" style="color: #002a52">
+                    @*<i class="icon-speedometer"></i>*@
+                    <i class="fas fa-money-check-alt"></i>
+                    <span class="hide-menu" style="color:#AD4500">Pricing Agent</span>
+                </a>
+                <ul aria-expanded="false" class="collapse">
+
+                    <li>
+                        <a asp-area="" asp-controller="Document" asp-action="Index" asp-route-id="3">Documents </a>
+                    </li>
+
+                </ul>
+            </li>
+
+        }
+
+        <li style="padding-left:20px; color: gray;padding-right:10px">
+            <i><hr /></i>
+        </li>
+
+    }
+    else if (SignInManager.IsSignedIn(User) && User.IsInRole("Pricing Agent"))
+    {
+
+        <li>
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Document" asp-action="Index">
+                <i class="ti-layout-grid2"></i>
+                <span class="hide-menu">Documents</span>
+            </a>
+        </li>
+
+    }
+    else if (SignInManager.IsSignedIn(User) && User.IsInRole("ICSC Focal Person"))
+    {
+        <li>
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="fas fa-address-card"></i>
+                <span class="hide-menu">Register coordinator</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="fab fa-wpforms"></i>
+                <span class="hide-menu">Coordinator questionnaires</span>
+            </a>
+        </li>
+        @*<li class="nav-item">
+                <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index">Data entry</a>
+            </li>*@
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Surveys" asp-action="Index">
+                <i class="fab fa-wpforms"></i>
+                <span class="hide-menu">Manage Surveys</span>
+            </a>
+        </li>
+        @*<li class="nav-item">
+                <a class="waves-effect waves-dark" aria-expanded="false" asp-area="Identity" asp-page="/Account/Register">Add Coordinator</a>
+            </li>*@
+    }
+    else if (SignInManager.IsSignedIn(User) && User.IsInRole("ICSC Survey Manager"))
+    {
+
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="icon-speedometer"></i>
+                <span class="hide-menu">Dashboard</span>
+            </a>
+        </li>
+        @*<li class="nav-item">
+                <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty stations </a>
+            </li>*@
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Surveys" asp-action="Index">
+                <i class="fab fa-wpforms"></i>
+                <span class="hide-menu">Surveys</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="Identity" asp-page="/Account/Register">
+                <i class="fab fa-wpforms"></i>
+                <span class="hide-menu">
+                    Register
+                </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="UserRoles" asp-action="Index">
+                <i class="fas fa-users"></i>
+                <span class="hide-menu">Users</span>
+            </a>
+        </li>
+
+
+
+
+
+        <li style="padding-left:20px; color: gray;padding-right:10px">
+            <hr />
+        </li>
+
+    }
+    else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+    {
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index">Dashboard </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Role" asp-action="Index">Roles </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty stations </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="UserRoles" asp-action="Index">Users </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+
+    }
+    else if (SignInManager.IsSignedIn(User) && User.IsInRole("SiteAdmin"))
+    {
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="CreateARound" asp-action="Index">New Survey Rounds</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="DocumentUpload" asp-action="Index">Manage Documents</a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Faqs" asp-action="Index">FAQs </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="ScChecklist" asp-action="Index">Checklist of Tasks </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty stations </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="UserRoles" asp-action="Index">Users </a>
+        </li>
+        <li class="nav-item">
+            <a class="waves-effect waves-dark" aria-expanded="false" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+
+    }
+    else
+    {
+
+        if (@HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") != null && @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") != "")
+        {
+            <li>
+                <a class="waves-effect waves-dark" aria-expanded="false">
+                    <i class="fas fa-users"></i>
+                    <span class="hide-menu" style="color:#AD4500">Staff at large </span>
+                </a>
+            </li>
+
+            <li>
+                <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="1">
+                    <i class="icon-speedometer"></i>
+                    <span class="hide-menu">
+                        Welcome
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Document" asp-action="Index" asp-route-id="1">
+                    <i class="fas fa-folder-open"></i>
+                    <span class="hide-menu">
+                        Documents
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="waves-effect waves-dark" aria-expanded="false" href="https://surveys.unicsc.org/COLDSurvey2021/welcome" target="Survey">
+                    <i class="fas fa-poll-h"></i>
+                    <span class="hide-menu">
+                        Survey
+                    </span>
+                </a>
+
+            </li>
+            <li>
+                <a class="waves-effect waves-dark" aria-expanded="false" asp-area="" asp-controller="Faqs" asp-action="Index">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="hide-menu">
+                        FAQs
+                    </span>
+                </a>
+
+            </li>
+
+
+            <li style="padding-left:20px; color: gray;padding-right:10px">
+                <i><hr /></i>
+            </li>
+
+            //Link to SC
+            <li>
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                    @*<i class="icon-speedometer"></i>*@
+                    <i class="fas fa-user-cog"></i>
+                    <span class="hide-menu" style="color:#AD4500">Survey Coordinator </span>
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="2">Overview </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Document" asp-action="Index" asp-route-id="2">Documents </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="ScChecklists" asp-action="Index">Checklist </a>
+                    </li>
+                </ul>
+            </li>
+            //Link to Pricing Agent
+
+            var dsSurveyType = @HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay");
+
+
+            if (dsSurveyType != "H")
+            {
+                <li>
+                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                        @*<i class="icon-speedometer"></i>*@
+                        <i class="fas fa-money-check-alt"></i>
+                        <span class="hide-menu" style="color:#AD4500">Pricing Agent</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+
+                        <li>
+                            <a asp-area="" asp-controller="Document" asp-action="Index" asp-route-id="3">Documents </a>
+                        </li>
+
+                    </ul>
+                </li>
+            }
+            <li style="padding-left:20px; color: gray;padding-right:10px">
+                <i><hr /></i>
+            </li>
+
+        }
+    }
+}
+

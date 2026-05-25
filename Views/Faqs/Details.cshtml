@@ -1,0 +1,73 @@
+﻿@model CSMS.Models.Faq
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="card">
+    <div class="card-body">
+
+
+
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10">
+
+                <div>
+                    <h3 class="card-title">FAQs Detail</h3>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ID) - (Serial Number)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.ID)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Question)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Question)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Answer)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Answer)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Category)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Category)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Qtype) - (Category code)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Qtype)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.GroupId) - (12 for PP specific questions and 0 for questions applicable to both H and PP)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.GroupId)
+                        </dd>
+                    </dl>
+                </div>
+                <div>
+                    <a asp-action="Edit" asp-route-pk="@Model.Pk" class="btn btn-primary">Edit</a>
+                    <a asp-action="Index" class="btn btn-info">Back to List</a>
+                </div>
+
+
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

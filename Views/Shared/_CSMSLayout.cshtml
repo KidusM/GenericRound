@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+}
+<br />
+<br />
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <div class="card login-logout-tab">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Login">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Register">Register</a>
+                    </li>
+                </ul>
+
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @RenderBody()
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@RenderSection("scripts", required: false)

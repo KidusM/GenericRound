@@ -1,0 +1,96 @@
+﻿@model IEnumerable<CSMS.Models.ItemStorePrice>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitUsed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegularPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganicFlag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Observation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SaleDiscount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostLocal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemCodeNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.S)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitUsed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegularPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganicFlag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Observation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaleDiscount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CostLocal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemCodeNavigation.ItemCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.S.Syscode)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

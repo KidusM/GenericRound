@@ -1,0 +1,111 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+
+@model CSMS.Models.Document
+@{
+    ViewData["Title"] = "Index";
+
+}
+<div class="container">
+    <div style="background-image: url(cold/assets/images/Banner.png);background-color:#203752;">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="text-center">
+
+
+                    <h2 class="card-title text-white" style="padding:40px 0 5px 0">Documents </h2>
+
+                    @{
+                            bool display = @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") != null && @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") != "";
+                            bool selectedDS = @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsGroup") != null && @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsGroup") != "";
+
+                            if (display)
+                            {
+                            <h4 class="card-title text-center text-white">
+                                @*<h4 style="@(display? "disply:block" : "display:none")" class="card-title text-center text-white">*@
+                                @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") - @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCity")
+
+                            </h4>}
+                        if (selectedDS && !display)
+                        {
+                            @*<h4 style="@(selectedDS? "disply:block" : "display:none")" class="card-title text-center text-white">*@
+                            <h4 class="card-title text-center text-white">
+                                @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsCountry") - @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsCity")
+                            </h4>
+
+                        }
+                        <br />
+
+
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!--<form method="post" enctype="multipart/form-data" asp-controller="Document" asp-action="Index">-->
+    @*<input type="file" name="docfile" />
+        <input type="submit" value="Upload" />*@
+    <!--</form>
+    <hr />-->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+
+
+                    <div class="table-responsive">
+                        <table class="table " @*color-table info-table*@>
+                            <thead>
+                                <tr>
+                                    @if (ViewData["hqOnly"].ToString() == "1")
+                                    {
+                                        <th>S.No<br /></th>
+                                        <th>Document Title<br /> <i style="font-weight:normal; font-size:0.9em; color:#AD4500">* Indicates document not relevant for Survey coordinator of HQs and Washington DC </i></th>
+                                    }
+                                    else
+                                    {
+
+                                        <th>S.No</th>
+                                        <th>Document Title</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{var i = 1;
+                                    var test = ViewData["FileNameForDisplay"] as string[];
+                                }
+                                @foreach (var item in Model.FileDocument)
+                                {
+                                    Random rand = new Random();
+                                    int num = rand.Next();
+                                    <tr>
+                                        @* <td>@item.Name</td>*@
+                                        <td>@i.</td>
+                                        <td><a style="color:#005ba6" href="~/@ViewData["docPath"]/@item.Name?@num" target="_documents">@Html.Raw(test[i - 1])</a></td>
+                                        @*<td><a href="~/@ViewData["docPath"]/@item.Name">Download</a></td>*@
+                                    </tr>
+                                    i = i + 1;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br />
+<br />

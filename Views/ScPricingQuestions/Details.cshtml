@@ -1,0 +1,150 @@
+﻿@model CSMS.Models.ScPricingQuestions
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ScPricingQuestions</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DutyStation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DutyStation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyMonth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SurveyMonth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SurveyYear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItemCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StoreId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StoreId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Unit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Unit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BasicChargeUnit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BasicChargeUnit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BasicChargeRate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BasicChargeRate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalChargeUnit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalChargeUnit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalChargeRate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalChargeRate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherChargeUnit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OtherChargeUnit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherChargeRate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OtherChargeRate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ThirdParty)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ThirdParty)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Comprehensive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comprehensive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Collision)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Collision)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistrationFee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationFee)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Syscode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Syscode)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

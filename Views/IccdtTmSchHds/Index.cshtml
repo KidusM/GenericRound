@@ -1,0 +1,222 @@
+﻿@model IEnumerable<CSMS.Models.IccdtTmSchHd>
+
+@{ ViewData["Title"] = "Index"; }
+<div class="container">
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Syscode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Ds)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProposedMonth)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProposedYear)
+                        </th>
+
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.ActualMonth)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ActualYear)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.SurveyType)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.NoCcaq)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LeadAgency)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PersonnelStaff)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Response)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ResponseRate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateVerified)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateUpdated)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateResults)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateImplemented)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateReported)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Followup)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FollowupComments)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cancelled)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataEntryFlag)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VerifyFlag)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UpdationFlag)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateCv)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Salary)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ExRate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IndicativeFees)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.HhMover)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateWebStart)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateWebEnd)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.FsPositions)
+                            </th>*@
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Syscode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ds.DsId)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProposedMonth)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProposedYear)
+                            </td>
+
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.ActualMonth)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActualYear)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SurveyType)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.NoCcaq)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LeadAgency)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PersonnelStaff)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Response)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ResponseRate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateVerified)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateUpdated)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateResults)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateImplemented)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateReported)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Followup)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FollowupComments)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cancelled)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataEntryFlag)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VerifyFlag)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UpdationFlag)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateCv)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Salary)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ExRate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IndicativeFees)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HhMover)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateWebStart)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateWebEnd)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.FsPositions)
+                                </td>*@
+
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Syscode">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.Syscode">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Syscode">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

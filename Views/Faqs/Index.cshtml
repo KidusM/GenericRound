@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@model IEnumerable<CSMS.Models.Faq>
+
+@{
+    ViewData["Title"] = "Frequently Asked Questions";
+    Layout = "~/Views/Shared/_accordionLayout.cshtml";
+}
+
+<br />
+
+<div style="background-image: url(cold/assets/images/Banner.png);background-color:#203752;">
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="text-center">
+                <h2 class="card-title text-white" style="padding:40px 0 5px 0">Frequently Asked Questions</h2>
+                <h4 class="card-title text-center text-white">@HttpContextAccessor.HttpContext.Session.GetString("_dsNameToDisplay")</h4>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+@{
+    var dsSurveyType = @HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay");
+}
+
+
+
+<!-- PP -->
+
+    @if (dsSurveyType == "H")
+        {
+            <partial name="_housingFAQ" />      
+        }
+    else
+        {
+            <partial name="_ppFAQ" />
+        }
+
+    
+
+

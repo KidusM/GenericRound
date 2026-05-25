@@ -1,0 +1,133 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@*<ul class="navbar-nav">*@
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Survey Coordinator"))
+{
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Overview </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Document" asp-action="Index">Documents </a>
+    </li>
+    <li>
+        <a href="#">Tools</a>
+
+        <ul class="submenu">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="ScChecklists" asp-action="Index">Checklist </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Questionnaires">Questionnaires </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="https://icsc.un.org/colsurveys/Files/sadmin_t.asp" target="Survey">Monitor </a>
+            </li>
+
+        </ul>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Faqs" asp-action="Index">FAQs</a>
+    </li>
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("Pricing Agent"))
+{
+
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Document" asp-action="Index">Documents </a>
+    </li>
+
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("ICSC Focal Person"))
+{
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Data entry</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Assigned Surveys</a>
+    </li>
+
+    <li>
+        <a href="#">Coordinator</a>
+
+        <ul class="submenu">
+
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" asp-area="Identity" asp-page="/Account/Register">Register Coordinator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Coordinator questionnaires </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Questionnaires">Questionnaires </a>
+            </li>
+        </ul>
+    </li>
+
+
+
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("ICSC Survey Manager"))
+{
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Dashboard </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty stations </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="UserRoles" asp-action="Index">Users </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+{
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Dashboard </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Role" asp-action="Index">Roles </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="DutyStations" asp-action="Index">Duty stations </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys </a>
+    </li>
+    @*<li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="UserRoles" asp-action="Index">Users </a>
+    </li>*@
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="scPricingData" asp-action="Create">Pricing </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Overview </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Document" asp-action="Index">Documents </a>
+    </li>
+    <li class="nav-item">
+        @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Survey </a>*@
+        <a class="nav-link js-scroll-trigger" href="https://unicsc.org/resources/surveys/cold/hsghh18/login.asp" target="Survey">Survey </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Faqs" asp-action="Index">FAQs </a>
+    </li>
+}
+
+

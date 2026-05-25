@@ -1,0 +1,64 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
+
+namespace CSMS.Models
+{
+    [Table("SC_Pricing_Stores")]
+    public partial class ScPricingStores1
+    {
+        [Column("DS_ID")]
+        [StringLength(6)]
+        public string DsId { get; set; }
+        [Key]
+        [Column("SYSCODE")]
+        [StringLength(13)]
+        public string Syscode { get; set; }
+        [Key]
+        [Column("STORES_ID")]
+        [DisplayName("Store Number")]
+        [StringLength(4)]
+        public string StoresId { get; set; }
+        [Column("ACTUAL_YEAR")]
+        public short? ActualYear { get; set; }
+        [Column("ACTUAL_MONTH")]
+        public byte? ActualMonth { get; set; }
+        [Column("STORES_NAME")]
+        [DisplayName("Store Name")]
+        [StringLength(75)]
+        public string StoresName { get; set; }
+        [Column("STORES_DESCRIPTION")]
+        [DisplayName("Store Description")]
+        [StringLength(150)]
+        public string StoresDescription { get; set; }
+        [Column("EXCLUDE")]
+        [StringLength(1)]
+        public string Exclude { get; set; }
+        [Column("Ex_remarks")]
+        [StringLength(50)]
+        public string ExRemarks { get; set; }
+        [StringLength(1)]
+        public string Internet { get; set; }
+        [Column("STORE_ADDRESS")]
+        [DisplayName("Address")]
+        [StringLength(500)]
+        public string StoreAddress { get; set; }
+        [Column("WEB_ADDRESS")]
+        [DisplayName("URL")]
+        [StringLength(200)]
+        public string WebAddress { get; set; }
+        [Column("GPS_COORDINATES")]
+        [DisplayName("GPS Coordinates")]
+        [StringLength(500)]
+        public string GpsCoordinates { get; set; }
+        [Column("OUTLET_TYPE_ID")]
+        public short? OutletTypeId { get; set; }
+    }
+}

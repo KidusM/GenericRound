@@ -1,0 +1,163 @@
+﻿@model IEnumerable<ScPricingData>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    @*<h2>Index</h2>*@
+
+    @*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DutyStation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurveyMonth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurveyYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StoreId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Brand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Unit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BasicChargeUnit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BasicChargeRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdditionalChargeUnit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdditionalChargeRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OtherChargeUnit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OtherChargeRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ThirdParty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comprehensive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Collision)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RegistrationFee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Syscode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemCodeNavigation)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DutyStation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SurveyMonth)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SurveyYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StoreId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BasicChargeUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BasicChargeRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdditionalChargeUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdditionalChargeRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OtherChargeUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OtherChargeRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThirdParty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comprehensive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Collision)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegistrationFee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Syscode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCodeNavigation.ItemCode)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

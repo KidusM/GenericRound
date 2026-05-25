@@ -1,0 +1,88 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@model IEnumerable<CSMS.Models.Faq>
+
+@*<div class="card-title" style="@(dsSurveyType != "H"? "display:block" : "display:none")">
+    @dsSurveyType PP*@
+    <!-- PP -->
+    <div class="card">
+        <div class="card-body">
+
+
+
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                    @*@{var i = 1; }*@
+                    <accordion>
+                        @{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+                            bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";}
+
+                        <br />
+
+
+
+                        @foreach (var category in Model.Select(x => x.Category).Distinct())
+                        {
+                            if (!category.Equals("Geneva-specific questions") || hq)
+                            {
+                                <br />
+                                <h3 class="card-title">@category</h3>
+                                <br />
+
+                                var ii = 1;
+
+                                @foreach (var item in Model)
+                                {
+                                    string chck = category + ii.ToString();
+
+                                    //if (item.Qtype.ToString().Equals("1") && !(item.GroupId.ToString().Equals("0") && (item.Category.Equals(category))))
+                                    //if (item.Qtype.ToString().Equals("1") && (item.Category.Equals(category)))
+                                    if (item.Category.Equals(category))
+                                    {
+
+                                        if (role)
+                                        {
+                                            <div>
+                                                <a asp-action="Edit" asp-route-pk="@item.Pk" class="btn btn-sm btn-primary">Edit</a>
+                                                <a asp-action="Details" asp-route-id="@item.Pk" class="btn btn-sm btn-info">Details</a>
+                                                <a asp-action="Delete" asp-route-id="@item.Pk" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+                                            </div>
+                                        }
+
+                                        <div class="tabs">
+                                            <div class="tab">
+                                                <input type="checkbox" id="@chck">
+
+                                                <label class="tab-label" style="font-weight: normal; font-size:medium;" for="@chck">@item.ID -  @Html.Raw(item.Question) </label>
+                                                <div class="tab-content">
+                                                    @Html.Raw(item.Answer)
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        ii = ii + 1;
+                                    }
+
+                                }
+                            }
+
+                           
+
+
+
+                        }
+
+
+
+
+                    </accordion>
+
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+    </div>
+

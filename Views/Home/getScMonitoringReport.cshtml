@@ -1,0 +1,118 @@
+﻿@model IEnumerable<CSMS.Models.ScMontoringReport>
+@* ScMonitoringReport is a method in Home controller *@
+@{
+    ViewData["Title"] = "getScMonitoringReport";
+}
+
+<h2>getScMonitoringReport</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.xx)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.P1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.P2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.P3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.P4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.P5)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.P61)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.D1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.D2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FS4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FS5)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FS6)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FS7)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var i = 0;
+            var totalNumber = 0;
+
+            @foreach (var item in Model)
+            {
+                i = i++;
+
+                <tr>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.xx)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P4)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P5)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P61)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.D1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.D2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FS4)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FS5)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FS6)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FS7)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+
+                </tr>
+            }
+            @*@Html.DisplayFor(modelItem => item.Total)*@ 
+            }
+    </tbody>
+</table>

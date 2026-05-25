@@ -1,0 +1,161 @@
+﻿@model IEnumerable<CSMS.Models.IccdvwTmSchHd>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <h2>Index</h2>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    @*@foreach (var itemm in Model.Select(c => c.CountryName).Distinct())
+        {
+            <div>@itemm</div>
+            @foreach (var member in Model.Where(x => x.CountryName == itemm & x.ActualYear != null))
+            {
+                <div>
+                    @member.ActualMonth/@member.ActualYear
+                </div>
+            }
+        }*@
+
+    <table class="table mydatatable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CountryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DsName)
+                </th>
+                <th>
+                    Survey Date
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateWebStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateWebEnd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurveyType)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var itemm in Model.Select(c => c.CountryName).Distinct())
+            {
+                <tr>
+                    <td colspan="6"><b>@itemm</b></td>
+                    @*<td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>*@
+                </tr>
+
+                @foreach (var member in Model.Where(x => x.CountryName == itemm & x.ActualYear != 0 & x.DsName != "" & x.DateWebStart != null))
+                {
+                    <tr>
+                        <td width="5%" style="color:white">
+                            @member.DsId
+                        </td>
+                        <td width="15%">
+                            @member.DsName
+                        </td>
+                        <td width="20%">
+                            @member.ProposedMonth/@member.ProposedYear
+                        </td>
+                        <td width="20%">
+                            @member.DateWebStart
+                        </td>
+                        <td width="20%">
+                            @member.DateWebEnd
+                        </td>
+                        <td width="20%">
+                            @member.SurveyType
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+    TEST
+
+    <table class="table mydatatable">
+        <thead>
+            <tr>
+
+                @*<th>
+                        @Html.DisplayNameFor(model => model.DsId)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.CountryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DsName)
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.ProposedMonth)/@Html.DisplayNameFor(model => model.ProposedYear)*@
+                    Proposed Month
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.DateWebStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateWebEnd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurveyType)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.DsId)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CountryName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DsName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProposedMonth)/@Html.DisplayFor(modelItem => item.ProposedYear)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateWebStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateWebEnd)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SurveyType)
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

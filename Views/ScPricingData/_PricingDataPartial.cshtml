@@ -1,0 +1,269 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@model CSMS.Models.ScPricingData
+<script src="~/theme/assets/node_modules/jquery/dist/jquery.min.js"></script>
+
+<div class="card">
+    <div class="card-body">
+
+
+
+        <br /><br />
+        <div class="form-group">
+            <label asp-for="ItemCode" class="control-label"> CHOOSE AN ITEM</label>
+            <select id="itemCodeSelector" asp-for="ItemCode" class="form-control" asp-items="ViewBag.ItemCode"><option selected>CHOOSE ITEM</option></select>
+        </div>
+
+
+
+        <h4 id="Category" hidden></h4>
+        <div id="Description" class="alert alert-info" style="display:none"></div>
+        <div id="itemCodeHidden" hidden>TEST</div>
+        <br />
+
+        <table class="table color-bordered-table muted-bordered-table">
+            <thead>
+                <tr>
+                    <th>Outlet Name</th>
+                    <th>Brand</th>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                    <th>Price</th>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+
+                        @*<input asp-for="StoreId" class="form-control" />*@
+                        <select asp-for="@Model.StoreId" class="form-control" asp-items="ViewBag.ScStoreId"><option selected>CHOOSE STORE</option></select>
+                        <span asp-validation-for="StoreId" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Brand" class="form-control" />
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Quantity" class="form-control" />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input id="unit" type="text" asp-for="Unit" class="form-control" />
+                        <span asp-validation-for="Unit" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Comments" class="form-control" />
+                        <span asp-validation-for="Comments" class="text-danger"></span>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+
+        <table class="table color-bordered-table muted-bordered-table Utility HideAll ">
+            <thead>
+                <tr>
+                    <th>Basic Charge</th>
+                    <th>Rate</th>
+                    <th>Additional Charge</th>
+                    <th>Rate</th>
+                    <th>Other Charge</th>
+                    <th>Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input asp-for="BasicChargeUnit" class="form-control" />
+                        <span asp-validation-for="BasicChargeUnit" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="BasicChargeRate" class="form-control" />
+                        <span asp-validation-for="BasicChargeRate" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="AdditionalChargeUnit" class="form-control" />
+                        <span asp-validation-for="AdditionalChargeUnit" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="AdditionalChargeRate" class="form-control" />
+                        <span asp-validation-for="AdditionalChargeRate" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="OtherChargeUnit" class="form-control" />
+                        <span asp-validation-for="OtherChargeUnit" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="OtherChargeRate" class="form-control" />
+                        <span asp-validation-for="OtherChargeRate" class="text-danger"></span>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <table class="table color-bordered-table muted-bordered-table Insurance HideAll">
+            <thead>
+                <tr>
+                    <th>Third Party Liability</th>
+                    <th>Comprehensive</th>
+                    <th>Collision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input asp-for="ThirdParty" class="form-control" />
+                        <span asp-validation-for="ThirdParty" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Comprehensive" class="form-control" />
+                        <span asp-validation-for="Comprehensive" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Collision" class="form-control" />
+                        <span asp-validation-for="Collision" class="text-danger"></span>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <table class="table color-bordered-table muted-bordered-table Tuition_16 Tuition_79 Tuition_1012 HideAll ">
+            <thead>
+                <tr>
+                    <th>Annual Registration Fee</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input asp-for="RegistrationFee" class="form-control" />
+                        <span asp-validation-for="RegistrationFee" class="text-danger"></span>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+
+        <select hidden asp-for="Syscode" class="form-control">
+            <option selected value="@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserSysCode")">@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserSysCode") </option>
+        </select>
+        <div class="form-group">
+            <input type="submit" id="AddPrice" value="Add Price" class="btn btn-success" style="width:99%" /><br /><br />
+            <input type="button" style="width:49%" value="Back to Stores" class="btn btn-info" onclick="location.href = '@Url.Action("Create","ScPricingStores")'; document.getElementById('page2').style.display = 'block';document.getElementById('page1').style.display = 'none';" />
+            <a class="btn btn-danger" style="width:50%" asp-controller="Home" asp-action="Questionnaires">Finish and Submit</a>
+        </div>
+        <br /><br />
+        <br />
+        @*<input hidden asp-for="Syscode" class="form-control" value="" />*@
+        @*<span asp-validation-for="Syscode" class="text-danger"></span>*@
+
+
+    </div>
+    <br />
+
+    @* ViewComponent That selects ScPricingData records for specifiv Duty Station *@
+    <div>
+        @await Component.InvokeAsync("Selected", new { myItemCode = HttpContextAccessor.HttpContext.Session.GetString("_selectedItemCode") })
+    </div>
+    <br />
+    @*  <input type="submit" value="Complete The Questionnaire" class="btn btn-danger w-100" />*@
+    <br />
+    <br />
+
+
+</div>
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var idName = document.getElementsByClassName("HideAll");
+
+        for (var i = 0; i < idName.length; i++) {
+
+            idName[i].style.display = 'none';
+        }
+        //var catName;
+
+
+        $("#itemCodeSelector").on('click', function () {
+
+            val1 = $("#itemCodeSelector").val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("setCategory")",
+                data: { itemcode: val1},
+                dataType: "text",
+                success: function (msg)
+                {
+                    if (msg != null)
+                    {
+                        //$("#Category").val() = msg;
+                        msg1 = jQuery.parseJSON(msg);
+                        //alert(msg);
+                        //catName = msg1.categoryName;
+                        //def_unit = msg1.DefaultUnit;
+                        $("#Description").html(msg1.descriptionText).html();
+                        $("#Description").show();
+                        $("#Category").text(msg1.categoryName).text();
+                        $("#Defaultunit").html(msg1.default_Unit).html();
+                        $("#unit").val(msg1.default_Unit);
+                        $("#itemCodeHidden").html(val1);
+
+                        console.log(val1);
+
+                        @*$.ajax({
+                            type: "POST",
+                            url: "@Url.Action("CallVC")",
+                            data: { itemcode: val1 },
+                            dataType: "text",
+                            success: function (msg01) {  }
+                        });*@
+                    }
+
+                    else
+                    alert("Error");
+                    //console.log(msg);
+
+
+                },
+                error: function (req, status, error) {
+                    console.log(msg1);
+
+
+                }
+            });
+            requestCallback.requestComplete(true);
+
+        });
+
+        $('#Category').bind('DOMSubtreeModified', function () {
+            display_Fields($("#Category").text());
+
+        });
+
+
+    });
+
+
+</script>
+
+
+<script src="~/js/site.js"></script>

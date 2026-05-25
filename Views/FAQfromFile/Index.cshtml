@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@model List<CSMS.Models.FaqPageViewModel>
+
+@{
+    ViewData["Title"] = "FAQ";
+}
+
+<h2>Frequently Asked Questions</h2>
+
+@if (Model == null || Model.Count == 0)
+{
+    <p>No FAQ data found.</p>
+}
+else
+{
+    foreach (var faq in Model)
+    {
+        <div class="mb-5">
+
+            <h3>@faq.FileName</h3>
+
+            @foreach (var faqGroup in faq.Sections)
+            {
+                <h4>@faqGroup.Type</h4>
+
+                foreach (var faqItem in faqGroup.Items)
+                {
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            @Html.Raw(faqItem.Question)
+                        </div>
+
+                        <div class="card-body">
+                            @Html.Raw(faqItem.Answer)
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    }
+}

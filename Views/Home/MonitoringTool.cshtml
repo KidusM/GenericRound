@@ -1,0 +1,52 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "MonitoringTool";
+    Layout = "~/Views/Shared/theme/_ThemeLayoutDataTables.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <br /><br />
+
+        <h3 class="text-center card-title">Survey Status by Organization and Grade</h3>
+        <br />
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        
+        <div id="divPartial">
+            <partial name="_MonitoringReport" />
+        </div>
+
+        <div class="modal long-modal" tabindex="-1" role="dialog" aria-labelledby="longmodal" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="longmodal">Explanation of the Survey Monitoring table </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h4></h4>
+                        <p>The table displays the status of the Staff Expenditure Survey which is being conducted online.</p>
+                        <p>Staff members are categorized by organization and Grade</p>
+                        <p>The Numerator denotes number of staff members that completed the questionnaire and the denomenator denotes total staff number that registered for the survey.</p>
+                        <p>For instance, the figure <strong style="color:blue">'8/20'</strong> indicates that out of a total of 20 staff members that registered, 8 have completed the online questionnaire.</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger waves-effect text-start text-white" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <h5 class="text-right"><input type="button" value="Click here for help on the table" data-bs-toggle="modal" data-bs-target=".long-modal" class="model_img btn btn-outline-info" /> </h5>
+
+        <br />
+        <br />
+    </div>
+</div>
