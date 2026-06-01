@@ -7,6 +7,8 @@
 @{var i = 1;
 }
 <br />
+@{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+    bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";}
 <h4 style="font-weight:bold">Before the survey </h4>
 <br />
 
@@ -15,7 +17,14 @@
     string chck = "chck" + i.ToString();
     if (item.CbId.Contains("H1-"))
     {
-
+        if (role)
+        {
+            <div>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+            </div>
+        }
         <div class="tabs">
             <div class="tab">
 
@@ -62,7 +71,14 @@
 
     if (item.CbId.Contains("H2-"))
     {
-
+        if (role)
+        {
+            <div>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+            </div>
+        }
         <div class="tabs">
             <div class="tab">
                 <input type="checkbox" id="@chck">
@@ -97,7 +113,14 @@
     string chck = "chck" + i.ToString();
     if (item.CbId.Contains("H3-"))
     {
-
+        if (role)
+        {
+            <div>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+            </div>
+        }
         <div class="tabs">
             <div class="tab">
                 <input type="checkbox" id="@chck">

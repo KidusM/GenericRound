@@ -7,8 +7,12 @@
 @{var i = 1;
 }
 <br />
+
 <h4 style="font-weight:bold">Before the survey </h4>
 <br />
+
+@{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+    bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";}
 
 @foreach (var item in Model)
 {
@@ -20,7 +24,11 @@
             <div class="tab">
                 @if (dsGroup == "2" && item.DetailTask != null)
                 {
-
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+                    </div>
                     <input type="checkbox" id="@chck">
 
                     <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium; @((item.GroupId == "4" && dsGroup != "0") ? "display:none" : "display:block")">
@@ -34,11 +42,11 @@
 
                         @Html.Raw(item.DetailTask)
                         @*@Html.DisplayFor(modelItem => item.DetailTask)*@
-                       
 
 
-                    </div>                }
-                </div>
+
+                    </div>}
+            </div>
         </div>
 
     }
@@ -66,7 +74,11 @@
 
     if (item.CbId.Contains("2-") && !(item.CbId.Contains("H2-")))
     {
-
+        <div>
+            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+        </div>
         <div class="tabs">
             <div class="tab">
                 @if (dsGroup == "2" && item.DetailTask != null)
@@ -79,12 +91,12 @@
 
                         @Html.Raw(item.DetailTask)
                         @*@Html.DisplayFor(modelItem => item.DetailTask)*@
-                        
+
 
 
 
                     </div>}
-                </div>
+            </div>
         </div>
 
     }
@@ -106,7 +118,11 @@
     string chck = "chck" + i.ToString();
     if (item.CbId.Contains("3-") && !(item.CbId.Contains("H3-")))
     {
-
+        <div>
+            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+        </div>
         <div class="tabs">
             <div class="tab">
                 @if (dsGroup == "2" && item.DetailTask != null)
@@ -119,10 +135,10 @@
 
                         @Html.Raw(item.DetailTask)
                         @*@Html.DisplayFor(modelItem => item.DetailTask)*@
-                        
+
 
                     </div>}
-                </div>
+            </div>
         </div>
 
     }

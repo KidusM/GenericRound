@@ -4,17 +4,30 @@
 
 @{string dsGroup = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay"); }
 
-@{var i = 1;}
+@{var i = 1;
+}
 <br />
 <h4 style="font-weight:bold">Before the survey </h4>
 <br />
+@{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+    bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";}
 
 @foreach (var item in Model)
 {
     string chck = "chck" + i.ToString();
+
+
+
     if (item.CbId.Contains("1-") && !(item.CbId.Contains("H1-")))
     {
-
+        if (role)
+        {
+            <div>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+            </div>
+        }
         <div class="tabs">
             <div class="tab">
 
@@ -28,9 +41,9 @@
                 <div class="tab-content">
 
 
-                        @Html.Raw(item.DetailTaskG1)
-                        @*@Html.DisplayFor(modelItem => item.DetailTaskG1)*@
-                   
+                    @Html.Raw(item.DetailTaskG1)
+                    @*@Html.DisplayFor(modelItem => item.DetailTaskG1)*@
+
 
                 </div>
             </div>
@@ -61,7 +74,11 @@
 
     if (item.CbId.Contains("2-") && !(item.CbId.Contains("H2-")))
     {
-
+        <div>
+            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+        </div>
         <div class="tabs">
             <div class="tab">
                 <input type="checkbox" id="@chck">
@@ -69,9 +86,9 @@
                 <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium;">@Html.Raw(item.Task)</label>
                 <div class="tab-content">
 
-                  
-                        @Html.Raw(item.DetailTaskG1)
-    
+
+                    @Html.Raw(item.DetailTaskG1)
+
 
                 </div>
             </div>
@@ -96,7 +113,11 @@
     string chck = "chck" + i.ToString();
     if (item.CbId.Contains("3-") && !(item.CbId.Contains("H3-")))
     {
-
+        <div>
+            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+        </div>
         <div class="tabs">
             <div class="tab">
                 <input type="checkbox" id="@chck">
@@ -104,10 +125,10 @@
                 <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium;">@Html.Raw(item.Task)</label>
                 <div class="tab-content">
 
-                  
-                        @Html.Raw(item.DetailTaskG1)
-                        @*@Html.DisplayFor(modelItem => item.DetailTaskG1)*@
-                  
+
+                    @Html.Raw(item.DetailTaskG1)
+                    @*@Html.DisplayFor(modelItem => item.DetailTaskG1)*@
+
                 </div>
             </div>
         </div>

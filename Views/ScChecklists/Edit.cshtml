@@ -12,35 +12,63 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label class="control-label"> Survey Timing Code </label> <br />
+            1 = Before the Survey, <br />2 = During the Survey, <br />3 = After the Survey
+            <input asp-for="Number" class="form-control" />
+            <span asp-validation-for="Number" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label"></label><b>Survey Timing </b> <br />Before the Survey <br /> During the Survey <br /> After the Survey
+            <input asp-for="Time" class="form-control" />
+            <span asp-validation-for="Time" class="text-danger"></span>
+        </div>*@
             <input type="hidden" asp-for="Id" />
+
+            <!-- Hidden field that stores the code -->
+            <input type="hidden" asp-for="Number" id="SurveyTimingCode" />
+
             <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
-                <span asp-validation-for="Number" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Time" class="control-label"></label>
-                <input asp-for="Time" class="form-control" />
+                <label asp-for="Time" class="control-label"><b>Survey Timing</b></label>
+
+                <select asp-for="Time"
+                        class="form-control"
+                        id="SurveyTimingDropdown"
+                        onchange="setSurveyTimingCode()">
+                    <option value="">-- Select Survey Timing --</option>
+                    <option value="Before the Survey" data-code="1">Before the Survey</option>
+                    <option value="During the Survey" data-code="2">During the Survey</option>
+                    <option value="After the Survey" data-code="3">After the Survey</option>
+                </select>
+
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
                 <label asp-for="Task" class="control-label"></label>
-                <input asp-for="Task" class="form-control" />
+                @*<input asp-for="Task" class="form-control" />*@
+                <textarea asp-for="Task" class="form-control" rows="10"></textarea>
                 <span asp-validation-for="Task" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DetailTask" class="control-label"></label>
-                <input asp-for="DetailTask" class="form-control" />
+                @*<input asp-for="DetailTask" class="form-control" />*@
+                <textarea asp-for="DetailTask" class="form-control" rows="10"></textarea>
                 <span asp-validation-for="DetailTask" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CbId" class="control-label"></label>
-                <input asp-for="CbId" class="form-control" />
+                <label class="control-label"></label> Survey Timing Code - Task display order
+                <input asp-for="CbId" id="CbId" class="form-control" />
                 <span asp-validation-for="CbId" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="DetailTaskG1" class="control-label"></label>
-                <input asp-for="DetailTaskG1" class="form-control" />
+                @*<input asp-for="DetailTaskG1" class="form-control" />*@
+
+                <textarea asp-for="DetailTaskG1" class="form-control" rows="10"></textarea>
                 <span asp-validation-for="DetailTaskG1" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -59,3 +87,22 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script>
+    function updateFields() {
+
+        const select = document.querySelector('select[name="Time"]');
+        const code = select.options[select.selectedIndex].dataset.code || "";
+
+        document.getElementById("Number").value = code;
+
+        const displayOrder = document.getElementById("DisplayOrder").value;
+
+        if (code && displayOrder) {
+            document.getElementById("CbId").value = code + "-" + displayOrder;
+        } else {
+            document.getElementById("CbId").value = "";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", updateFields);
+</script>
