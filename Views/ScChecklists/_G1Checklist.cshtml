@@ -1,5 +1,6 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
+
 @model IEnumerable<CSMS.Models.ScChecklist>
 
 @{string dsGroup = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay"); }
@@ -8,7 +9,9 @@
 <br />
 <h4 style="font-weight:bold">Before the survey </h4>
 <br />
-
+@{
+    bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+}
 @foreach (var item in Model)
 {
     string chck = "chck" + i.ToString();
@@ -17,6 +20,15 @@
 
         <div class="tabs">
             <div class="tab">
+
+                @if (role)
+                {
+                <div>
+                    <a asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+                </div>
+                }
 
                 <input type="checkbox" id="@chck">
 
