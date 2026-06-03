@@ -39,7 +39,24 @@
                                 This will create a new round of Cost-of-Living Surveys and copy the folder structure
                                 of the previous round. Documents relevant to this round should be uploaded separately.
                             </p>
+                           
+                            @if (ViewBag.AvailableRounds != null && ViewBag.AvailableRounds.Count > 0)
+                            {
+                                <div class="alert alert-secondary">
+                                    <strong> Available  Rounds of Surveys:</strong>
 
+                                    <div class="mt-2">
+                                        @foreach (var round in ViewBag.AvailableRounds)
+                                        {
+                                            <div
+                                                    class="btn btn-outline-danger btn-sm me-2 mb-2"
+                                                    @* onclick="document.getElementById('yearToDelete').value='@round'" *@>
+                                                @round Round of Surveys
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
                             <form asp-action="Index" asp-controller="CreateARound" method="post">
                                 @Html.AntiForgeryToken()
 
