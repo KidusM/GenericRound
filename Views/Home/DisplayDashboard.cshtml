@@ -176,9 +176,9 @@ else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Sit
                                 Click the button below to manage new survey rounds.
                             </p>
                             @*<a href="javascript:void(0)" class="btn btn-primary text-white">
-                        Go
-                        somewhere
-                        </a>*@
+                            Go
+                            somewhere
+                            </a>*@
                             <div class="text-center">
                                 <a class="btn btn-info text-white" asp-controller="CreateARound" asp-action="Index">Round of Surveys</a>
                             </div>
@@ -202,9 +202,9 @@ else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Sit
                                 Click the button below to add or remove survey documents.
                             </p>
                             @*<a href="javascript:void(0)" class="btn btn-primary text-white">
-                        Go
-                        somewhere
-                        </a>*@
+                            Go
+                            somewhere
+                            </a>*@
                             <div class="text-center">
                                 <a class="btn btn-info text-white" asp-controller="DocumentUpload" asp-action="Index">Add/Remove Documents</a>
                             </div>
@@ -248,14 +248,28 @@ else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Sit
                                 Click the button below to add edit or remove Checklist of Tasks for the Survey Coordinator.
                             </p>
 
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
                             <div class="text-center">
-                                <a class="btn btn-info text-white" asp-controller="ScChecklists" asp-action="Index">Modify Checklist</a>
+                                <h4 class="card-title" style="font-weight:bold">Manage SC Checklist</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to add edit or remove tasks to the Survey Cooridnator Checklist of Tasks.
+                            </p>
+
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="ScChecklists" asp-action="Index">Manage SC Checklist of Tasks</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     
