@@ -19,86 +19,178 @@
                 </div>
             }
 
-        <div class="accordion mb-4" id="uploadInfoAccordion">
+            @if (TempData["RoundMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["RoundMessage"]
+                </div>
+            }
 
-            <div class="accordion-item">
+            @if (TempData["RoundError"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["RoundError"]
+                </div>
+            }
 
-                <h2 class="accordion-header" id="headingUploadInfo">
+            <!-- DynamicPartials Download / Upload -->
 
-                    <button class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapseUploadInfo"
-                            aria-expanded="false"
-                            aria-controls="collapseUploadInfo">
+            <div class="card border-warning mb-4">
 
-                        <b>Instructions & File Naming Rules</b>
+                <div class="card-header bg-warning text-dark">
+                    <strong>DynamicPartials Round Maintenance</strong>
+                </div>
 
-                    </button>
+                <div class="card-body">
 
-                </h2>
+                    <p>
+                        This feature downloads all files from the most recent survey round
+                        found in <code>wwwroot/DynamicPartials</code>.
+                    </p>
 
-                <div id="collapseUploadInfo"
-                     class="accordion-collapse collapse"
-                     aria-labelledby="headingUploadInfo"
-                     data-bs-parent="#uploadInfoAccordion">
+                    <p>
+                        After making modifications, compress the files back into a ZIP file
+                        and upload them using the form below.
+                    </p>
 
-                    <div class="accordion-body">
+                    <div class="alert alert-info">
 
-                        <div class="alert alert-info mb-4">
+                        <strong>Important:</strong>
 
-                            <h5 class="alert-heading">
-                                How this upload works
-                            </h5>
+                        <ul class="mb-0">
+                            <li>The system automatically detects the latest survey round.</li>
+                            <li>Existing files will be overwritten during upload.</li>
+                            <li>Only ZIP files are accepted.</li>
+                            <li>Keep the original folder structure when creating the ZIP file.</li>
+                        </ul>
 
-                            <p>
-                                This form uploads documents to their correct folder based on the code written inside the file name.
-                            </p>
+                    </div>
 
-                            <p class="mb-0">
-                                Multiple files can be uploaded at the same time.
-                            </p>
+                    <a asp-action="DownloadDynamicPartialsRound"
+                       asp-controller="DocumentUpload"
+                       class="btn btn-warning mb-3">
+
+                        Download Latest Round Files
+
+                    </a>
+
+                    <form asp-action="UploadDynamicPartialsRound"
+                          asp-controller="DocumentUpload"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group mb-3">
+
+                            <label class="form-label fw-bold">
+                                Upload Modified Round ZIP File
+                            </label>
+
+                            <input type="file"
+                                   name="dynamicPartialsZipFile"
+                                   class="form-control"
+                                   accept=".zip" />
 
                         </div>
 
-                        <div class="card border-secondary">
+                        <button type="submit"
+                                class="btn btn-success">
 
-                            <div class="card-header bg-light">
-                                <strong>File Name Logic</strong>
-                            </div>
+                            Upload Modified Files
 
-                            <div class="card-body">
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- Existing Instructions -->
+
+            <div class="accordion mb-4" id="uploadInfoAccordion">
+
+                <div class="accordion-item">
+
+                    <h2 class="accordion-header" id="headingUploadInfo">
+
+                        <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseUploadInfo"
+                                aria-expanded="false"
+                                aria-controls="collapseUploadInfo">
+
+                            <b>Instructions & File Naming Rules</b>
+
+                        </button>
+
+                    </h2>
+
+                    <div id="collapseUploadInfo"
+                         class="accordion-collapse collapse"
+                         aria-labelledby="headingUploadInfo"
+                         data-bs-parent="#uploadInfoAccordion">
+
+                        <div class="accordion-body">
+
+                            <div class="alert alert-info mb-4">
+
+                                <h5 class="alert-heading">
+                                    How this upload works
+                                </h5>
 
                                 <p>
-                                    Expected file name format:
+                                    This form uploads documents to their correct folder based on the code written inside the file name.
                                 </p>
-
-                                <div class="bg-light border rounded p-3 mb-3">
-                                    <code>[2026-HQ-PP-SC] 01 File Name.pdf</code>
-                                </div>
-
-                                <p>
-                                    The system reads the part inside the brackets:
-                                </p>
-
-                                <div class="bg-light border rounded p-3 mb-3">
-                                    <code>2026-HQ-PP-SC</code>
-                                </div>
-
-                                <p>
-                                    Then it creates or uses this folder path:
-                                </p>
-
-                                <div class="bg-light border rounded p-3 mb-3">
-                                    <code>Documents/2026/HQ/PP/SC</code>
-                                </div>
 
                                 <p class="mb-0">
-                                    The bracket code is removed from the saved file name, so the final uploaded file becomes:
+                                    Multiple files can be uploaded at the same time.
                                 </p>
 
-                                <div class="bg-light border rounded p-3 mt-3">
-                                    <code>01 File Name.pdf</code>
+                            </div>
+
+                            <div class="card border-secondary">
+
+                                <div class="card-header bg-light">
+                                    <strong>File Name Logic</strong>
+                                </div>
+
+                                <div class="card-body">
+
+                                    <p>
+                                        Expected file name format:
+                                    </p>
+
+                                    <div class="bg-light border rounded p-3 mb-3">
+                                        <code>[2026-HQ-PP-SC] 01 File Name.pdf</code>
+                                    </div>
+
+                                    <p>
+                                        The system reads the part inside the brackets:
+                                    </p>
+
+                                    <div class="bg-light border rounded p-3 mb-3">
+                                        <code>2026-HQ-PP-SC</code>
+                                    </div>
+
+                                    <p>
+                                        Then it creates or uses this folder path:
+                                    </p>
+
+                                    <div class="bg-light border rounded p-3 mb-3">
+                                        <code>Documents/2026/HQ/PP/SC</code>
+                                    </div>
+
+                                    <p class="mb-0">
+                                        The bracket code is removed from the saved file name, so the final uploaded file becomes:
+                                    </p>
+
+                                    <div class="bg-light border rounded p-3 mt-3">
+                                        <code>01 File Name.pdf</code>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -111,7 +203,7 @@
 
             </div>
 
-        </div>
+            <!-- Existing Upload Form -->
 
             <form asp-action="Index"
                   asp-controller="DocumentUpload"
@@ -142,20 +234,26 @@
                 </div>
 
                 <div class="mb-3">
+
                     <label class="form-label fw-bold">
                         Selected Files
                     </label>
 
                     <ul id="fileList" class="list-group">
+
                         <li class="list-group-item text-muted">
                             No files selected.
                         </li>
+
                     </ul>
+
                 </div>
 
                 <button type="submit"
                         class="btn btn-primary">
+
                     Upload
+
                 </button>
 
                 <a asp-action="Delete"

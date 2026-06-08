@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using System.IO.Compression;
 
 namespace CSMS.Controllers
 {
@@ -64,6 +65,31 @@ namespace CSMS.Controllers
             return GetRealFolderName(assetsPath, "Documents");
         }
 
+        private string GetLatestDynamicPartialRoundFolder()
+        {
+            var dynamicPartialsPath = Path.Combine(
+                _environment.WebRootPath,
+                "DynamicPartials");
+
+            if (!Directory.Exists(dynamicPartialsPath))
+            {
+                return null;
+            }
+
+            var latestYearFolder = Directory.GetDirectories(dynamicPartialsPath)
+                .Select(d => Path.GetFileName(d))
+                .Where(name => int.TryParse(name, out _))
+                .OrderByDescending(name => int.Parse(name))
+                .FirstOrDefault();
+
+            if (latestYearFolder == null)
+            {
+                return null;
+            }
+
+            return Path.Combine(dynamicPartialsPath, latestYearFolder);
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -95,7 +121,7 @@ namespace CSMS.Controllers
                 return View(model);
             }
 
-            var allowedExtensions = new[] { ".xlsx", ".xls", ".pdf", ".doc", ".docx" };
+            var allowedExtensions = new[] { ".xlsx", ".xls", ".pdf", ".doc", ".docx", ".xlsm" };
 
             foreach (var file in model.Files)
             {
@@ -117,13 +143,11 @@ namespace CSMS.Controllers
                 }
 
                 var folderStructure = originalFileName.Substring(1, closingBracketIndex - 1);
-
                 var folderParts = folderStructure.Split('-');
 
                 var newFileName = originalFileName.Substring(closingBracketIndex + 1).Trim();
 
                 var rootPath = GetDocumentsRootPath();
-
                 var folderPath = rootPath;
 
                 foreach (var part in folderParts)
@@ -143,6 +167,113 @@ namespace CSMS.Controllers
             model.UploadedFiles = GetUploadedFiles();
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult DownloadDynamicPartialsRound()
+        {
+            if (!IsSiteAdmin())
+            {
+                return View("~/Views/Shared/Unauthorized.cshtml");
+            }
+
+            var roundPath = GetLatestDynamicPartialRoundFolder();
+
+            if (roundPath == null)
+            {
+                TempData["RoundError"] = "No round folder was found in DynamicPartials.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var year = Path.GetFileName(roundPath);
+
+            var files = Directory.GetFiles(roundPath, "*.*", SearchOption.AllDirectories);
+
+            if (files.Length == 0)
+            {
+                TempData["RoundError"] = $"The DynamicPartials folder for {year} has no files to download.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var memoryStream = new MemoryStream();
+
+            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+            {
+                foreach (var file in files)
+                {
+                    var relativePath = Path.GetRelativePath(roundPath, file);
+                    archive.CreateEntryFromFile(file, relativePath);
+                }
+            }
+
+            memoryStream.Position = 0;
+
+            return File(
+                memoryStream,
+                "application/zip",
+                $"DynamicPartials-{year}.zip");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadDynamicPartialsRound(IFormFile dynamicPartialsZipFile)
+        {
+            if (!IsSiteAdmin())
+            {
+                return View("~/Views/Shared/Unauthorized.cshtml");
+            }
+
+            if (dynamicPartialsZipFile == null)
+            {
+                TempData["RoundError"] = "Please select a zip file.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var extension = Path.GetExtension(dynamicPartialsZipFile.FileName).ToLower();
+
+            if (extension != ".zip")
+            {
+                TempData["RoundError"] = "Only .zip files are allowed.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var roundPath = GetLatestDynamicPartialRoundFolder();
+
+            if (roundPath == null)
+            {
+                TempData["RoundError"] = "No round folder was found in DynamicPartials.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var safeRoundPath = Path.GetFullPath(roundPath);
+
+            using (var stream = dynamicPartialsZipFile.OpenReadStream())
+            using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
+            {
+                foreach (var entry in archive.Entries)
+                {
+                    if (string.IsNullOrWhiteSpace(entry.Name))
+                    {
+                        continue;
+                    }
+
+                    var destinationPath = Path.GetFullPath(
+                        Path.Combine(roundPath, entry.FullName));
+
+                    if (!destinationPath.StartsWith(safeRoundPath))
+                    {
+                        return BadRequest("Invalid zip file path.");
+                    }
+
+                    Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+
+                    entry.ExtractToFile(destinationPath, true);
+                }
+            }
+
+            TempData["RoundMessage"] = "DynamicPartials round files uploaded successfully.";
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -176,9 +307,9 @@ namespace CSMS.Controllers
 
             var file = uploadFiles.FirstOrDefault();
 
-            if (file == null || file.Length == 0)
+            if (file == null)
             {
-                TempData["UploadError"] = "The selected file was empty.";
+                TempData["UploadError"] = "Please select a file.";
                 return RedirectToAction(nameof(Delete), new { currentPath });
             }
 
