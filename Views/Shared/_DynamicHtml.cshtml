@@ -1,0 +1,38 @@
+﻿@model string
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
+
+@{
+    var round = ViewData["Round"]?.ToString();
+    string path;
+
+    if (string.IsNullOrWhiteSpace(round))
+    {
+        path = System.IO.Path.Combine(
+            Env.WebRootPath,
+            "DynamicPartials",
+            $"{Model}.html"
+        );
+    }
+    else
+    {
+        path = System.IO.Path.Combine(
+            Env.WebRootPath,
+            "DynamicPartials",
+            round,
+            $"{Model}.html"
+        );
+    }
+}
+
+@if (System.IO.File.Exists(path))
+{
+    @Html.Raw(System.IO.File.ReadAllText(path))
+}
+else
+{
+    <div class="alert alert-warning">
+        Content file not found:
+        <br />
+        @path
+    </div>
+}

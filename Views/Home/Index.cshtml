@@ -26,7 +26,7 @@
                 {
                     <h2 class="card-title text-white" style="padding:40px 0 5px 0">Welcome</h2>
                     <h4 class="card-title text-white" style="padding:5px 0">ICSC Cost-of-Living Surveys</h4>
-                   
+
                 }
                 @{
                     bool display = @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") != null && @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") != "";
@@ -68,7 +68,7 @@
                 <br />
                 <!-- MESSAGE BEFORE SELECTION  -->
 
-                <div style="@(@HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") != null? "display:none" : "display:block")">
+                <div style="@(@HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") != null ? "display:none" : "display:block")">
 
                     <h5>
                         <br />
@@ -101,17 +101,17 @@
                                                 @*@Html.DropDownListFor(x => x.Dsid, new SelectList(Model.Dsid, "dsid", "Country"), "« ‹ Select › »", new { @class = "form-control" })*@
 
                                                 @*<select id="itemCodeSelector" data-val-required="This is a required field . . ." name="dsIdSelected" class="form-control" asp-items="ViewBag.DutyStationList"></select>*@
-                                                <select id="itemCodeSelector" data-val-required="This is a required field . . ." name="dsIdSelected" class="form-control" >
+                                                <select id="itemCodeSelector" data-val-required="This is a required field . . ." name="dsIdSelected" class="form-control">
                                                     <option id="emptySelection" label="Select your duty station . . ."></option>
 
                                                     <optgroup label='ACTIVE SURVEYS' style="color:darkorange; ">
 
 
-                                                            @foreach (var a in ViewBag.ActiveListAll)
-                                                            {
-                                                                string val = a.Value + "0";
-                                                                <option value=@val style="color:black;  font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;@a.Text </option>
-                                                            }
+                                                        @foreach (var a in ViewBag.ActiveListAll)
+                                                        {
+                                                            string val = a.Value + "0";
+                                                            <option value=@val style="color:black;  font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;@a.Text </option>
+                                                        }
 
                                                         @*</optgroup>*@
 
@@ -120,24 +120,24 @@
 
 
 
-                                                            @foreach (var a in ViewBag.upcomingListAll)
-                                                            {
-                                                                string val = a.Value + "1";
-                                                                <option value=@val style="color:black;  font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;@a.Text </option>
-                                                            }
+                                                        @foreach (var a in ViewBag.upcomingListAll)
+                                                        {
+                                                            string val = a.Value + "1";
+                                                            <option value=@val style="color:black;  font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;@a.Text </option>
+                                                        }
 
                                                         @*</optgroup>*@
                                                     </optgroup>
 
                                                     <optgroup label='PAST SURVEYS' style="color:darkorange; ">
 
-                                                            @foreach (var a in ViewBag.pastListAll)
-                                                            {
-                                                                string val = a.Value + "2";
-                                                                <option value=@val style="color:black;  font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;@a.Text </option>
-                                                            }
+                                                        @foreach (var a in ViewBag.pastListAll)
+                                                        {
+                                                            string val = a.Value + "2";
+                                                            <option value=@val style="color:black;  font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;@a.Text </option>
+                                                        }
 
-                                     
+
 
 
                                                     </optgroup>
@@ -152,8 +152,8 @@
                                     </td>
                                     <td class="col-sm-3">
                                         <input type="submit" value="Load" class="btn btn-info btn-block w-100">
-                                       
-                                        
+
+
                                     </td>
 
                                 </tr>
@@ -170,15 +170,23 @@
                     </div>
 
                 </div>
+
+
             </section> <!-- MESSAGE BEFORE SELECTION ENDS -->
-            <!-- HOUSING SECTION BEGINS -->
+            @{var surveyRound = @HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyRoundToDisplay");}
+            @{ ViewData["Round"] = surveyRound; }
             
+
+
+            <!-- HOUSING SECTION BEGINS -->
+
             <div id="Housing" style="@((@HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay") == "H")? "display:block" : "display:none")">
-                <partial name="_HousingStaff" />
+                @*<partial name="_HousingStaff" />*@
+
+                <partial name="_DynamicHtml" model='"HousingStaff"' />
             </div>
             <!-- HOUSING SECTION ENDS -->
-            
-    <!-- PP SECTION BEGINS -->
+            <!-- PP SECTION BEGINS -->
 
             <div id="PP" style="@((@HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay") != "H")? "display:block" : "display:none")">
 
@@ -186,17 +194,23 @@
 
                 <!-- PP FOR HQ AND GROUP 1 SECTION BEGINS-->
                 <div id="HQGroup1" style="@((@HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "1" || @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0")? "display:block" : "display:none")">
-                   
-                    <partial name="_PPStaffG1HQ" />
+
+                    @*<partial name="_PPStaffG1HQ" />*@
+                    <partial name="_DynamicHtml" , model='"PPStaffG1HQ"' />
 
                 </div> <!-- PP FOR HQ SECTION ENDS -->
                 <!-- PP FOR GROUP 2 SECTION BEGINS -->
-                    <partial name="_PPStaffG2" />
-                <!-- PP FOR GROUP 2 SECTION ENDS -->
+                <div id="HQGroup2" style="@((@HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "2")? "display:block" : "display:none")">
+                    @*<partial name="_PPStaffG2" />*@
+                    <partial name="_DynamicHtml" , model='"PPStaffG2"' />
+                    <!-- PP FOR GROUP 2 SECTION ENDS -->
 
-            </div> <!-- PP SECTION ENDS -->
+                </div> <!-- PP SECTION ENDS -->
 
 
+            </div>
         </div>
-        </div>
+
+    </div>
+
 </div>

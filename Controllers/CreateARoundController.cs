@@ -107,7 +107,12 @@ namespace CSMS.Controllers
             Directory.CreateDirectory(newYearPath);
             CopyFoldersOnly(sourcePath, newYearPath);
 
-            ViewBag.Message = $"Folder structure for {year} created successfully.";
+            CreateWelcomePagesForNewRound(year);
+
+            ViewBag.Message = $"Round {year} was created successfully.";
+            ViewBag.RoundCreated = true;
+            ViewBag.CreatedRound = year;
+
             LoadAvailableRounds();
 
             return View();
@@ -157,9 +162,12 @@ namespace CSMS.Controllers
             }
 
             Directory.Delete(roundPath, recursive: true);
+            DeleteWelcomePagesForRound(yearToDelete);
 
-            ViewBag.Message =
-                $"Folder {yearToDelete} and its subfolders were deleted successfully.";
+            ViewBag.Message = $"Round {yearToDelete} was deleted successfully.";
+
+            ViewBag.RoundDeleted = true;
+            ViewBag.DeletedRound = yearToDelete;
 
             LoadAvailableRounds();
             return View("Index");
@@ -179,6 +187,45 @@ namespace CSMS.Controllers
                 string newDirectory = Path.Combine(destinationDir, relativePath);
 
                 Directory.CreateDirectory(newDirectory);
+            }
+        }
+
+        private void CreateWelcomePagesForNewRound(string year)
+        {
+            string dynamicPartialsRoot = Path.Combine(_environment.WebRootPath, "DynamicPartials");
+
+            if (!Directory.Exists(dynamicPartialsRoot))
+            {
+                Directory.CreateDirectory(dynamicPartialsRoot);
+            }
+
+            string newRoundFolder = Path.Combine(dynamicPartialsRoot, year);
+
+            if (!Directory.Exists(newRoundFolder))
+            {
+                Directory.CreateDirectory(newRoundFolder);
+            }
+
+            foreach (string file in Directory.GetFiles(dynamicPartialsRoot))
+            {
+                string fileName = Path.GetFileName(file);
+                string destinationFile = Path.Combine(newRoundFolder, fileName);
+
+                System.IO.File.Copy(file, destinationFile, overwrite: false);
+            }
+        }
+
+        private void DeleteWelcomePagesForRound(string year)
+        {
+            string dynamicPartialsRoot =
+                Path.Combine(_environment.WebRootPath, "DynamicPartials");
+
+            string roundWelcomePagesFolder =
+                Path.Combine(dynamicPartialsRoot, year);
+
+            if (Directory.Exists(roundWelcomePagesFolder))
+            {
+                Directory.Delete(roundWelcomePagesFolder, recursive: true);
             }
         }
 
