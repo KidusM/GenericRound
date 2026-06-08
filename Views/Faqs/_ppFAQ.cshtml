@@ -25,7 +25,7 @@
 
                         @foreach (var category in Model.Select(x => x.Category).Distinct())
                         {
-                            if (!category.Equals("Geneva-specific questions") || hq)
+                            if (!category.Equals("Geneva-specific questions") || hq || role)
                             {
                                 <br />
                                 <h3 class="card-title">@category</h3>

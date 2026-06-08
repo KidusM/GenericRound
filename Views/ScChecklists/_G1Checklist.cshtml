@@ -1,5 +1,6 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
+
 @model IEnumerable<CSMS.Models.ScChecklist>
 
 @{string dsGroup = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay"); }
