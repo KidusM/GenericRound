@@ -7,7 +7,7 @@
     <div class="card shadow-sm border-0">
 
         <div class="card-header bg-primary text-white">
-            <h2 class="mb-0">Document Upload</h2>
+            <h2 class="mb-0">Document Manangement Dashboard</h2>
         </div>
 
         <div class="card-body">
@@ -38,40 +38,45 @@
             <div class="card border-warning mb-4">
 
                 <div class="card-header bg-warning text-dark">
-                    <strong>DynamicPartials Round Maintenance</strong>
+                    <h3>Update Welcome HTML pages </h3>
                 </div>
 
                 <div class="card-body">
 
                     <p>
-                        This feature downloads all files from the most recent survey round
-                        found in <code>wwwroot/DynamicPartials</code>.
+                        This section allows site admins to update welcome pages such as Staff Welcome page, Survey Coordinator Overview Page for all groups of duty stations.
                     </p>
 
-                    <p>
-                        After making modifications, compress the files back into a ZIP file
-                        and upload them using the form below.
-                    </p>
+
 
                     <div class="alert alert-info">
 
-                        <strong>Important:</strong>
+                        <h3>Important:</h3>
 
                         <ul class="mb-0">
-                            <li>The system automatically detects the latest survey round.</li>
-                            <li>Existing files will be overwritten during upload.</li>
-                            <li>Only ZIP files are accepted.</li>
-                            <li>Keep the original folder structure when creating the ZIP file.</li>
+                            <li>This step should be done right after a new round is created.</li>
+                            <li>Creating a new round will copy all welcome pages from the current round to the new round.</li>
+                            <li>This step will download the newly copied welcome pages.</li>
+                            <li>The site admin should make modifications relevant to the new round and upload them again.</li>
+                            <li>Only ZIP files are accepted when uploading.</li>
                         </ul>
-
                     </div>
+                        <p>
+                            <h3>Please follow these steps:</h3>
+                            <ol>
+                                <li>Download ZIP file</li>
+                                <li>Exctract the downloaded ZIP file</li>
+                                <li>Modify the individual HTML pages</li>
+                                <li>Compress the files back into a ZIP file</li>
+                                <li>Upload the ZIP file using the form below</li>
+                            </ol>
+                        </p>
+                  
 
                     <a asp-action="DownloadDynamicPartialsRound"
                        asp-controller="DocumentUpload"
-                       class="btn btn-warning mb-3">
-
-                        Download Latest Round Files
-
+                       class="btn btn-info mb-3">
+                        Download Welcome Pages
                     </a>
 
                     <form asp-action="UploadDynamicPartialsRound"
@@ -95,7 +100,7 @@
                         </div>
 
                         <button type="submit"
-                                class="btn btn-success">
+                                class="btn btn-primary">
 
                             Upload Modified Files
 
@@ -106,6 +111,12 @@
                 </div>
 
             </div>
+            
+            <hr />
+            <div class="card-header bg-warning text-dark">
+                <h3>Update Survey Documents </h3>
+            </div>
+            <br />
 
             <!-- Existing Instructions -->
 
@@ -122,7 +133,7 @@
                                 aria-expanded="false"
                                 aria-controls="collapseUploadInfo">
 
-                            <b>Instructions & File Naming Rules</b>
+                            <b>Instructions & File Naming Rules </b>(click to expand)
 
                         </button>
 
@@ -191,6 +202,8 @@
                                         <code>01 File Name.pdf</code>
                                     </div>
 
+
+
                                 </div>
 
                             </div>
@@ -216,7 +229,7 @@
 
                     <label asp-for="Files" class="form-label fw-bold">
                         Select File
-                    </label>
+                    </label> (Read the instructions before continuing 🠝)
 
                     <input type="file"
                            id="Files"
@@ -255,15 +268,18 @@
                     Upload
 
                 </button>
-
+                <div>
+                    <hr />
+                    To upload a specific documen to a specific folder click the button below.
+                    
+                </div>
+                <br />
                 <a asp-action="Delete"
                    asp-controller="DocumentUpload"
-                   class="btn btn-info ms-2">
-
+                   class="btn btn-info">
                     Manage Existing Documents
-
                 </a>
-
+                
             </form>
 
         </div>
