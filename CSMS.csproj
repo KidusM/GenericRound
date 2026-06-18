@@ -2878,7 +2878,6 @@
     <PackageReference Include="DevExtreme.AspNet.Data" Version="2.0.0" />-->
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\NewFolder\" />
     <Folder Include="wwwroot\documents\FAQ_JSON\" />
     <Folder Include="wwwroot\theme\assets\node_modules\.vs\node_modules\v16\" />
   </ItemGroup>

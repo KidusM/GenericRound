@@ -1,0 +1,27 @@
+{
+  "Key": "CostofLivingDivision",
+  "Name": "Cost-of-Living Division",
+  "Activities": [
+    {
+      "Id": 1,
+      "Title": "Price Data Entry",
+      "ShortDescription": "Price information collected by the pricing agent in the duty station has to be input in IDMS. The following steps are followed to input the data into IDMS",
+      "Steps": [
+        {
+          "StepNumber": 1,
+          "StepTitle": "Before starting, make sure the price data received is complete",
+          "StepDetails": "This is a preliminary step before the data is entered",
+          "ScreenshotPath": null,
+          "ScreenshotBase64": null
+        },
+        {
+          "StepNumber": 2,
+          "StepTitle": "Go to IDMS and open Store data entry template",
+          "StepDetails": null,
+          "ScreenshotPath": null,
+          "ScreenshotBase64": null
+        }
+      ]
+    }
+  ]
+}

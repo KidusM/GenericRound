@@ -1,0 +1,27 @@
+{
+  "Key": "SalariesandAllowancesDivision",
+  "Name": "Salaries and Allowances Division",
+  "Activities": [
+    {
+      "Id": 1,
+      "Title": "Mid-Month publication",
+      "ShortDescription": "Every month, right after the UN Treasury updates exchange rates, the ICSC will also update DSA rates. The new updated DSA rates will be effective on the 15th of the publication month.",
+      "Steps": [
+        {
+          "StepNumber": 1,
+          "StepTitle": "Go to VDI Client and Sign in",
+          "StepDetails": null,
+          "ScreenshotPath": null,
+          "ScreenshotBase64": null
+        },
+        {
+          "StepNumber": 2,
+          "StepTitle": "Update Exchange Rates on the DSA program ",
+          "StepDetails": "Open the DSA program in the VDI and go to DSA\u003E1.8 Update Ex-Rates \u0026 Dsa-Rates",
+          "ScreenshotPath": "/OfficeInstructionImages/SalariesandAllowancesDivision/activity-1-step-2.png",
+          "ScreenshotBase64": null
+        }
+      ]
+    }
+  ]
+}

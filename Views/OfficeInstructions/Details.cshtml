@@ -1,0 +1,78 @@
+﻿@model CSMS.Models.OfficeActivity
+
+@{
+    ViewData["Title"] = Model.Title;
+    bool isAdmin = ViewBag.IsAdmin == true;
+    string divisionKey = ViewBag.DivisionKey;
+    string divisionName = ViewBag.DivisionName;
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <div>
+            <h2><strong>@Model.Title</strong></h2>
+            <p class="text-body">@Model.ShortDescription</p>
+            @*<small class="text-muted">Division: @divisionName</small>*@
+        </div>
+
+
+
+    </div>
+    <div>
+
+        <a class="btn btn-info"
+           asp-action="Index"
+           asp-route-divisionKey="@divisionKey">
+            Back
+        </a>
+
+        @if (isAdmin)
+        {
+            <a class="btn btn-primary"
+               asp-action="Edit"
+               asp-route-divisionKey="@divisionKey"
+               asp-route-id="@Model.Id" style="float:right">
+                Edit Steps
+            </a>
+        }
+    </div>
+
+    @if (Model.Steps == null || !Model.Steps.Any())
+    {
+        <div class="alert alert-info">
+            No step has been added yet.
+        </div>
+    }
+    else
+    {
+        <div class="list-group">
+            @foreach (var step in Model.Steps.OrderBy(x => x.StepNumber))
+            {
+                <div class="list-group-item mb-2 shadow-sm">
+
+                    <h5>
+                        <strong>
+                            Step @step.StepNumber: @step.StepTitle
+                        </strong>
+                    </h5>
+
+                    <p style="white-space: pre-line;">
+                        @step.StepDetails
+                    </p>
+                    @if (!string.IsNullOrWhiteSpace(step.ScreenshotPath))
+                    {
+                        <div class="mt-3">
+                            <img src="@step.ScreenshotPath"
+                                 class="img-fluid border rounded shadow-sm"
+                                 style="max-width: 100%;" />
+                        </div>
+                    }
+
+                </div>
+            }
+        </div>
+    }
+
+</div>

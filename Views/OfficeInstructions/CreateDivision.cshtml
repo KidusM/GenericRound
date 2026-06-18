@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Create Division";
+}
+
+<div class="container mt-4">
+
+    <h2>Create Division</h2><br />
+
+    <form asp-action="CreateDivision" method="post">
+
+        <div class="form-group mb-3">
+            <label>Division Name</label>
+            <input name="divisionName" class="form-control" required />
+
+            <small class="text-muted">
+                Example: SAD, COLD, HRPD, OES or IT
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Create Division
+        </button>
+
+        <a asp-action="Divisions" class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+
+</div>

@@ -1,0 +1,41 @@
+﻿@model CSMS.Models.OfficeActivity
+
+@{
+    ViewData["Title"] = "Add Activity";
+    string divisionKey = ViewBag.DivisionKey;
+    string divisionName = ViewBag.DivisionName;
+}
+
+<div class="container mt-4">
+
+    <h2>Add Activity for @divisionName</h2>
+
+    <form asp-action="Create"
+          asp-route-divisionKey="@divisionKey"
+          method="post">
+
+        <div class="form-group mb-3">
+            <label>Activity Title</label>
+            <input asp-for="Title" class="form-control" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Short Description</label>
+            <textarea asp-for="ShortDescription"
+                      class="form-control"
+                      rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Create Activity
+        </button>
+
+        <a asp-action="Index"
+           asp-route-divisionKey="@divisionKey"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+
+</div>

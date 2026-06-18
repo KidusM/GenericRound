@@ -1,0 +1,49 @@
+﻿@model List<string>
+
+@{
+    ViewData["Title"] = "Office Departments";
+    bool isAdmin = ViewBag.IsAdmin == true;
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Divisions within ICSC</h2>
+
+        @if (isAdmin)
+        {
+            <a class="btn btn-primary" asp-action="CreateDepartment">
+                Add Division
+            </a>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No division has been created yet.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var department in Model)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5>@department</h5>
+
+                            <a class="btn btn-outline-primary"
+                               asp-action="Index"
+                               asp-route-department="@department">
+                                Open Instructions
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+</div>

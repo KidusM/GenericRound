@@ -50,25 +50,7 @@ namespace CSMS.Controllers
                 {
                     if (id == 2 || sRole == "Coordinator") //survey coordinator
                     {
-                        //if (surveyType == "H")
-                        //{
-                        //    actualPath = "Assets"  + separator + "Documents" + separator + surveyRound + separator + "Housing" + separator + "Coordinator";
-                        //}
-                        //else
-                        //{
-                        //    if (dgroup == "1") //Group - I
-                        //    {
-                        //        actualPath = "Assets" + separator + "Documents" + separator + surveyRound + separator + "Group-I" + separator + "Coordinator";
-                        //    }
-                        //    else if (dgroup == "2") //Group - II
-                        //    {
-                        //        actualPath = "Assets" + separator + "Documents" + separator + surveyRound + separator + "Group-II" + separator + "Coordinator";
-                        //    }
-                        //    else // HQ
-                        //    {
-                        //        actualPath = "Assets" + separator + "Documents" + separator + surveyRound + separator + "HQ" + separator + "Coordinator";
-                        //    }
-                        //}
+
                         actualPath = actualPathPartial + separator + "SC";
                     }
                     else if (id == 1 || sRole == "Staff") //staff
@@ -80,26 +62,6 @@ namespace CSMS.Controllers
                     {
                         actualPath = actualPathPartial + separator + "PA";
 
-                        //    if (dgroup == "1")
-                        //    {
-                        //        actualPath = "Assets" + separator + "Documents" + separator + surveyRound + separator + "Group-I" + separator + "PricingAgent";
-                        //    }
-                        //    else if (dgroup == "2")
-                        //    {
-                        //        actualPath = "Assets" + separator + "Documents" + separator + surveyRound + separator + "Group-II" + separator + "PricingAgent";
-                        //    }
-                        //    else
-                        //    {
-                        //        actualPath = "Assets" + separator + "Documents" + separator + surveyRound + separator + "HQ" + separator + "PricingAgent";
-                        //    }
-                        //}
-
-                        //else
-                        //{
-
-                        //    //Needs Review
-                        //    actualPath = "Assets" + separator + "Documents" + separator + surveyRound + separator + "Group-II" + separator + "Coordinator";
-                        //}
                     }
                 }
                 

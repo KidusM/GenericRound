@@ -1,0 +1,332 @@
+﻿@model CSMS.Models.OfficeActivity
+
+@{
+    ViewData["Title"] = "Edit Activity";
+    string divisionKey = ViewBag.DivisionKey;
+    string divisionName = ViewBag.DivisionName;
+}
+
+<div class="container mt-4">
+    <h2> @divisionName</h2>
+    <h3>Manage Activities</h3>
+
+    <form asp-action="Edit"
+          asp-route-divisionKey="@divisionKey"
+          asp-route-id="@Model.Id"
+          method="post">
+
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group mb-3">
+            <label>Activity</label>
+            <input asp-for="Title" class="form-control" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Short Description</label>
+            <textarea asp-for="ShortDescription"
+                      class="form-control"
+                      rows="3"></textarea>
+        </div>
+
+        <hr />
+
+        <h4>Steps</h4>
+
+
+
+        <div id="stepsContainer">
+
+            @if (Model.Steps != null)
+            {
+                for (int i = 0; i < Model.Steps.Count; i++)
+                {
+                    <div class="card mb-3 step-card">
+                        <div class="card-body">
+
+                            <h5>Step @(i + 1)</h5>
+
+                            <input type="hidden"
+                                   name="Steps[@i].StepNumber"
+                                   value="@(i + 1)" />
+
+                            <div class="form-group mb-2">
+                                <label>Step Title</label>
+                                <input name="Steps[@i].StepTitle"
+                                       value="@Model.Steps[i].StepTitle"
+                                       class="form-control" />
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label>Step Details</label>
+                                <textarea name="Steps[@i].StepDetails"
+                                          class="form-control"
+                                          rows="5">@Model.Steps[i].StepDetails</textarea>
+
+                                @* ############### *@
+                                <input type="hidden"
+                                       name="Steps[@i].ScreenshotPath"
+                                       value="@Model.Steps[i].ScreenshotPath"
+                                       class="screenshot-path" />
+
+                                <input type="hidden"
+                                       name="Steps[@i].ScreenshotBase64"
+                                       class="screenshot-base64" />
+
+                                <div class="border rounded p-3 mt-3 paste-area"
+                                     tabindex="0"
+                                     style="cursor:pointer; background:#f8f9fa;">
+                                    Click here, then paste screenshot with Ctrl + V
+                                </div>
+
+                                @if (!string.IsNullOrWhiteSpace(Model.Steps[i].ScreenshotPath))
+                                {
+                                    <img src="@Model.Steps[i].ScreenshotPath"
+                                         class="img-fluid mt-2 border rounded screenshot-preview" />
+                                }
+                                else
+                                {
+                                    <img class="img-fluid mt-2 border rounded screenshot-preview"
+                                         style="display:none;" />
+                                }
+
+                                @* ############### *@
+                            </div>
+
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="removeStep(this)">
+                                Remove Step
+                            </button>
+
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+
+        <hr />
+        <button type="button"
+                class="btn btn-outline-primary mb-3"
+                onclick="addStep()">
+            Add Step
+        </button>
+<hr />
+        <br />
+
+        <button type="submit" class="btn btn-primary">
+            Save Changes
+        </button>
+
+        <a asp-action="Details"
+           asp-route-divisionKey="@divisionKey"
+           asp-route-id="@Model.Id"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+
+    <form asp-action="Delete"
+          asp-route-divisionKey="@divisionKey"
+          asp-route-id="@Model.Id"
+          method="post"
+          class="mt-4"
+          onsubmit="return confirm('Are you sure you want to delete this entire activity?');">
+
+        <button type="submit" class="btn btn-danger">
+            Delete Entire Activity
+        </button>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <script>
+        function addStep() {
+            var container = document.getElementById("stepsContainer");
+            var index = container.children.length;
+
+            //var html = `
+            //    <div class="card mb-3 step-card">
+            //        <div class="card-body">
+
+            //            <h5>Step ${index + 1}</h5>
+
+            //            <input type="hidden"
+            //                   name="Steps[${index}].StepNumber"
+            //                   value="${index + 1}" />
+
+            //            <div class="form-group mb-2">
+            //                <label>Step Title</label>
+            //                <input name="Steps[${index}].StepTitle"
+            //                       class="form-control" />
+            //            </div>
+
+            //            <div class="form-group mb-2">
+            //                <label>Step Details</label>
+            //                <textarea name="Steps[${index}].StepDetails"
+            //                          class="form-control"
+            //                          rows="5"></textarea>
+            //            </div>
+
+            //            <button type="button"
+            //                    class="btn btn-danger btn-sm"
+            //                    onclick="removeStep(this)">
+            //                Remove Step
+            //            </button>
+
+            //        </div>
+            //    </div>
+            //`;
+
+            var html = `
+    <div class="card mb-3 step-card">
+        <div class="card-body">
+
+            <h5>Step ${index + 1}</h5>
+
+            <input type="hidden"
+                   name="Steps[${index}].StepNumber"
+                   value="${index + 1}" />
+
+            <div class="form-group mb-2">
+                <label>Step Title</label>
+                <input name="Steps[${index}].StepTitle"
+                       class="form-control" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label>Step Details</label>
+                <textarea name="Steps[${index}].StepDetails"
+                          class="form-control"
+                          rows="5"></textarea>
+            </div>
+
+            <input type="hidden"
+                   name="Steps[${index}].ScreenshotPath"
+                   class="screenshot-path" />
+
+            <input type="hidden"
+                   name="Steps[${index}].ScreenshotBase64"
+                   class="screenshot-base64" />
+
+            <div class="border rounded p-3 mt-3 paste-area"
+                 tabindex="0"
+                 style="cursor:pointer; background:#f8f9fa;">
+                Click here, then paste screenshot with Ctrl + V
+            </div>
+
+            <img class="img-fluid mt-2 border rounded screenshot-preview"
+                 style="display:none;" />
+
+            <button type="button"
+                    class="btn btn-danger btn-sm mt-2"
+                    onclick="removeStep(this)">
+                Remove Step
+            </button>
+
+        </div>
+    </div>
+`;
+
+
+            container.insertAdjacentHTML("beforeend", html);
+            reindexSteps();
+        }
+
+        function removeStep(button) {
+            button.closest(".step-card").remove();
+            reindexSteps();
+        }
+
+        //function reindexSteps() {
+        //    var cards = document.querySelectorAll(".step-card");
+
+        //    cards.forEach(function (card, index) {
+        //        card.querySelector("h5").innerText = "Step " + (index + 1);
+
+        //        card.querySelectorAll("input, textarea").forEach(function (field) {
+        //            if (field.name.includes(".StepNumber")) {
+        //                field.name = "Steps[" + index + "].StepNumber";
+        //                field.value = index + 1;
+        //            }
+
+        //            if (field.name.includes(".StepTitle")) {
+        //                field.name = "Steps[" + index + "].StepTitle";
+        //            }
+
+        //            if (field.name.includes(".StepDetails")) {
+        //                field.name = "Steps[" + index + "].StepDetails";
+        //            }
+        //        });
+        //    });
+        //}
+
+        function reindexSteps() {
+            var cards = document.querySelectorAll(".step-card");
+
+            cards.forEach(function (card, index) {
+                card.querySelector("h5").innerText = "Step " + (index + 1);
+
+                card.querySelectorAll("input, textarea").forEach(function (field) {
+                    if (field.name.includes(".StepNumber")) {
+                        field.name = "Steps[" + index + "].StepNumber";
+                        field.value = index + 1;
+                    }
+
+                    if (field.name.includes(".StepTitle")) {
+                        field.name = "Steps[" + index + "].StepTitle";
+                    }
+
+                    if (field.name.includes(".StepDetails")) {
+                        field.name = "Steps[" + index + "].StepDetails";
+                    }
+
+                    if (field.name.includes(".ScreenshotPath")) {
+                        field.name = "Steps[" + index + "].ScreenshotPath";
+                    }
+
+                    if (field.name.includes(".ScreenshotBase64")) {
+                        field.name = "Steps[" + index + "].ScreenshotBase64";
+                    }
+                });
+            });
+        }
+
+
+        document.addEventListener("paste", function (event) {
+            var activeElement = document.activeElement;
+
+            if (!activeElement.classList.contains("paste-area")) {
+                return;
+            }
+
+            var items = event.clipboardData.items;
+
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf("image") !== -1) {
+                    var file = items[i].getAsFile();
+
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        var card = activeElement.closest(".step-card");
+
+                        var base64Input = card.querySelector(".screenshot-base64");
+                        var preview = card.querySelector(".screenshot-preview");
+
+                        base64Input.value = e.target.result;
+
+                        preview.src = e.target.result;
+                        preview.style.display = "block";
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+    </script>
+}

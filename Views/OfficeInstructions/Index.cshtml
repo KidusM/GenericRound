@@ -1,0 +1,82 @@
+﻿@model List<CSMS.Models.OfficeActivity>
+
+@{
+    ViewData["Title"] = "Office Instructions";
+    bool isAdmin = ViewBag.IsAdmin == true;
+    string divisionKey = ViewBag.DivisionKey;
+    string divisionName = ViewBag.DivisionName;
+}
+
+<div class="container mt-4">
+
+    @*<div class="d-flex justify-content-between align-items-center mb-3">*@
+
+    <div>
+        <h2>@divisionName</h2>
+
+
+    </div>
+    <div>
+
+        @if (isAdmin)
+        {
+            <a class="btn btn-primary"
+               asp-action="Create"
+               asp-route-divisionKey="@divisionKey">
+                Add Activity
+            </a>
+            <a asp-action="Divisions" class="btn btn-info" style="float:right">
+                Back to Divisions
+            </a>
+
+        }
+    </div>
+    <br />
+    @*</div>*@
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">
+            No activities have been added for this division yet.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+
+                            <h5>@item.Title</h5>
+
+                            <p class="text-muted">
+                                @item.ShortDescription
+                            </p>
+
+                            <a class="btn btn-outline-primary"
+                               asp-action="Details"
+                               asp-route-divisionKey="@divisionKey"
+                               asp-route-id="@item.Id">
+                                View Steps
+                            </a>
+
+                            @if (isAdmin)
+                            {
+                                <a class="btn btn-outline-secondary"
+                                   asp-action="Edit"
+                                   asp-route-divisionKey="@divisionKey"
+                                   asp-route-id="@item.Id">
+                                    Edit
+                                </a>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+</div>
