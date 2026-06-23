@@ -6,25 +6,33 @@
 
     <h2>Create Division</h2><br />
 
-    <form asp-action="CreateDivision" method="post">
+                            <form asp-action="CreateDivision" method="post">
 
-        <div class="form-group mb-3">
-            <label>Division Name</label>
-            <input name="divisionName" class="form-control" required />
+                                <div class="form-group mb-3">
+                                    <label>Division Name</label>
+                                    <input name="divisionName" class="form-control" required />
 
-            <small class="text-muted">
-                Example: SAD, COLD, HRPD, OES or IT
-            </small>
-        </div>
+                                    <small class="text-muted">
+                                        Example: SAD, COLD, HRPD, OES or IT
+                                    </small>
+                                </div>
 
-        <button type="submit" class="btn btn-primary">
-            Create Division
-        </button>
+                                <div class="form-group mb-3">
+                                    <label>Division Passkey</label>
+                                    <input name="passKey" class="form-control" required />
+                                    <small class="text-muted">
+                                        Users will need this passkey to view this division's instructions.
+                                    </small>
+                                </div>
 
-        <a asp-action="Divisions" class="btn btn-secondary">
-            Cancel
-        </a>
+                                <button type="submit" class="btn btn-primary">
+                                    Create Division
+                                </button>
 
-    </form>
+                                <a asp-action="Divisions" class="btn btn-secondary">
+                                    Cancel
+                                </a>
+
+                            </form>
 
 </div>

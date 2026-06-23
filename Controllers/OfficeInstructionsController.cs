@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CSMS.Controllers
 {
@@ -138,14 +140,14 @@ namespace CSMS.Controllers
 
         [HttpPost]
         [Route("OfficeInstructions/CreateDivision")]
-        public IActionResult CreateDivision(string divisionName)
+        public IActionResult CreateDivision(string divisionName, string passKey)
         {
             if (!IsAdmin())
             {
                 return Unauthorized();
             }
 
-            if (string.IsNullOrWhiteSpace(divisionName))
+            if (string.IsNullOrWhiteSpace(divisionName) || string.IsNullOrWhiteSpace(passKey))
             {
                 return RedirectToAction("Divisions");
             }
@@ -160,6 +162,7 @@ namespace CSMS.Controllers
                 {
                     Key = key,
                     Name = divisionName.Trim(),
+                    PassKeyHash = HashPassKey(passKey),
                     Activities = new List<OfficeActivity>()
                 };
 
@@ -169,10 +172,63 @@ namespace CSMS.Controllers
             return RedirectToAction("Index", new { divisionKey = key });
         }
 
+
+        [HttpGet]
+        [Route("OfficeInstructions/{divisionKey}/PassKey")]
+        public IActionResult PassKey(string divisionKey)
+        {
+            var division = LoadDivision(divisionKey);
+
+            if (division == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.DivisionKey = division.Key;
+            ViewBag.DivisionName = division.Name;
+
+            return View();
+        }
+
+        [HttpPost]
+        [Route("OfficeInstructions/{divisionKey}/PassKey")]
+        public IActionResult PassKey(string divisionKey, string passKey)
+        {
+            var division = LoadDivision(divisionKey);
+
+            if (division == null)
+            {
+                return NotFound();
+            }
+
+            if (division.PassKeyHash == HashPassKey(passKey))
+            {
+                GrantDivisionAccess(division.Key);
+
+                return RedirectToAction("Index", new
+                {
+                    divisionKey = division.Key
+                });
+            }
+
+            ViewBag.DivisionKey = division.Key;
+            ViewBag.DivisionName = division.Name;
+            ViewBag.Error = "Incorrect passkey.";
+
+            return View();
+        }
+
         [Route("OfficeInstructions/{divisionKey}")]
         public IActionResult Index(string divisionKey)
         {
             var division = LoadDivision(divisionKey);
+            if (!HasDivisionAccess(division.Key) && !IsAdmin())
+            {
+                return RedirectToAction("PassKey", new
+                {
+                    divisionKey = division.Key
+                });
+            }
 
             if (division == null)
             {
@@ -467,5 +523,26 @@ namespace CSMS.Controllers
 
             return $"/OfficeInstructionImages/{divisionKey}/{fileName}";
         }
+        private string HashPassKey(string passKey)
+        {
+            using (var sha = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(passKey ?? "");
+                byte[] hash = sha.ComputeHash(bytes);
+
+                return System.Convert.ToBase64String(hash);
+            }
+        }
+
+        private bool HasDivisionAccess(string divisionKey)
+        {
+            return HttpContext.Session.GetString("DivisionAccess_" + divisionKey) == "true";
+        }
+
+        private void GrantDivisionAccess(string divisionKey)
+        {
+            HttpContext.Session.SetString("DivisionAccess_" + divisionKey, "true");
+        }
+
     }
 }

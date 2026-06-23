@@ -162,7 +162,7 @@ else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Sit
     <div class="row justify-content-center bg-light p-5">
 
 
-
+        @*Manage Survey Round*@
         <div class="col-md-3">
             <div class="card shadow-sm">
                 <div class="p-4 border-top">
@@ -189,6 +189,7 @@ else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Sit
             </div>
         </div>
 
+        @*Manage Documents*@
         <div class="col-md-3">
             <div class="card shadow-sm">
                 <div class="p-4 border-top">
@@ -214,6 +215,7 @@ else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Sit
             </div>
         </div>
 
+        @*Manage FAQs*@
         <div class="col-md-3">
             <div class="card shadow-sm">
                 <div class="p-4 border-top">
@@ -236,7 +238,7 @@ else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Sit
             </div>
         </div>
 
-
+        @*Manage Checklist*@
         <div class="col-md-3">
             <div class="card shadow-sm">
                 <div class="p-4 border-top">
@@ -259,6 +261,28 @@ else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "Sit
             </div>
         </div>
 
+        @*Manage Business Process Documentation*@
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="p-4 border-top">
+                    @*<h5>Coordinator’s Report</h5>*@
+                    <div class="card mb-0 mt-3 bg-light">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h4 class="card-title" style="font-weight:bold">Business Process Instructions</h4>
+                            </div><br />
+                            <p class="card-text">
+                                Click the button below to manage Major activities and detailed information on how to implement them.
+                            </p>
+
+                            <div class="text-center">
+                                <a class="btn btn-info text-white" asp-controller="OfficeInstructions" asp-action="Index">Manage Activities</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     

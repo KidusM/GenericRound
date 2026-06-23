@@ -8,6 +8,8 @@ namespace CSMS.Models
 
         public string Name { get; set; }
 
+        public string PassKeyHash { get; set; }
+
         public List<OfficeActivity> Activities { get; set; } = new List<OfficeActivity>();
     }
 }

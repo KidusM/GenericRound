@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Division Passkey";
+
+    string divisionKey = ViewBag.DivisionKey;
+    string divisionName = ViewBag.DivisionName;
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Enter Passkey</h4>
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                Enter the passkey to view instructions for:
+                <strong>@divisionName</strong>
+            </p>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <form asp-action="PassKey"
+                  asp-route-divisionKey="@divisionKey"
+                  method="post">
+
+                <div class="form-group mb-3">
+                    <label>Passkey</label>
+                    <input name="passKey"
+                           type="password"
+                           class="form-control"
+                           required />
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Continue
+                </button>
+
+                <a asp-action="Divisions" class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
