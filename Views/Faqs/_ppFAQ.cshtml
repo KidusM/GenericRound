@@ -14,10 +14,19 @@
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-10">
-                    @*@{var i = 1; }*@
+
+                @{
+                    bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+                    bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";
+                }
+                @if (role)
+                {
+                    <div>
+                        <a asp-action="Create" class="btn btn-sm btn-primary">Add New Question</a>
+                    </div>
+                }
                     <accordion>
-                        @{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
-                            bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";}
+
 
                         <br />
 
@@ -25,12 +34,15 @@
 
                         @foreach (var category in Model.Select(x => x.Category).Distinct())
                         {
-                            if (!category.Equals("Geneva-specific questions") || hq || role)
+                            if (!category.Equals("Geneva-specific questions") || hq )
                             {
+                            bool noRecordExists = !Model.Any(a => a.Category == category && a.GroupId != 1);
+                            
+                            if(!noRecordExists){
                                 <br />
                                 <h3 class="card-title">@category</h3>
                                 <br />
-
+                                }
                                 var ii = 1;
 
                                 @foreach (var item in Model)
@@ -39,7 +51,7 @@
 
                                     //if (item.Qtype.ToString().Equals("1") && !(item.GroupId.ToString().Equals("0") && (item.Category.Equals(category))))
                                     //if (item.Qtype.ToString().Equals("1") && (item.Category.Equals(category)))
-                                    if (item.Category.Equals(category))
+                                if (item.Category.Equals(category) && !item.GroupId.ToString().Equals("1"))
                                     {
 
                                         if (role)
@@ -78,6 +90,13 @@
 
 
                     </accordion>
+                @if (role)
+                {<br />
+                    
+                    <div>
+                        <a asp-action="Create" class="btn btn-sm btn-primary">Add New Question</a>
+                    </div>
+                }
 
                 </div>
                 <div class="col-md-1">

@@ -20,7 +20,7 @@
                     <span asp-validation-for="Pk" class="text-danger"></span>
                 </div> *@
                 <div class="form-group">
-                            <label asp-for="ID" class="control-label" style="font-weight:bold"> </label>- (Serial Number)
+                    <label asp-for="ID" class="control-label" style="font-weight:bold"> </label>- (Serial Number for the order this questions appears in its respective category)
                     <input asp-for="ID" class="form-control" />
                     <span asp-validation-for="ID" class="text-danger"></span>
                 </div>
@@ -42,28 +42,46 @@
                                 <li>Questions During the survey</li>
                                 <li>Technical Questions about Post Adjustment and</li>
                                 <li>Geneva-specific questions</li>
+                                <li>or Add a new Category ...</li>
                             </ul>
                     <input asp-for="Category" class="form-control" />
                     <span asp-validation-for="Category" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Qtype" class="control-label"></label>
+                    <label asp-for="Qtype" class="control-label"><b>Category id</b></label>
+                    <br />Allowed Options are:
+                    <ul>
+                        <li>Enter 1 for General Questions (Pre-Survey)</li>
+                        <li>Enter 2 for Questions During the survey</li>
+                        <li>Enter 3 for Technical Questions about Post Adjustment and</li>
+                        <li>Enter 4 for Geneva-specific questions</li>
+                        <li>Enter a different number for a new category</li>
+                    </ul>
                     <input asp-for="Qtype" class="form-control" />
                     <span asp-validation-for="Qtype" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="GroupId" class="control-label"></label>
+                    <label asp-for="GroupId" class="control-label"><b>This question applies to: </b></label>
+                    <br />Available Options are:
+                    <ul>
+                        <li>Enter 0 for questions that apply to both Housing and Place-to-Place surveys</li>
+                        <li>Enter 1 for questions that apply exclusively to Housing surveys</li>
+                        <li>Enter 12 for questions that apply exclusively to Place-to-Place surveys</li>
+
+                    </ul>
                     <input asp-for="GroupId" class="form-control" />
                     <span asp-validation-for="GroupId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Create" class="btn btn-sm btn-primary"  />
+                    <a asp-action="Index" class=" btn btn-sm btn-info">Back to FAQs</a>
                 </div>
             </form>
+           
         </div>
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        
     </div>
     </div>
