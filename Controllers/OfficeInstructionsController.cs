@@ -26,8 +26,25 @@ namespace CSMS.Controllers
 
         private bool IsAdmin()
         {
-            return HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+            string role = HttpContext.Session.GetString("_userRole");
+
+            return role == "SiteAdmin"
+                || role == "SuperSiteAdmin";
         }
+
+        private bool IsSuperSiteAdmin()
+        {
+            return HttpContext.Session.GetString("_userRole")
+                   == "SuperSiteAdmin";
+        }
+
+        private bool IsSiteAdmin()
+        {
+            return HttpContext.Session.GetString("_userRole")
+                   == "SiteAdmin";
+        }
+
+
 
         private string CreateDivisionKey(string divisionName)
         {
@@ -130,7 +147,7 @@ namespace CSMS.Controllers
         [Route("OfficeInstructions/CreateDivision")]
         public IActionResult CreateDivision()
         {
-            if (!IsAdmin())
+            if (!IsSuperSiteAdmin())
             {
                 return Unauthorized();
             }
@@ -142,7 +159,7 @@ namespace CSMS.Controllers
         [Route("OfficeInstructions/CreateDivision")]
         public IActionResult CreateDivision(string divisionName, string passKey)
         {
-            if (!IsAdmin())
+            if (!IsSuperSiteAdmin())
             {
                 return Unauthorized();
             }
@@ -544,5 +561,30 @@ namespace CSMS.Controllers
             HttpContext.Session.SetString("DivisionAccess_" + divisionKey, "true");
         }
 
+        [HttpPost]
+        [Route("OfficeInstructions/DeleteDivision/{divisionKey}")]
+        public IActionResult DeleteDivision(string divisionKey)
+        {
+            if (!IsSuperSiteAdmin())
+            {
+                return Unauthorized();
+            }
+
+            var division = LoadDivision(divisionKey);
+
+            if (division == null)
+            {
+                return NotFound();
+            }
+
+            string filePath = GetDivisionFile(division.Key);
+
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
+            return RedirectToAction("Divisions");
+        }
     }
 }

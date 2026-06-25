@@ -1,6 +1,13 @@
 {
-  "Key": "Test",
-  "Name": "Test",
+  "Key": "test",
+  "Name": "test",
   "PassKeyHash": "CbuULiGmf5fIMhhoCLOlah9l8OiEGoj3nCTOr1c8ysA=",
-  "Activities": []
+  "Activities": [
+    {
+      "Id": 1,
+      "Title": "test",
+      "ShortDescription": null,
+      "Steps": []
+    }
+  ]
 }

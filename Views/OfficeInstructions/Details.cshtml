@@ -1,7 +1,11 @@
-﻿@model CSMS.Models.OfficeActivity
+﻿@using Microsoft.AspNetCore.Http
+@model CSMS.Models.OfficeActivity
 
 @{
     ViewData["Title"] = Model.Title;
+
+
+   // bool isSuperSiteAdmin = Context.Session.GetString("_userRole") == "SuperSiteAdmin";
     bool isAdmin = ViewBag.IsAdmin == true;
     string divisionKey = ViewBag.DivisionKey;
     string divisionName = ViewBag.DivisionName;

@@ -4,12 +4,14 @@
     ViewData["Title"] = "Create";
 }
 <div class="container">
-    <h2>FAQs</h2>
+    <h2>Add a new Frequently Asked Question</h2>
+
+
 
     <h4>Add new question</h4>
     <hr />
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <form asp-action="Create" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 @*                 <div class="form-group">
@@ -18,22 +20,29 @@
                     <span asp-validation-for="Pk" class="text-danger"></span>
                 </div> *@
                 <div class="form-group">
-                    <label asp-for="ID" class="control-label"></label>
+                            <label asp-for="ID" class="control-label" style="font-weight:bold"> </label>- (Serial Number)
                     <input asp-for="ID" class="form-control" />
                     <span asp-validation-for="ID" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Question" class="control-label"></label>
-                    <input asp-for="Question" class="form-control" />
+                     <label asp-for="Question" class="control-label" style="font-weight:bold"></label>
+                     <textarea asp-for="Question" class="form-control" rows="10"></textarea>
                     <span asp-validation-for="Question" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Answer" class="control-label"></label>
-                    <input asp-for="Answer" class="form-control" />
+                     <label asp-for="Answer" class="control-label" style="font-weight:bold"></label>
+                     <textarea asp-for="Answer" class="form-control" rows="10"></textarea>
                     <span asp-validation-for="Answer" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Category" class="control-label"></label>
+                        <div class="form-group"> <br />
+                    <label asp-for="Category" class="control-label" style="font-weight:bold"></label>
+                            <br />Current Options are:
+                            <ul>
+                                <li>General Questions (Pre-Survey)</li>
+                                <li>Questions During the survey</li>
+                                <li>Technical Questions about Post Adjustment and</li>
+                                <li>Geneva-specific questions</li>
+                            </ul>
                     <input asp-for="Category" class="form-control" />
                     <span asp-validation-for="Category" class="text-danger"></span>
                 </div>
@@ -57,5 +66,4 @@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
-
-</div>
+    </div>
