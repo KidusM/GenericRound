@@ -4,26 +4,26 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Edit a Checklist Task</h2>
 
-<h4>ScChecklist</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<input type="hidden" asp-for="Id" />
-        <div class="form-group">
-            <label class="control-label"> Survey Timing Code </label> <br />
-            1 = Before the Survey, <br />2 = During the Survey, <br />3 = After the Survey
-            <input asp-for="Number" class="form-control" />
-            <span asp-validation-for="Number" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label class="control-label"></label><b>Survey Timing </b> <br />Before the Survey <br /> During the Survey <br /> After the Survey
-            <input asp-for="Time" class="form-control" />
-            <span asp-validation-for="Time" class="text-danger"></span>
-        </div>*@
+            <div class="form-group">
+                <label class="control-label"> Survey Timing Code </label> <br />
+                1 = Before the Survey, <br />2 = During the Survey, <br />3 = After the Survey
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label"></label><b>Survey Timing </b> <br />Before the Survey <br /> During the Survey <br /> After the Survey
+                <input asp-for="Time" class="form-control" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>*@
             <input type="hidden" asp-for="Id" />
 
             <!-- Hidden field that stores the code -->
@@ -47,25 +47,34 @@
 
 
             <div class="form-group">
-                <label asp-for="Task" class="control-label"></label>
+                <label asp-for="Task" class="control-label"><b>Task</b></label>
                 @*<input asp-for="Task" class="form-control" />*@
-                <textarea asp-for="Task" class="form-control" rows="10"></textarea>
+                <textarea asp-for="Task" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="Task" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DetailTask" class="control-label"></label>
+                <label asp-for="DetailTask" class="control-label"><b>Detailed Task</b></label>
                 @*<input asp-for="DetailTask" class="form-control" />*@
                 <textarea asp-for="DetailTask" class="form-control" rows="10"></textarea>
                 <span asp-validation-for="DetailTask" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label"></label> Survey Timing Code - Task display order
+                <label class="control-label"><b>Survey Timing Code - Task display order</b></label> 
+                <ul>
+                    <li>Before Survey = 1</li>
+                    <li>During the Survey = 2</li>
+                    <li>After the Survey= 3</li>
+                    <li>For eg. </li>
+                    <li>1-1 Means 1st task under the <b>Before  the Survey</b>category </li>
+                    <li>2-4 Means 4th task under the <b>During the Survey</b>category etc...</li>
+                    <li>For Housing Surveys, Simply add "H" before the code such as "H1-1"</li>
+                </ul>
                 <input asp-for="CbId" id="CbId" class="form-control" />
                 <span asp-validation-for="CbId" class="text-danger"></span>
 
             </div>
             <div class="form-group">
-                <label asp-for="DetailTaskG1" class="control-label"></label>
+                <label asp-for="DetailTaskG1" class="control-label"><b>Detailed Task for Group I</b></label>
                 @*<input asp-for="DetailTaskG1" class="form-control" />*@
 
                 <textarea asp-for="DetailTaskG1" class="form-control" rows="10"></textarea>
@@ -77,15 +86,16 @@
                 <span asp-validation-for="GroupId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary" /><a asp-action="Index" class="btn btn-info">Back to List</a>
             </div>
         </form>
+        <div>
+            
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 <script>
     function updateFields() {
