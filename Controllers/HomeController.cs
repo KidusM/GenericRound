@@ -202,6 +202,12 @@ namespace CSMS.Controllers
                    
                     return View("DisplayDashboard");
                 }
+                else if (HttpContext.User.IsInRole("Super Site Admin"))
+                {
+                    HttpContext.Session.SetString("_userRole", "SuperSiteAdmin");
+
+                    return View("DisplayDashboard");
+                }
                 else if (HttpContext.User.IsInRole("ICSC Survey Manager"))
                 {
 //  ***

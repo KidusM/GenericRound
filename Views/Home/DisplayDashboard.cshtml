@@ -25,7 +25,7 @@
                             Survey Management Dashboard
                             @HttpContextAccessor.HttpContext.Session.GetString("_scRegistrationPW")
                         </h2>
-                        <h4 class="card-title text-center">
+                        <h4 class="card-title text-center" style="color:brown">
                             @HttpContextAccessor.HttpContext.Session.GetString("_userRole")
                         </h4>
                         @*<p class="card-text">
@@ -156,7 +156,7 @@
 
 }
 
-else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin")
+else if (@HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin" || @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SuperSiteAdmin")
 {
     <br>
     <div class="row justify-content-center bg-light p-5">

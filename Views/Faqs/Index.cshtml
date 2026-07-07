@@ -21,16 +21,15 @@
         </div>
     </div>
 </div>
-@*<p>
-        <a asp-action="Create">Create New</a>
-    </p>*@
+
+
+                                    
 @{
     var dsSurveyType = @HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay");
 }
 
 
 
-<!-- PP -->
 
     @if (dsSurveyType == "H")
         {
@@ -40,7 +39,7 @@
         {
             <partial name="_ppFAQ" />
         }
-
+ 
     
 
 
