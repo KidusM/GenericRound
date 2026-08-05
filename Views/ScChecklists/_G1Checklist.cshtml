@@ -11,68 +11,80 @@
 
 @{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";}
 
+@if (role)
+{
+    <div>
+        <a asp-controller="ScChecklists"
+           asp-action="Create"
+           class="btn btn-primary">
+            Add New Checklist Item
+        </a>
 
-        @foreach (var category in Model.Select(x => x.Time).Distinct())
+    </div>
+}
+
+@foreach (var category in Model.Select(x => x.Time).Distinct())
 {
     <br />
 
 
     <h4 style="font-weight:bold">@category</h4>
-        <br />
+    <br />
 
 
-        @foreach (var item in Model)
+
+    @foreach (var item in Model)
+    {
+        if (item.Time == category)
         {
-            if (item.Time == category)
+            string chck = "chck" + i.ToString();
+
+
+
+            //if (item.CbId.Contains("1-") && !(item.CbId.Contains("H1-")))
+            //{
+            if (role)
             {
-                string chck = "chck" + i.ToString();
+                <div>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
+                </div>
+            }
+            <div class="tabs">
+                <div class="tab">
+
+                    <input type="checkbox" id="@chck">
+
+                    <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium; @((item.GroupId == "4" && dsGroup != "0") ? "display:none" : "display:block")">
+                        @Html.Raw(item.Task)
+                    </label>
+
+                    <div class="tab-content">
+
+                        @if (dsGroup != "1" || dsGroup != "0" || item.CbId.Contains("H"))
+                        {
+                            @Html.Raw(item.DetailTask)
+                        }
+                        else
+                        {
+                            @Html.Raw(item.DetailTaskG1)
+                        }
 
 
-
-                //if (item.CbId.Contains("1-") && !(item.CbId.Contains("H1-")))
-                //{
-                if (role)
-                {
-                    <div>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
-                    </div>
-                    }
-                <div class="tabs">
-                    <div class="tab">
-
-                        <input type="checkbox" id="@chck">
-
-                        <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium; @((item.GroupId == "4" && dsGroup != "0") ? "display:none" : "display:block")">
-                            @Html.Raw(item.Task)
-                        </label>
-
-                        <div class="tab-content">
-
-                            @if (dsGroup != "1" || dsGroup !="0" || item.CbId.Contains("H"))
-                            {
-                                @Html.Raw(item.DetailTask)
-                            }
-                            else
-                            { 
-                                @Html.Raw(item.DetailTaskG1)
-                            }
+                        @*@Html.DisplayFor(modelItem => item.DetailTaskG1)*@
 
 
-                            @*@Html.DisplayFor(modelItem => item.DetailTaskG1)*@
-
-
-                        </div>
                     </div>
                 </div>
+            </div>
 
-                    }
-                    i++;
-                }
-            }
+        }
+        i++;
+    }
+}
 
-        
+
 
 
 

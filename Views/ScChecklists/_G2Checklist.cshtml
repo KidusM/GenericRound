@@ -7,12 +7,24 @@
 @{var i = 1;
 }
 <br />
+@{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+    bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";}
 
+@if (role)
+{
+    <div>
+        <a asp-controller="ScChecklists"
+           asp-action="Create"
+           class="btn btn-primary">
+            Add New Checklist Item
+        </a>
+
+    </div>
+}
 <h4 style="font-weight:bold">Before the survey </h4>
 <br />
 
-@{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
-    bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";}
+
 
 @foreach (var item in Model)
 {
