@@ -123,7 +123,7 @@ namespace CSMS.Controllers
 
                         var dsdetails = _context.Surveys.Include(a => a.Ds)
                             .Where(a => a.Dsid == dissd && a.Scid == currentUserId.ToString() && (a.SurveyYear == thisYear || a.SurveyYear == nextYear || a.SurveyYear == lastYear))
-                            .Select(a => new { a.NoOfStaff, a.Ds.Country, a.Ds.City, a.SurveyMonth, a.SurveyYear, a.Ds.Dsgroup, a.SurveyType, a.Syscode }).OrderByDescending(b=>b.SurveyYear).FirstOrDefault();
+                            .Select(a => new { a.NoOfStaff, a.Ds.Country, a.Ds.City, a.SurveyMonth, a.Round, a.SurveyYear, a.Ds.Dsgroup, a.SurveyType, a.Syscode }).OrderByDescending(b=>b.SurveyYear).FirstOrDefault();
 
                         HttpContext ctx = HttpContext;
 
@@ -135,6 +135,7 @@ namespace CSMS.Controllers
                         var srvType = dsdetails.SurveyType.ToString().Trim();
                         var sysCode = dsdetails.Syscode.ToString().Trim();
                         var numStaff = dsdetails.NoOfStaff.ToString().Trim();
+                        var survRound = dsdetails.Round.ToString().Trim();
                         int month = DateTime.ParseExact(srvMonth, "MMMM", CultureInfo.CurrentCulture).Month;
 
 
@@ -146,7 +147,8 @@ namespace CSMS.Controllers
                         ctx.Session.SetString("_loggedInUserSysCode", sysCode);
                         ctx.Session.SetString("_loggedInUserDSID", dissd);
                         ctx.Session.SetString("_loggedInUserdsGroup", dsGroup);
-                        ctx.Session.SetString("_numberOfStaff", numStaff); 
+                        ctx.Session.SetString("_numberOfStaff", numStaff);
+                        ctx.Session.SetString("_dsSurveyRoundToDisplay", survRound);
 
 
                         ctx.Session.SetString("_loggedInUserMonthNo", month.ToString());

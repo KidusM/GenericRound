@@ -48,17 +48,17 @@ namespace CSMS.Controllers
 
                 if (id != 0)
                 {
-                    if (id == 2 || sRole == "Coordinator") //survey coordinator
+                    if (id == 2 )//|| sRole == "Coordinator") //survey coordinator
                     {
 
                         actualPath = actualPathPartial + separator + "SC";
                     }
-                    else if (id == 1 || sRole == "Staff") //staff
+                    else if (id == 1 )//|| sRole == "Staff") //staff
                     {
                         actualPath = actualPathPartial + separator + "ST";
                         
                     }
-                    else if (id == 3 || sRole == "Pricing Agent") // Pricing Agent
+                    else if (id == 3)//|| sRole == "Pricing Agent") // Pricing Agent
                     {
                         actualPath = actualPathPartial + separator + "PA";
 
