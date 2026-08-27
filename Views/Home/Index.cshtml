@@ -12,8 +12,15 @@
     }
 </style>
 <!-- slider Area Start-->
+@*<div style="background-image: url(assets/images/Banner.png);background-color:#203752;">*@
+<div style="    background-image: linear-gradient( to right,
+        rgba(32, 55, 82, 0.8) 0%,
+        rgba(32, 55, 82, 0.8) 100% ),
+        url(/assets/images/Banner.png);
+        background-color: #203752;
+        background-size: cover;
 
-<div style="background-image: url(cold/assets/images/Banner.png);background-color:#203752;">
+    ">
 
     <div class="row">
         <div class="col-xl-12">
@@ -34,19 +41,19 @@
 
                     if (display)
                     {
-                                <h4 class="card-title text-center text-white">
-                                    @*<h4 style="@(display? "disply:block" : "display:none")" class="card-title text-center text-white">*@
-                                    @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") - @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCity")
-                
-                
-                                </h4>}
+                        <h4 class="card-title text-center text-white">
+                            @*<h4 style="@(display? "disply:block" : "display:none")" class="card-title text-center text-white">*@
+                            @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") - @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCity")
+
+
+                        </h4>}
                     if (selectedDS && !display)
                     {
                         @*<h4 style="@(selectedDS? "disply:block" : "display:none")" class="card-title text-center text-white">*@
-            <h4 class="card-title text-center text-white">
-                @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsCountry") - @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsCity")
-                
-            </h4>
+                        <h4 class="card-title text-center text-white">
+                            @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsCountry") - @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsCity")
+
+                        </h4>
 
                     }
                     <br />
@@ -105,41 +112,45 @@
                                                     <option id="emptySelection" label="Select your duty station . . ."></option>
 
                                                     <optgroup label='ACTIVE SURVEYS' style="color:darkorange; ">
-
-
-                                                        @foreach (var a in ViewBag.ActiveListAll)
+                                                        @foreach (var a in ViewBag.ActiveListByRound)
                                                         {
-                                                            string val = a.Value + "0";
-                                                            <option value=@val style="color:black;  font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;@a.Text </option>
+                                                            if (a.Disabled)
+                                                            {
+                                                                <option disabled style="font-weight:bold; color:#203752;">&nbsp;&nbsp;@a.Text</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@a.Value" style="color:black; font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@a.Text</option>
+                                                            }
                                                         }
-
-                                                        @*</optgroup>*@
-
                                                     </optgroup>
+
                                                     <optgroup label='UPCOMING SURVEYS' style="color:darkorange; ">
-
-
-
-                                                        @foreach (var a in ViewBag.upcomingListAll)
+                                                        @foreach (var a in ViewBag.UpcomingListByRound)
                                                         {
-                                                            string val = a.Value + "1";
-                                                            <option value=@val style="color:black;  font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;@a.Text </option>
+                                                            if (a.Disabled)
+                                                            {
+                                                                <option disabled style="font-weight:bold; color:#203752;">&nbsp;&nbsp;@a.Text</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@a.Value" style="color:black; font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@a.Text</option>
+                                                            }
                                                         }
-
-                                                        @*</optgroup>*@
                                                     </optgroup>
 
                                                     <optgroup label='PAST SURVEYS' style="color:darkorange; ">
-
-                                                        @foreach (var a in ViewBag.pastListAll)
+                                                        @foreach (var a in ViewBag.PastListByRound)
                                                         {
-                                                            string val = a.Value + "2";
-                                                            <option value=@val style="color:black;  font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;@a.Text </option>
+                                                            if (a.Disabled)
+                                                            {
+                                                                <option disabled style="font-weight:bold; color:#203752;">&nbsp;&nbsp;@a.Text</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@a.Value" style="color:black; font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@a.Text</option>
+                                                            }
                                                         }
-
-
-
-
                                                     </optgroup>
                                                 </select>
 
@@ -175,7 +186,7 @@
             </section> <!-- MESSAGE BEFORE SELECTION ENDS -->
             @{var surveyRound = @HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyRoundToDisplay");}
             @{ ViewData["Round"] = surveyRound; }
-            
+
 
 
             <!-- HOUSING SECTION BEGINS -->

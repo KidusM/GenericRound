@@ -24,7 +24,7 @@ namespace CSMS.Controllers
 
 
         private readonly UserManager<ApplicationUser> _userManager;
-   
+
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
         private string myTry;
@@ -42,7 +42,7 @@ namespace CSMS.Controllers
             _signInManager = signInManager;
         }
 
-        public  IActionResult ICSCDashboard()
+        public IActionResult ICSCDashboard()
         {
             return View();
         }
@@ -67,7 +67,7 @@ namespace CSMS.Controllers
             var userIDD = "";
             var userloggedinchecker = HttpContext.Session.GetString("_loggedInUserId");
 
-  
+
             if (!(currentUserId is null))
             {
                 userIDD = currentUserId.ToString();
@@ -113,7 +113,7 @@ namespace CSMS.Controllers
                     if (myTry != "Error")
                     {
 
-                        
+
                         //This will make sure that survey coordinators will only have access to the surveys in the current or future year
                         var thisYear = DateTime.Now.Year.ToString();
                         var nextYear = (DateTime.Now.Year + 1).ToString();
@@ -123,7 +123,7 @@ namespace CSMS.Controllers
 
                         var dsdetails = _context.Surveys.Include(a => a.Ds)
                             .Where(a => a.Dsid == dissd && a.Scid == currentUserId.ToString() && (a.SurveyYear == thisYear || a.SurveyYear == nextYear || a.SurveyYear == lastYear))
-                            .Select(a => new { a.NoOfStaff, a.Ds.Country, a.Ds.City, a.SurveyMonth, a.Round, a.SurveyYear, a.Ds.Dsgroup, a.SurveyType, a.Syscode }).OrderByDescending(b=>b.SurveyYear).FirstOrDefault();
+                            .Select(a => new { a.NoOfStaff, a.Ds.Country, a.Ds.City, a.SurveyMonth, a.Round, a.SurveyYear, a.Ds.Dsgroup, a.SurveyType, a.Syscode }).OrderByDescending(b => b.SurveyYear).FirstOrDefault();
 
                         HttpContext ctx = HttpContext;
 
@@ -156,9 +156,9 @@ namespace CSMS.Controllers
                         ctx.Session.SetString("_dsGroupToDisplay", dsGroup);
                         ctx.Session.SetString("_dsNameToDisplay", ctry + " - " + city);
 
-                        if (ctx.Session.GetString("_loggedInUserSurvType")!="") 
+                        if (ctx.Session.GetString("_loggedInUserSurvType") != "")
                         {
-                            ctx.Session.SetString("_dsSurveyType", ctx.Session.GetString("_loggedInUserSurvType")); 
+                            ctx.Session.SetString("_dsSurveyType", ctx.Session.GetString("_loggedInUserSurvType"));
                         }
                         else if (ctx.Session.GetString("_dsSurveyTypeToDisplay") != "")
                         {
@@ -193,7 +193,7 @@ namespace CSMS.Controllers
                     HttpContext.Session.SetString("_userRole", "ICSC FP");
                     return View("DisplayDashboard");
                 }
-                else if (HttpContext.User.IsInRole("Administrator")) 
+                else if (HttpContext.User.IsInRole("Administrator"))
                 {
                     HttpContext.Session.SetString("_userRole", "Adminstrator");
                     return View("DisplayDashboard");
@@ -201,7 +201,7 @@ namespace CSMS.Controllers
                 else if (HttpContext.User.IsInRole("Site Admin"))
                 {
                     HttpContext.Session.SetString("_userRole", "SiteAdmin");
-                   
+
                     return View("DisplayDashboard");
                 }
                 else if (HttpContext.User.IsInRole("Super Site Admin"))
@@ -212,10 +212,10 @@ namespace CSMS.Controllers
                 }
                 else if (HttpContext.User.IsInRole("ICSC Survey Manager"))
                 {
-//  ***
+                    //  ***
                     var smDetails = _userManager.GetUserId(HttpContext.User);
                     HttpContext.Session.SetString("_surveyManagerID", smDetails);
-//  ***                   
+                    //  ***                   
 
                     HttpContext.Session.SetString("_userRole", "ICSC SM");
                     return RedirectToAction("DisplayDashboard", "Home");
@@ -224,7 +224,7 @@ namespace CSMS.Controllers
                 {
                     HttpContext.Session.SetString("_userRole", "PricingAgent");
                     return RedirectToAction("Index", "Document");
- 
+
                 }
 
             }
@@ -248,32 +248,118 @@ namespace CSMS.Controllers
                     {
                         var DSList = _context.Surveys.Include(a => a.Ds)
 
-                            .Select(aa => new { aa.Dsid, aa.Ds.Country, aa.SurveyBegin, aa.SurveyEnd, aa.Round})
-                            .Where(x=>x.SurveyEnd.Value.Year-todaysDate.Year >= -2)
-                            .OrderBy(x=>x.SurveyBegin).ThenBy(x => x.Country)
+                            .Select(aa => new { aa.Dsid, aa.Ds.Country, aa.SurveyBegin, aa.SurveyEnd, aa.Round })
+                            .Where(x => x.SurveyEnd.Value.Year - todaysDate.Year >= -2)
+                            .OrderBy(x => x.SurveyBegin).ThenBy(x => x.Country)
                             .Distinct().ToList();
 
                         var DSList16 = _context.listOriginals
                             .Select(b => new { b.DutyStationId, b.dsid, b.City, b.SurveyBegin, b.SurveyEnd });
-                            
-         
+
+
                         var query = from x in DSList
-                                    select new { Dsid = x.Dsid, Country = x.Country, round = x.Round, SurveyBegin=x.SurveyBegin, SurveyEnd = x.SurveyEnd};
+                                    select new { Dsid = x.Dsid, Country = x.Country, round = x.Round, SurveyBegin = x.SurveyBegin, SurveyEnd = x.SurveyEnd };
 
                         var testt = query.Select(x => x.SurveyEnd.Value.Year - todaysDate.Year);
 
-                       
+
                         var activeListAll = query.Select(x => new { x.Dsid, x.Country, x.SurveyBegin, x.SurveyEnd })
                             .Where(x => x.SurveyBegin <= todaysDate && x.SurveyEnd >= todaysDate).OrderBy(x => x.Country).ToList();
                         var upcomingListAll = query.Select(x => new { x.Dsid, x.Country, x.SurveyBegin, x.SurveyEnd, x.round })
                             .Where(x => x.SurveyBegin > todaysDate).OrderBy(x => x.Country).ToList();
                         var pastListAll = query.Select(x => new { x.Dsid, x.Country, x.SurveyBegin, x.SurveyEnd, x.round })
-                            .Where(x => x.SurveyEnd < todaysDate && x.SurveyEnd >= pastSurveyCutOffDate ).OrderBy(x => x.Country).ToList();
+                            .Where(x => x.SurveyEnd < todaysDate && x.SurveyEnd >= pastSurveyCutOffDate).OrderBy(x => x.Country).ToList();
 
 
                         ViewData["pastListAll"] = new SelectList(pastListAll, "Dsid", "Country");
                         ViewData["ActiveListAll"] = new SelectList(activeListAll, "Dsid", "Country");
                         ViewData["upcomingListAll"] = new SelectList(upcomingListAll, "Dsid", "Country");
+
+                        // Additional round-aware lists used only by Index.cshtml.
+                        // The existing ViewData lists above are intentionally preserved
+                        // so any other views that rely on them continue to work unchanged.
+
+                        var activeListByRound = query
+                            .Where(x => x.SurveyBegin <= todaysDate && x.SurveyEnd >= todaysDate)
+                            .OrderBy(x => x.round)
+                            .ThenBy(x => x.Country)
+                            .ToList();
+
+                        var activeRoundDropdown = new List<SelectListItem>();
+                        foreach (var roundGroup in activeListByRound.GroupBy(x => x.round).OrderBy(x => x.Key))
+                        {
+                            activeRoundDropdown.Add(new SelectListItem
+                            {
+                                Text = "Round " + roundGroup.Key,
+                                Value = "",
+                                Disabled = true
+                            });
+
+                            foreach (var survey in roundGroup.OrderBy(x => x.Country))
+                            {
+                                activeRoundDropdown.Add(new SelectListItem
+                                {
+                                    Text = survey.Country,
+                                    Value = survey.Dsid + "0"
+                                });
+                            }
+                        }
+
+                        var upcomingListByRound = query
+                            .Where(x => x.SurveyBegin > todaysDate)
+                            .OrderBy(x => x.round)
+                            .ThenBy(x => x.Country)
+                            .ToList();
+
+                        var upcomingRoundDropdown = new List<SelectListItem>();
+                        foreach (var roundGroup in upcomingListByRound.GroupBy(x => x.round).OrderBy(x => x.Key))
+                        {
+                            upcomingRoundDropdown.Add(new SelectListItem
+                            {
+                                Text = "Round " + roundGroup.Key,
+                                Value = "",
+                                Disabled = true
+                            });
+
+                            foreach (var survey in roundGroup.OrderBy(x => x.Country))
+                            {
+                                upcomingRoundDropdown.Add(new SelectListItem
+                                {
+                                    Text = survey.Country,
+                                    Value = survey.Dsid + "1"
+                                });
+                            }
+                        }
+
+                        var pastListByRound = query
+                            .Where(x => x.SurveyEnd < todaysDate && x.SurveyEnd >= pastSurveyCutOffDate)
+                            .OrderByDescending(x => x.round)
+                            .ThenBy(x => x.Country)
+                            .ToList();
+
+                        var pastRoundDropdown = new List<SelectListItem>();
+                        foreach (var roundGroup in pastListByRound.GroupBy(x => x.round).OrderByDescending(x => x.Key))
+                        {
+                            pastRoundDropdown.Add(new SelectListItem
+                            {
+                                Text = "Round " + roundGroup.Key,
+                                Value = "",
+                                Disabled = true
+                            });
+
+                            foreach (var survey in roundGroup.OrderBy(x => x.Country))
+                            {
+                                pastRoundDropdown.Add(new SelectListItem
+                                {
+                                    Text = survey.Country,
+                                    Value = survey.Dsid + "2"
+                                });
+                            }
+                        }
+
+                        ViewBag.ActiveListByRound = activeRoundDropdown;
+                        ViewBag.UpcomingListByRound = upcomingRoundDropdown;
+                        ViewBag.PastListByRound = pastRoundDropdown;
 
                     }
                 }
@@ -353,16 +439,16 @@ namespace CSMS.Controllers
             if (dsIdSelected != null)
             {
                 char survTiming = dsIdSelected[dsIdSelected.Length - 1];
-                dsIdSelected= dsIdSelected.Substring(0, dsIdSelected.Length - 1).Trim();
+                dsIdSelected = dsIdSelected.Substring(0, dsIdSelected.Length - 1).Trim();
 
-                
+
 
                 if (survTiming == '0')//Active Surveys
                 {
                     dsInfo = _context.Surveys.Include(a => a.Ds)
                         .Select(aa => new { aa.Dsid, aa.Ds.Country, aa.Ds.City, aa.Ds.Dsgroup, aa.SurveyBegin, aa.SurveyEnd, aa.SurveyType, aa.Round })
                         .Where(x => x.Dsid == dsIdSelected && x.SurveyBegin <= todaysDate && x.SurveyEnd > todaysDate).FirstOrDefault();
-                    if (dsInfo == null) 
+                    if (dsInfo == null)
                     {
                         dsInfo2016 = _context.listOriginals
                                  .Select(bb => new { bb.dsid, bb.City, bb.survyear, bb.survdate, bb.DutyStationId, bb.Roundno, bb.survtype, bb.SurveyBegin, bb.SurveyEnd })
@@ -392,16 +478,16 @@ namespace CSMS.Controllers
                                  .Select(bb => new { bb.dsid, bb.City, bb.survyear, bb.survdate, bb.DutyStationId, bb.Roundno, bb.survtype, bb.SurveyBegin, bb.SurveyEnd })
                                  .Where(b => b.SurveyEnd >= pastSurveyCutOffDate && b.SurveyEnd < todaysDate && b.DutyStationId == dsIdSelected).FirstOrDefault();
                     }
-                    
-                    
+
+
                 }
-                
+
                 if (dsInfo == null)
-                { 
+                {
                     //string redirectUrlInfo = "TUR001-ANKARA#H*122023";
-                    string redirectUrlInfo =dsInfo2016.dsid + "-" + dsInfo2016.City + dsInfo2016.Roundno + "#" + dsInfo2016.survtype + "*" + MonthNumber(dsInfo2016.survdate) + dsInfo2016.survyear;
-                       
-                   return RedirectTo2016(redirectUrlInfo);
+                    string redirectUrlInfo = dsInfo2016.dsid + "-" + dsInfo2016.City + dsInfo2016.Roundno + "#" + dsInfo2016.survtype + "*" + MonthNumber(dsInfo2016.survdate) + dsInfo2016.survyear;
+
+                    return RedirectTo2016(redirectUrlInfo);
                 }
                 else
                 {
@@ -414,7 +500,7 @@ namespace CSMS.Controllers
                     HttpContext.Session.SetString("_dsGroupToDisplay", dsInfo.Dsgroup.ToString().Trim());
                     HttpContext.Session.SetString("_dsSurveyTypeToDisplay", dsInfo.SurveyType.ToString().Trim());
                     HttpContext.Session.SetString("_dsSurveyRoundToDisplay", dsInfo.Round.ToString().Trim());
-                    
+
 
                     HttpContext.Session.SetString("_dsNameToDisplay", dsInfo.Country.ToString().Trim() + " - " + dsInfo.City.ToString().Trim());
 
@@ -437,7 +523,7 @@ namespace CSMS.Controllers
         // This Method determines if the current logged survey coordinator completed a survey or not
 
         public IActionResult RedirectTo2016(string urltoredirect)
-        
+
         {
             string submitted = "Go";
             string encodedDsid = HttpUtility.UrlEncode(urltoredirect);
@@ -500,7 +586,7 @@ namespace CSMS.Controllers
 
 
 
-       
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

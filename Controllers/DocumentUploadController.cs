@@ -313,7 +313,7 @@ namespace CSMS.Controllers
                 return RedirectToAction(nameof(Delete), new { currentPath });
             }
 
-            var allowedExtensions = new[] { ".xlsx", ".xls", ".pdf", ".doc", ".docx" };
+            var allowedExtensions = new[] { ".xlsx", ".xls", ".pdf", ".doc", ".docx", ".xlsm" };
 
             var originalFileName = Path.GetFileName(file.FileName);
             var extension = Path.GetExtension(originalFileName).ToLower();
