@@ -1,14 +1,17 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
-@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Http
 @model IEnumerable<CSMS.Models.ScChecklist>
 
-@{string dsGroup = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay"); }
+@{
+    string dsGroup = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay");
 
-@{var i = 1;
+    var i = 1;
+
+    bool role = HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+    bool hq = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";
 }
+
 <br />
-@{bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
-    bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";}
 
 @if (role)
 {
@@ -18,67 +21,75 @@
            class="btn btn-primary">
             Add New Checklist Item
         </a>
-
     </div>
 }
-<h4 style="font-weight:bold">Before the survey </h4>
+
+<h4 style="font-weight:bold">Before the survey</h4>
 <br />
-
-
 
 @foreach (var item in Model)
 {
     string chck = "chck" + i.ToString();
+
     if (item.CbId.Contains("1-") && !(item.CbId.Contains("H1-")))
     {
-
         <div class="tabs">
             <div class="tab">
+
                 @if (dsGroup == "2" && item.DetailTask != null)
                 {
-                    <div>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
-                    </div>
+                    @if (role)
+                    {
+                        <div>
+                            <a asp-action="Edit"
+                               asp-route-id="@item.Id"
+                               class="btn btn-sm btn-primary">
+                                Edit
+                            </a>
+
+                            <a asp-action="Details"
+                               asp-route-id="@item.Id"
+                               class="btn btn-sm btn-info">
+                                Details
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@item.Id"
+                               class="btn btn-sm btn-danger"
+                               style="float:right">
+                                Delete
+                            </a>
+                        </div>
+                    }
+
                     <input type="checkbox" id="@chck">
 
-                    <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium; @((item.GroupId == "4" && dsGroup != "0") ? "display:none" : "display:block")">
+                    <label class="tab-label"
+                           for="@chck"
+                           style="font-weight: normal; font-size:medium; @((item.GroupId == "4" && dsGroup != "0") ? "display:none" : "display:block")">
                         @Html.Raw(item.Task)
                     </label>
 
-
                     <div class="tab-content">
-
-
-
                         @Html.Raw(item.DetailTask)
-                        @*@Html.DisplayFor(modelItem => item.DetailTask)*@
+                    </div>
+                }
 
-
-
-                    </div>}
             </div>
         </div>
-
     }
+
     i++;
 }
 
 
+@{
+    i = 1;
+}
 
-
-
-
-
-
-@{i = 1; }
 <br />
-<h4 style="font-weight:bold">During the survey </h4>
+<h4 style="font-weight:bold">During the survey</h4>
 <br />
-
-
-
 
 @foreach (var item in Model)
 {
@@ -86,73 +97,115 @@
 
     if (item.CbId.Contains("2-") && !(item.CbId.Contains("H2-")))
     {
-        <div>
-            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
-            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
-            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
-        </div>
+        @if (role)
+        {
+            <div>
+                <a asp-action="Edit"
+                   asp-route-id="@item.Id"
+                   class="btn btn-sm btn-primary">
+                    Edit
+                </a>
+
+                <a asp-action="Details"
+                   asp-route-id="@item.Id"
+                   class="btn btn-sm btn-info">
+                    Details
+                </a>
+
+                <a asp-action="Delete"
+                   asp-route-id="@item.Id"
+                   class="btn btn-sm btn-danger"
+                   style="float:right">
+                    Delete
+                </a>
+            </div>
+        }
+
         <div class="tabs">
             <div class="tab">
+
                 @if (dsGroup == "2" && item.DetailTask != null)
                 {
                     <input type="checkbox" id="@chck">
 
-                    <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium;">@Html.Raw(item.Task)</label>
+                    <label class="tab-label"
+                           for="@chck"
+                           style="font-weight: normal; font-size:medium;">
+                        @Html.Raw(item.Task)
+                    </label>
+
                     <div class="tab-content">
-
-
                         @Html.Raw(item.DetailTask)
-                        @*@Html.DisplayFor(modelItem => item.DetailTask)*@
+                    </div>
+                }
 
-
-
-
-                    </div>}
             </div>
         </div>
-
     }
+
     i++;
 }
 
 
+@{
+    i = 1;
+}
 
-
-
-@{i = 1; }
 <br />
-<h4 style="font-weight:bold">After the survey </h4>
+<h4 style="font-weight:bold">After the survey</h4>
 <br />
-
 
 @foreach (var item in Model)
 {
     string chck = "chck" + i.ToString();
+
     if (item.CbId.Contains("3-") && !(item.CbId.Contains("H3-")))
     {
-        <div>
-            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
-            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
-            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" style="float:right">Delete</a>
-        </div>
+        @if (role)
+        {
+            <div>
+                <a asp-action="Edit"
+                   asp-route-id="@item.Id"
+                   class="btn btn-sm btn-primary">
+                    Edit
+                </a>
+
+                <a asp-action="Details"
+                   asp-route-id="@item.Id"
+                   class="btn btn-sm btn-info">
+                    Details
+                </a>
+
+                <a asp-action="Delete"
+                   asp-route-id="@item.Id"
+                   class="btn btn-sm btn-danger"
+                   style="float:right">
+                    Delete
+                </a>
+            </div>
+        }
+
         <div class="tabs">
             <div class="tab">
+
                 @if (dsGroup == "2" && item.DetailTask != null)
                 {
                     <input type="checkbox" id="@chck">
 
-                    <label class="tab-label" for="@chck" style="font-weight: normal; font-size:medium;">@Html.Raw(item.Task)</label>
+                    <label class="tab-label"
+                           for="@chck"
+                           style="font-weight: normal; font-size:medium;">
+                        @Html.Raw(item.Task)
+                    </label>
+
                     <div class="tab-content">
-
-
                         @Html.Raw(item.DetailTask)
-                        @*@Html.DisplayFor(modelItem => item.DetailTask)*@
+                    </div>
+                }
 
-
-                    </div>}
             </div>
         </div>
-
     }
+
     i++;
 }
