@@ -6,7 +6,7 @@
 
     <div class="card shadow-sm border-0">
 
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-info text-white">
             <h2 class="mb-0">Document Manangement Dashboard</h2>
         </div>
 
@@ -33,7 +33,7 @@
                 </div>
             }
 
-       
+
             <!-- ADMINISTRATION ACCORDION -->
 
             <div class="accordion mb-4" id="documentManagementAccordion">
@@ -72,7 +72,6 @@
                                 groups of duty stations.
                             </p>
 
-
                             <div class="alert alert-info">
 
                                 <h3>Important:</h3>
@@ -87,7 +86,6 @@
 
                             </div>
 
-
                             <h3>Please follow these steps:</h3>
 
                             <ol>
@@ -98,7 +96,6 @@
                                 <li>Upload the ZIP file using the form below</li>
                             </ol>
 
-
                             <a asp-action="DownloadDynamicPartialsRound"
                                asp-controller="DocumentUpload"
                                class="btn btn-info mb-3">
@@ -106,7 +103,6 @@
                                 Download Welcome Pages
 
                             </a>
-
 
                             <form asp-action="UploadDynamicPartialsRound"
                                   asp-controller="DocumentUpload"
@@ -128,7 +124,6 @@
 
                                 </div>
 
-
                                 <button type="submit"
                                         class="btn btn-primary">
 
@@ -143,7 +138,6 @@
                     </div>
 
                 </div>
-
 
 
                 <!-- ===================================================== -->
@@ -166,7 +160,6 @@
                         </button>
 
                     </h2>
-
 
                     <div id="collapseSurveyDocuments"
                          class="accordion-collapse collapse"
@@ -198,14 +191,12 @@
 
                                     </h2>
 
-
                                     <div id="collapseUploadInfo"
                                          class="accordion-collapse collapse"
                                          aria-labelledby="headingUploadInfo"
                                          data-bs-parent="#uploadInfoAccordion">
 
                                         <div class="accordion-body">
-
 
                                             <div class="alert alert-info mb-4">
 
@@ -224,13 +215,11 @@
 
                                             </div>
 
-
                                             <div class="card border-secondary">
 
                                                 <div class="card-header bg-light">
                                                     <strong>File Name Logic</strong>
                                                 </div>
-
 
                                                 <div class="card-body">
 
@@ -242,7 +231,6 @@
                                                         <code>[2026-HQ-PP-SC] 01 File Name.pdf</code>
                                                     </div>
 
-
                                                     <p>
                                                         The system reads the part inside the brackets:
                                                     </p>
@@ -251,7 +239,6 @@
                                                         <code>2026-HQ-PP-SC</code>
                                                     </div>
 
-
                                                     <p>
                                                         Then it creates or uses this folder path:
                                                     </p>
@@ -259,7 +246,6 @@
                                                     <div class="bg-light border rounded p-3 mb-3">
                                                         <code>Documents/2026/HQ/PP/SC</code>
                                                     </div>
-
 
                                                     <p class="mb-0">
                                                         The bracket code is removed from the saved file name,
@@ -292,7 +278,6 @@
 
                                 @Html.AntiForgeryToken()
 
-
                                 <div class="form-group mb-3">
 
                                     <label asp-for="Files"
@@ -304,7 +289,6 @@
 
                                     (Read the instructions before continuing 🠝)
 
-
                                     <input type="file"
                                            id="Files"
                                            name="Files"
@@ -312,11 +296,9 @@
                                            accept=".xlsx,.xls,.pdf,.doc,.docx"
                                            multiple />
 
-
                                     <span asp-validation-for="Files"
                                           class="text-danger">
                                     </span>
-
 
                                     <small class="form-text text-muted">
                                         Allowed file types: Excel, PDF, Word documents.
@@ -324,13 +306,11 @@
 
                                 </div>
 
-
                                 <div class="mb-3">
 
                                     <label class="form-label fw-bold">
                                         Selected Files
                                     </label>
-
 
                                     <ul id="fileList"
                                         class="list-group">
@@ -343,14 +323,12 @@
 
                                 </div>
 
-
                                 <button type="submit"
                                         class="btn btn-primary">
 
                                     Upload
 
                                 </button>
-
 
                                 <div>
 
@@ -361,9 +339,7 @@
 
                                 </div>
 
-
                                 <br />
-
 
                                 <a asp-action="Delete"
                                    asp-controller="DocumentUpload"
@@ -381,12 +357,213 @@
 
                 </div>
 
+
+                <!-- ===================================================== -->
+                <!-- UPDATE SITE LINKS -->
+                <!-- ===================================================== -->
+
+                <div class="accordion-item">
+
+                    <h2 class="accordion-header" id="headingSiteLinks">
+
+                        <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseSiteLinks"
+                                aria-expanded="false"
+                                aria-controls="collapseSiteLinks">
+
+                            <strong>Update Site Links</strong>
+
+                        </button>
+
+                    </h2>
+
+                    <div id="collapseSiteLinks"
+                         class="accordion-collapse collapse"
+                         aria-labelledby="headingSiteLinks"
+                         data-bs-parent="#documentManagementAccordion">
+
+                        <div class="accordion-body">
+
+                            <p>
+                                Update the external links used by the website.
+                                Survey and Electronic Diary links are maintained
+                                separately for each survey round.
+                            </p>
+
+                            <div class="alert alert-info">
+                                <strong>Survey Rounds:</strong>
+                                Survey rounds are detected automatically.
+                                When a new round is created, it will automatically
+                                appear here with fields for the Survey URL,
+                                English Electronic Diary URL and French Electronic Diary URL.
+                            </div>
+
+                            <form asp-action="UpdateSiteLinks"
+                                  asp-controller="DocumentUpload"
+                                  method="post">
+
+                                @Html.AntiForgeryToken()
+
+                                <h5 class="mb-3">
+                                    Round-Specific Links
+                                </h5>
+
+                                @if (ViewBag.SurveyRounds != null)
+                                {
+                                    foreach (string round in ViewBag.SurveyRounds)
+                                    {
+                                        string surveyUrl = "";
+                                        string englishDiaryUrl = "";
+                                        string frenchDiaryUrl = "";
+
+                                        if (ViewBag.SiteLinks != null)
+                                        {
+                                            if (ViewBag.SiteLinks.SurveyUrls != null &&
+                                                ViewBag.SiteLinks.SurveyUrls.ContainsKey(round))
+                                            {
+                                                surveyUrl =
+                                                    ViewBag.SiteLinks.SurveyUrls[round];
+                                            }
+
+                                            if (ViewBag.SiteLinks.ElectroniDiaryEnglishURL != null &&
+                                                ViewBag.SiteLinks.ElectroniDiaryEnglishURL.ContainsKey(round))
+                                            {
+                                                englishDiaryUrl =
+                                                    ViewBag.SiteLinks.ElectroniDiaryEnglishURL[round];
+                                            }
+
+                                            if (ViewBag.SiteLinks.ElectroniDiaryFrenchURL != null &&
+                                                ViewBag.SiteLinks.ElectroniDiaryFrenchURL.ContainsKey(round))
+                                            {
+                                                frenchDiaryUrl =
+                                                    ViewBag.SiteLinks.ElectroniDiaryFrenchURL[round];
+                                            }
+                                        }
+
+                                        <div class="card mb-4">
+
+                                            <div class="card-header bg-light">
+                                                <strong>
+                                                    Survey Round @round
+                                                </strong>
+                                            </div>
+
+                                            <div class="card-body">
+
+                                                <!-- Survey URL -->
+
+                                                <div class="mb-3">
+
+                                                    <label class="form-label fw-bold">
+                                                        @round Survey Link
+                                                    </label>
+
+                                                    <input type="url"
+                                                           name="SurveyUrls[@round]"
+                                                           value="@surveyUrl"
+                                                           class="form-control"
+                                                           placeholder="Enter the survey URL for @round" />
+
+                                                </div>
+
+
+                                                <!-- English Electronic Diary URL -->
+
+                                                <div class="mb-3">
+
+                                                    <label class="form-label fw-bold">
+                                                        @round Electronic Diary English Link
+                                                    </label>
+
+                                                    <input type="text"
+                                                           name="ElectroniDiaryEnglishURL[@round]"
+                                                           value="@englishDiaryUrl"
+                                                           class="form-control"
+                                                           placeholder="Enter the English Electronic Diary URL for @round" />
+
+                                                </div>
+
+
+                                                <!-- French Electronic Diary URL -->
+
+                                                <div class="mb-3">
+
+                                                    <label class="form-label fw-bold">
+                                                        @round Electronic Diary French Link
+                                                    </label>
+
+                                                    <input type="text"
+                                                           name="ElectroniDiaryFrenchURL[@round]"
+                                                           value="@frenchDiaryUrl"
+                                                           class="form-control"
+                                                           placeholder="Enter the French Electronic Diary URL for @round" />
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="alert alert-warning">
+                                        No survey rounds were found.
+                                    </div>
+                                }
+
+
+                                <hr />
+
+
+                                <!-- GLOBAL SITE LINKS -->
+
+                                <h5 class="mb-3">
+                                    Other Site Links
+                                </h5>
+
+                                <div class="mb-3">
+
+                                    <label class="form-label fw-bold">
+                                        PA Manual Link
+                                    </label>
+
+                                    <input type="url"
+                                           name="PAManualUrl"
+                                           value="@(ViewBag.SiteLinks != null ? ViewBag.SiteLinks.PAManualUrl : "")"
+                                           class="form-control"
+                                           placeholder="Enter the PA Manual URL" />
+
+                                </div>
+
+
+                                <button type="submit"
+                                        class="btn btn-primary">
+
+                                    Save Links
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
             <!-- ADMINISTRATION ACCORDION ENDS -->
+
         </div>
+
     </div>
+
 </div>
+
 
 <script>
 

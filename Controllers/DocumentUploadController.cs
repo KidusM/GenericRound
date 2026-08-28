@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using CSMS.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CSMS.Models;
@@ -9,15 +10,20 @@ using System.Collections.Generic;
 using System;
 using System.IO.Compression;
 
+
 namespace CSMS.Controllers
 {
     public class DocumentUploadController : Controller
     {
         private readonly IWebHostEnvironment _environment;
+        private readonly SiteLinkService _siteLinkService;
 
-        public DocumentUploadController(IWebHostEnvironment environment)
+        public DocumentUploadController(
+            IWebHostEnvironment environment,
+            SiteLinkService siteLinkService)
         {
             _environment = environment;
+            _siteLinkService = siteLinkService;
         }
 
         private string GetOrCreateFolderCaseInsensitive(string parentPath, string folderName)
@@ -62,7 +68,10 @@ namespace CSMS.Controllers
         private string GetDocumentsRootPath()
         {
             var assetsPath = GetRealFolderName(_environment.WebRootPath, "Assets");
-            return GetRealFolderName(assetsPath, "Documents");
+
+            return GetRealFolderName(
+                assetsPath,
+                "Documents");
         }
 
         private string GetLatestDynamicPartialRoundFolder()
@@ -76,7 +85,8 @@ namespace CSMS.Controllers
                 return null;
             }
 
-            var latestYearFolder = Directory.GetDirectories(dynamicPartialsPath)
+            var latestYearFolder = Directory
+                .GetDirectories(dynamicPartialsPath)
                 .Select(d => Path.GetFileName(d))
                 .Where(name => int.TryParse(name, out _))
                 .OrderByDescending(name => int.Parse(name))
@@ -87,8 +97,47 @@ namespace CSMS.Controllers
                 return null;
             }
 
-            return Path.Combine(dynamicPartialsPath, latestYearFolder);
+            return Path.Combine(
+                dynamicPartialsPath,
+                latestYearFolder);
         }
+
+        // =====================================================
+        // SITE LINKS / SURVEY ROUNDS
+        // =====================================================
+
+        private List<string> GetSurveyRounds()
+        {
+            var dynamicPartialsPath = Path.Combine(
+                _environment.WebRootPath,
+                "DynamicPartials");
+
+            if (!Directory.Exists(dynamicPartialsPath))
+            {
+                return new List<string>();
+            }
+
+            return Directory
+                .GetDirectories(dynamicPartialsPath)
+                .Select(Path.GetFileName)
+                .Where(name => int.TryParse(name, out _))
+                .OrderByDescending(name => int.Parse(name))
+                .ToList();
+        }
+
+        private void LoadSiteLinks()
+        {
+            var surveyRounds = GetSurveyRounds();
+
+            ViewBag.SiteLinks =
+                _siteLinkService.EnsureSurveyRounds(surveyRounds);
+
+            ViewBag.SurveyRounds = surveyRounds;
+        }
+
+        // =====================================================
+        // INDEX
+        // =====================================================
 
         [HttpGet]
         public IActionResult Index()
@@ -97,6 +146,8 @@ namespace CSMS.Controllers
             {
                 return View("~/Views/Shared/Unauthorized.cshtml");
             }
+
+            LoadSiteLinks();
 
             var model = new DocumentUpload
             {
@@ -117,57 +168,152 @@ namespace CSMS.Controllers
 
             if (model.Files == null || model.Files.Count == 0)
             {
-                ModelState.AddModelError("Files", "Please select at least one file.");
+                ModelState.AddModelError(
+                    "Files",
+                    "Please select at least one file.");
+
+                LoadSiteLinks();
+
+                model.UploadedFiles = GetUploadedFiles();
+
                 return View(model);
             }
 
-            var allowedExtensions = new[] { ".xlsx", ".xls", ".pdf", ".doc", ".docx", ".xlsm" };
+            var allowedExtensions = new[]
+            {
+                ".xlsx",
+                ".xls",
+                ".pdf",
+                ".doc",
+                ".docx",
+                ".xlsm"
+            };
 
             foreach (var file in model.Files)
             {
-                var originalFileName = Path.GetFileName(file.FileName);
-                var extension = Path.GetExtension(originalFileName).ToLower();
+                var originalFileName =
+                    Path.GetFileName(file.FileName);
+
+                var extension =
+                    Path.GetExtension(originalFileName).ToLower();
 
                 if (!allowedExtensions.Contains(extension))
                 {
-                    ModelState.AddModelError("Files", $"File type not allowed: {originalFileName}");
+                    ModelState.AddModelError(
+                        "Files",
+                        $"File type not allowed: {originalFileName}");
+
+                    LoadSiteLinks();
+
+                    model.UploadedFiles = GetUploadedFiles();
+
                     return View(model);
                 }
 
-                int closingBracketIndex = originalFileName.IndexOf("]");
+                int closingBracketIndex =
+                    originalFileName.IndexOf("]");
 
-                if (!originalFileName.StartsWith("[") || closingBracketIndex == -1)
+                if (!originalFileName.StartsWith("[") ||
+                    closingBracketIndex == -1)
                 {
-                    ModelState.AddModelError("Files", $"Invalid file name format: {originalFileName}");
+                    ModelState.AddModelError(
+                        "Files",
+                        $"Invalid file name format: {originalFileName}");
+
+                    LoadSiteLinks();
+
+                    model.UploadedFiles = GetUploadedFiles();
+
                     return View(model);
                 }
 
-                var folderStructure = originalFileName.Substring(1, closingBracketIndex - 1);
-                var folderParts = folderStructure.Split('-');
+                var folderStructure =
+                    originalFileName.Substring(
+                        1,
+                        closingBracketIndex - 1);
 
-                var newFileName = originalFileName.Substring(closingBracketIndex + 1).Trim();
+                var folderParts =
+                    folderStructure.Split('-');
 
-                var rootPath = GetDocumentsRootPath();
-                var folderPath = rootPath;
+                var newFileName =
+                    originalFileName
+                        .Substring(closingBracketIndex + 1)
+                        .Trim();
+
+                var rootPath =
+                    GetDocumentsRootPath();
+
+                var folderPath =
+                    rootPath;
 
                 foreach (var part in folderParts)
                 {
-                    folderPath = GetOrCreateFolderCaseInsensitive(folderPath, part);
+                    folderPath =
+                        GetOrCreateFolderCaseInsensitive(
+                            folderPath,
+                            part);
                 }
 
-                var filePath = Path.Combine(folderPath, newFileName);
+                var filePath =
+                    Path.Combine(
+                        folderPath,
+                        newFileName);
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var stream =
+                    new FileStream(
+                        filePath,
+                        FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
             }
 
-            ViewBag.Message = "Files uploaded successfully.";
-            model.UploadedFiles = GetUploadedFiles();
+            ViewBag.Message =
+                "Files uploaded successfully.";
+
+            model.UploadedFiles =
+                GetUploadedFiles();
+
+            LoadSiteLinks();
 
             return View(model);
         }
+
+        // =====================================================
+        // UPDATE SITE LINKS
+        // =====================================================
+
+        [HttpPost]
+        public IActionResult UpdateSiteLinks(
+            Dictionary<string, string> SurveyUrls,
+            Dictionary<string, string> ElectroniDiaryEnglishURL,
+            Dictionary<string, string> ElectroniDiaryFrenchURL,
+            string PAManualUrl)
+        {
+            var settings = _siteLinkService.GetLinks();
+
+            settings.SurveyUrls =
+                SurveyUrls ?? new Dictionary<string, string>();
+
+            settings.ElectroniDiaryEnglishURL =
+                ElectroniDiaryEnglishURL ?? new Dictionary<string, string>();
+
+            settings.ElectroniDiaryFrenchURL =
+                ElectroniDiaryFrenchURL ?? new Dictionary<string, string>();
+
+            settings.PAManualUrl = PAManualUrl ?? "";
+
+            _siteLinkService.SaveLinks(settings);
+
+            TempData["SuccessMessage"] =
+                "Site links updated successfully.";
+
+            return RedirectToAction("Index");
+        }
+
+        // =====================================================
+        // DOWNLOAD DYNAMIC PARTIALS ROUND
+        // =====================================================
 
         [HttpGet]
         public IActionResult DownloadDynamicPartialsRound()
@@ -177,32 +323,53 @@ namespace CSMS.Controllers
                 return View("~/Views/Shared/Unauthorized.cshtml");
             }
 
-            var roundPath = GetLatestDynamicPartialRoundFolder();
+            var roundPath =
+                GetLatestDynamicPartialRoundFolder();
 
             if (roundPath == null)
             {
-                TempData["RoundError"] = "No round folder was found in DynamicPartials.";
+                TempData["RoundError"] =
+                    "No round folder was found in DynamicPartials.";
+
                 return RedirectToAction(nameof(Index));
             }
 
-            var year = Path.GetFileName(roundPath);
+            var year =
+                Path.GetFileName(roundPath);
 
-            var files = Directory.GetFiles(roundPath, "*.*", SearchOption.AllDirectories);
+            var files =
+                Directory.GetFiles(
+                    roundPath,
+                    "*.*",
+                    SearchOption.AllDirectories);
 
             if (files.Length == 0)
             {
-                TempData["RoundError"] = $"The DynamicPartials folder for {year} has no files to download.";
+                TempData["RoundError"] =
+                    $"The DynamicPartials folder for {year} has no files to download.";
+
                 return RedirectToAction(nameof(Index));
             }
 
-            var memoryStream = new MemoryStream();
+            var memoryStream =
+                new MemoryStream();
 
-            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+            using (var archive =
+                new ZipArchive(
+                    memoryStream,
+                    ZipArchiveMode.Create,
+                    true))
             {
                 foreach (var file in files)
                 {
-                    var relativePath = Path.GetRelativePath(roundPath, file);
-                    archive.CreateEntryFromFile(file, relativePath);
+                    var relativePath =
+                        Path.GetRelativePath(
+                            roundPath,
+                            file);
+
+                    archive.CreateEntryFromFile(
+                        file,
+                        relativePath);
                 }
             }
 
@@ -214,9 +381,15 @@ namespace CSMS.Controllers
                 $"DynamicPartials-{year}.zip");
         }
 
+        // =====================================================
+        // UPLOAD DYNAMIC PARTIALS ROUND
+        // =====================================================
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UploadDynamicPartialsRound(IFormFile dynamicPartialsZipFile)
+        public async Task<IActionResult>
+            UploadDynamicPartialsRound(
+                IFormFile dynamicPartialsZipFile)
         {
             if (!IsSiteAdmin())
             {
@@ -225,30 +398,46 @@ namespace CSMS.Controllers
 
             if (dynamicPartialsZipFile == null)
             {
-                TempData["RoundError"] = "Please select a zip file.";
+                TempData["RoundError"] =
+                    "Please select a zip file.";
+
                 return RedirectToAction(nameof(Index));
             }
 
-            var extension = Path.GetExtension(dynamicPartialsZipFile.FileName).ToLower();
+            var extension =
+                Path.GetExtension(
+                    dynamicPartialsZipFile.FileName)
+                    .ToLower();
 
             if (extension != ".zip")
             {
-                TempData["RoundError"] = "Only .zip files are allowed.";
+                TempData["RoundError"] =
+                    "Only .zip files are allowed.";
+
                 return RedirectToAction(nameof(Index));
             }
 
-            var roundPath = GetLatestDynamicPartialRoundFolder();
+            var roundPath =
+                GetLatestDynamicPartialRoundFolder();
 
             if (roundPath == null)
             {
-                TempData["RoundError"] = "No round folder was found in DynamicPartials.";
+                TempData["RoundError"] =
+                    "No round folder was found in DynamicPartials.";
+
                 return RedirectToAction(nameof(Index));
             }
 
-            var safeRoundPath = Path.GetFullPath(roundPath);
+            var safeRoundPath =
+                Path.GetFullPath(roundPath);
 
-            using (var stream = dynamicPartialsZipFile.OpenReadStream())
-            using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
+            using (var stream =
+                dynamicPartialsZipFile.OpenReadStream())
+
+            using (var archive =
+                new ZipArchive(
+                    stream,
+                    ZipArchiveMode.Read))
             {
                 foreach (var entry in archive.Entries)
                 {
@@ -257,24 +446,37 @@ namespace CSMS.Controllers
                         continue;
                     }
 
-                    var destinationPath = Path.GetFullPath(
-                        Path.Combine(roundPath, entry.FullName));
+                    var destinationPath =
+                        Path.GetFullPath(
+                            Path.Combine(
+                                roundPath,
+                                entry.FullName));
 
                     if (!destinationPath.StartsWith(safeRoundPath))
                     {
-                        return BadRequest("Invalid zip file path.");
+                        return BadRequest(
+                            "Invalid zip file path.");
                     }
 
-                    Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+                    Directory.CreateDirectory(
+                        Path.GetDirectoryName(
+                            destinationPath));
 
-                    entry.ExtractToFile(destinationPath, true);
+                    entry.ExtractToFile(
+                        destinationPath,
+                        true);
                 }
             }
 
-            TempData["RoundMessage"] = "DynamicPartials round files uploaded successfully.";
+            TempData["RoundMessage"] =
+                "DynamicPartials round files uploaded successfully.";
 
             return RedirectToAction(nameof(Index));
         }
+
+        // =====================================================
+        // MANAGE EXISTING DOCUMENTS
+        // =====================================================
 
         [HttpGet]
         public IActionResult Delete(string currentPath)
@@ -284,104 +486,176 @@ namespace CSMS.Controllers
                 return View("~/Views/Shared/Unauthorized.cshtml");
             }
 
-            var model = GetFolderBrowserModel(currentPath);
+            var model =
+                GetFolderBrowserModel(currentPath);
+
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UploadToCurrentFolder(string currentPath, List<IFormFile> uploadFiles)
+        public async Task<IActionResult>
+            UploadToCurrentFolder(
+                string currentPath,
+                List<IFormFile> uploadFiles)
         {
             if (!IsSiteAdmin())
             {
                 return View("~/Views/Shared/Unauthorized.cshtml");
             }
 
-            currentPath = currentPath ?? "";
+            currentPath =
+                currentPath ?? "";
 
-            if (uploadFiles == null || uploadFiles.Count == 0)
+            if (uploadFiles == null ||
+                uploadFiles.Count == 0)
             {
-                TempData["UploadError"] = "Please select a file.";
-                return RedirectToAction(nameof(Delete), new { currentPath });
+                TempData["UploadError"] =
+                    "Please select a file.";
+
+                return RedirectToAction(
+                    nameof(Delete),
+                    new { currentPath });
             }
 
-            var file = uploadFiles.FirstOrDefault();
+            var file =
+                uploadFiles.FirstOrDefault();
 
             if (file == null)
             {
-                TempData["UploadError"] = "Please select a file.";
-                return RedirectToAction(nameof(Delete), new { currentPath });
+                TempData["UploadError"] =
+                    "Please select a file.";
+
+                return RedirectToAction(
+                    nameof(Delete),
+                    new { currentPath });
             }
 
-            var allowedExtensions = new[] { ".xlsx", ".xls", ".pdf", ".doc", ".docx", ".xlsm" };
+            var allowedExtensions =
+                new[]
+                {
+                    ".xlsx",
+                    ".xls",
+                    ".pdf",
+                    ".doc",
+                    ".docx",
+                    ".xlsm"
+                };
 
-            var originalFileName = Path.GetFileName(file.FileName);
-            var extension = Path.GetExtension(originalFileName).ToLower();
+            var originalFileName =
+                Path.GetFileName(file.FileName);
+
+            var extension =
+                Path.GetExtension(
+                    originalFileName)
+                    .ToLower();
 
             if (!allowedExtensions.Contains(extension))
             {
-                TempData["UploadError"] = "File type not allowed.";
-                return RedirectToAction(nameof(Delete), new { currentPath });
+                TempData["UploadError"] =
+                    "File type not allowed.";
+
+                return RedirectToAction(
+                    nameof(Delete),
+                    new { currentPath });
             }
 
-            var rootPath = GetDocumentsRootPath();
+            var rootPath =
+                GetDocumentsRootPath();
+
             Directory.CreateDirectory(rootPath);
 
-            var safeRootPath = Path.GetFullPath(rootPath);
-            var folderPath = Path.GetFullPath(Path.Combine(rootPath, currentPath));
+            var safeRootPath =
+                Path.GetFullPath(rootPath);
+
+            var folderPath =
+                Path.GetFullPath(
+                    Path.Combine(
+                        rootPath,
+                        currentPath));
 
             if (!folderPath.StartsWith(safeRootPath))
             {
-                return BadRequest("Invalid folder path.");
+                return BadRequest(
+                    "Invalid folder path.");
             }
 
             if (!Directory.Exists(folderPath))
             {
-                TempData["UploadError"] = "Selected folder does not exist.";
-                return RedirectToAction(nameof(Delete), new { currentPath = "" });
+                TempData["UploadError"] =
+                    "Selected folder does not exist.";
+
+                return RedirectToAction(
+                    nameof(Delete),
+                    new { currentPath = "" });
             }
 
-            var fullFilePath = Path.GetFullPath(Path.Combine(folderPath, originalFileName));
+            var fullFilePath =
+                Path.GetFullPath(
+                    Path.Combine(
+                        folderPath,
+                        originalFileName));
 
             if (!fullFilePath.StartsWith(safeRootPath))
             {
-                return BadRequest("Invalid file path.");
+                return BadRequest(
+                    "Invalid file path.");
             }
 
-            using (var stream = new FileStream(fullFilePath, FileMode.Create))
+            using (var stream =
+                new FileStream(
+                    fullFilePath,
+                    FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            TempData["UploadMessage"] = "File uploaded successfully.";
+            TempData["UploadMessage"] =
+                "File uploaded successfully.";
 
-            return RedirectToAction(nameof(Delete), new { currentPath });
+            return RedirectToAction(
+                nameof(Delete),
+                new { currentPath });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteFile(string currentPath, string fileName)
+        public IActionResult DeleteFile(
+            string currentPath,
+            string fileName)
         {
             if (!IsSiteAdmin())
             {
                 return View("~/Views/Shared/Unauthorized.cshtml");
             }
 
-            currentPath = currentPath ?? "";
+            currentPath =
+                currentPath ?? "";
 
             if (string.IsNullOrWhiteSpace(fileName))
             {
-                return RedirectToAction(nameof(Delete), new { currentPath });
+                return RedirectToAction(
+                    nameof(Delete),
+                    new { currentPath });
             }
 
-            var rootPath = GetDocumentsRootPath();
-            var safeRootPath = Path.GetFullPath(rootPath);
+            var rootPath =
+                GetDocumentsRootPath();
 
-            var fullPath = Path.GetFullPath(Path.Combine(rootPath, currentPath, fileName));
+            var safeRootPath =
+                Path.GetFullPath(rootPath);
+
+            var fullPath =
+                Path.GetFullPath(
+                    Path.Combine(
+                        rootPath,
+                        currentPath,
+                        fileName));
 
             if (!fullPath.StartsWith(safeRootPath))
             {
-                return BadRequest("Invalid file path.");
+                return BadRequest(
+                    "Invalid file path.");
             }
 
             if (System.IO.File.Exists(fullPath))
@@ -389,32 +663,57 @@ namespace CSMS.Controllers
                 System.IO.File.Delete(fullPath);
             }
 
-            return RedirectToAction(nameof(Delete), new { currentPath });
+            return RedirectToAction(
+                nameof(Delete),
+                new { currentPath });
         }
+
+        // =====================================================
+        // HELPERS
+        // =====================================================
 
         private List<string> GetUploadedFiles()
         {
-            var rootPath = GetDocumentsRootPath();
+            var rootPath =
+                GetDocumentsRootPath();
 
             if (!Directory.Exists(rootPath))
             {
                 return new List<string>();
             }
 
-            return Directory.GetFiles(rootPath, "*.*", SearchOption.AllDirectories)
-                .Select(file => Path.GetRelativePath(rootPath, file))
+            return Directory
+                .GetFiles(
+                    rootPath,
+                    "*.*",
+                    SearchOption.AllDirectories)
+                .Select(file =>
+                    Path.GetRelativePath(
+                        rootPath,
+                        file))
                 .ToList();
         }
 
-        private DocumentUpload GetFolderBrowserModel(string currentPath)
+        private DocumentUpload
+            GetFolderBrowserModel(
+                string currentPath)
         {
-            var rootPath = GetDocumentsRootPath();
+            var rootPath =
+                GetDocumentsRootPath();
+
             Directory.CreateDirectory(rootPath);
 
-            currentPath = currentPath ?? "";
+            currentPath =
+                currentPath ?? "";
 
-            var safeRootPath = Path.GetFullPath(rootPath);
-            var fullCurrentPath = Path.GetFullPath(Path.Combine(rootPath, currentPath));
+            var safeRootPath =
+                Path.GetFullPath(rootPath);
+
+            var fullCurrentPath =
+                Path.GetFullPath(
+                    Path.Combine(
+                        rootPath,
+                        currentPath));
 
             if (!fullCurrentPath.StartsWith(safeRootPath))
             {
@@ -426,19 +725,25 @@ namespace CSMS.Controllers
             {
                 CurrentPath = currentPath,
 
-                Folders = Directory.GetDirectories(fullCurrentPath)
-                    .Select(Path.GetFileName)
-                    .ToList(),
+                Folders =
+                    Directory
+                        .GetDirectories(fullCurrentPath)
+                        .Select(Path.GetFileName)
+                        .ToList(),
 
-                UploadedFiles = Directory.GetFiles(fullCurrentPath)
-                    .Select(Path.GetFileName)
-                    .ToList()
+                UploadedFiles =
+                    Directory
+                        .GetFiles(fullCurrentPath)
+                        .Select(Path.GetFileName)
+                        .ToList()
             };
         }
 
         private bool IsSiteAdmin()
         {
-            return HttpContext.Session.GetString("_userRole") == "SiteAdmin";
+            return HttpContext.Session
+                .GetString("_userRole")
+                == "SiteAdmin";
         }
     }
 }

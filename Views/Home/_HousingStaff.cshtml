@@ -1,7 +1,8 @@
-﻿
-
-@inject IHttpContextAccessor HttpContextAccessor
+﻿@inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
+@using CSMS.Services
+@inject SiteLinkService SiteLinkService
+
 @{
 }
 
@@ -48,7 +49,7 @@
                 <span style="font-weight:bold;">Housing costs </span>: elicits information on housing costs.
                 <br />
                 <span style="font-weight:bold;">Domestic and security services costs</span>: elicits information about your expenditure on domestic services and security,
-                
+
                 <br />
                 <br />
                 The Housing questionnaire is administered online so that the information elicited is entered directly by respondents
@@ -93,19 +94,39 @@
             </p>
 
             <br />
-            <div class="">
+
+
+            @inject SiteLinkService SiteLinkService
+
+            @{
+                var surveyRound =
+                    HttpContextAccessor.HttpContext.Session
+                        .GetString("_dsSurveyRoundToDisplay");
+
+                var surveyUrl =
+                    SiteLinkService.GetSurveyUrl(surveyRound);
+            }
+            <a href="@surveyUrl"
+               target="Survey"
+               class="btn btn-info text-center"
+               width="60%">
+                Begin Survey
+            </a>
+
+
+            @*<div class="">
                 <a href="https://surveys.unicsc.org/COLDSurvey2021/welcome" target="Survey" class="btn btn-info text-center" width="60%">Begin Survey </a>
-            </div>
+            </div>*@
 
             <br />
 
 
             @*<h3 class="card-title">III. Electronic Diary</h3>
 
-            <p>
-                The Electronic Diary is an Excel tool that enables you to keep track of your expenses in preparation of the survey. You can access the diary in the documents section by clicking “Documents” in the Menu bar on the left.
-                You can also download it here in <a href="~/assets/Documents/Group-I/Staff/01 Electronic Diary English.xlsm">English </a> and <a href="~/assets/Documents/Group-I/Staff/01 Electronic Diary French.xlsm">French </a>
-            </p>*@
+        <p>
+            The Electronic Diary is an Excel tool that enables you to keep track of your expenses in preparation of the survey. You can access the diary in the documents section by clicking “Documents” in the Menu bar on the left.
+            You can also download it here in <a href="~/assets/Documents/Group-I/Staff/01 Electronic Diary English.xlsm">English </a> and <a href="~/assets/Documents/Group-I/Staff/01 Electronic Diary French.xlsm">French </a>
+        </p>*@
 
             <br /><br />
             <h3 class="card-title">III. Soft copy of the Questionnaire</h3>

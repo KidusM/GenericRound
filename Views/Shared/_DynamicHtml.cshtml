@@ -1,8 +1,20 @@
 ﻿@model string
+
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
+@inject IHttpContextAccessor HttpContextAccessor
+@inject CSMS.Services.SiteLinkService SiteLinkService
+
+@using Microsoft.AspNetCore.Http
 
 @{
     var round = ViewData["Round"]?.ToString();
+
+    if (string.IsNullOrWhiteSpace(round))
+    {
+        round = HttpContextAccessor.HttpContext.Session
+            .GetString("_dsSurveyRoundToDisplay");
+    }
+
     string path;
 
     if (string.IsNullOrWhiteSpace(round))
@@ -22,11 +34,49 @@
             $"{Model}.html"
         );
     }
+
+    string htmlContent = null;
+
+    if (System.IO.File.Exists(path))
+    {
+        htmlContent = System.IO.File.ReadAllText(path);
+
+        var siteLinks = SiteLinkService.GetLinks();
+
+        var surveyUrl =
+            SiteLinkService.GetSurveyUrl(round);
+
+        var electronicDiaryEnglishUrl =
+            SiteLinkService.GetElectronicDiaryEnglishUrl(round);
+
+        var electronicDiaryFrenchUrl =
+            SiteLinkService.GetElectronicDiaryFrenchUrl(round);
+
+        htmlContent = htmlContent.Replace(
+            "{{SurveyUrl}}",
+            surveyUrl ?? ""
+        );
+
+        htmlContent = htmlContent.Replace(
+            "{{PAManualUrl}}",
+            siteLinks.PAManualUrl ?? ""
+        );
+
+        htmlContent = htmlContent.Replace(
+            "{{ElectroniDiaryEnglishURL}}",
+            electronicDiaryEnglishUrl ?? ""
+        );
+
+        htmlContent = htmlContent.Replace(
+            "{{ElectroniDiaryFrenchURL}}",
+            electronicDiaryFrenchUrl ?? ""
+        );
+    }
 }
 
-@if (System.IO.File.Exists(path))
+@if (htmlContent != null)
 {
-    @Html.Raw(System.IO.File.ReadAllText(path))
+    @Html.Raw(htmlContent)
 }
 else
 {

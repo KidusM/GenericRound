@@ -1,4 +1,5 @@
-﻿using CSMS.Data;
+﻿using CSMS.Services;
+using CSMS.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,13 +13,13 @@ namespace CSMS.Controllers
     {
         private readonly IWebHostEnvironment _environment;
         private readonly ApplicationDbContext _context;
+        private readonly SiteLinkService _siteLinkService;
 
-        public CreateARoundController(
-            IWebHostEnvironment environment,
-            ApplicationDbContext context)
+        public CreateARoundController(IWebHostEnvironment environment, ApplicationDbContext context, SiteLinkService siteLinkService)
         {
             _environment = environment;
             _context = context;
+            _siteLinkService = siteLinkService;
         }
 
         private string GetRealFolderName(string parentPath, string folderName)
@@ -213,26 +214,74 @@ namespace CSMS.Controllers
 
         private void CreateWelcomePagesForNewRound(string year)
         {
-            string dynamicPartialsRoot = Path.Combine(_environment.WebRootPath, "DynamicPartials");
+            string dynamicPartialsRoot =
+                Path.Combine(
+                    _environment.WebRootPath,
+                    "DynamicPartials"
+                );
 
             if (!Directory.Exists(dynamicPartialsRoot))
             {
                 Directory.CreateDirectory(dynamicPartialsRoot);
             }
 
-            string newRoundFolder = Path.Combine(dynamicPartialsRoot, year);
+            string newRoundFolder =
+                Path.Combine(
+                    dynamicPartialsRoot,
+                    year
+                );
 
             if (!Directory.Exists(newRoundFolder))
             {
                 Directory.CreateDirectory(newRoundFolder);
             }
 
+            var siteLinks = _siteLinkService.GetLinks();
+
             foreach (string file in Directory.GetFiles(dynamicPartialsRoot))
             {
-                string fileName = Path.GetFileName(file);
-                string destinationFile = Path.Combine(newRoundFolder, fileName);
+                string fileName =
+                    Path.GetFileName(file);
 
-                System.IO.File.Copy(file, destinationFile, overwrite: false);
+                string destinationFile =
+                    Path.Combine(
+                        newRoundFolder,
+                        fileName
+                    );
+
+                string htmlContent =
+                    System.IO.File.ReadAllText(file);
+
+                // Replace every Survey URL currently stored in SiteLinks.json
+                if (siteLinks.SurveyUrls != null)
+                {
+                    foreach (var surveyUrl in siteLinks.SurveyUrls.Values)
+                    {
+                        if (!string.IsNullOrWhiteSpace(surveyUrl))
+                        {
+                            htmlContent =
+                                htmlContent.Replace(
+                                    surveyUrl,
+                                    "{{SurveyUrl}}"
+                                );
+                        }
+                    }
+                }
+
+                // Replace PA Manual URL
+                if (!string.IsNullOrWhiteSpace(siteLinks.PAManualUrl))
+                {
+                    htmlContent =
+                        htmlContent.Replace(
+                            siteLinks.PAManualUrl,
+                            "{{PAManualUrl}}"
+                        );
+                }
+
+                System.IO.File.WriteAllText(
+                    destinationFile,
+                    htmlContent
+                );
             }
         }
 

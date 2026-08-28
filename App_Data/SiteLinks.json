@@ -1,0 +1,16 @@
+{
+  "SurveyUrls": {
+    "2026": "https://surveys.unicsc.org/COLDSurvey2026/welcome",
+    "2021": "https://surveys.unicsc.org/COLDSurvey2021/welcome"
+  },
+  "PAManualUrl": "https://unicsc.org/Resources/COLD/Booklets/PABooklet.pdf",
+  "ElectroniDiaryEnglishURL": {
+    "2026": "TestEnglish2026",
+    "2021": "TestEnglish2021"
+  },
+  "ElectroniDiaryFrenchURL": {
+    "2026": "TestFrench2026",
+    "2021": "TestFrench2021"
+  }
+
+}

@@ -1,3 +1,4 @@
+using CSMS.Services;
 using CSMS.Data;
 using CSMS.Models;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,7 @@ namespace CSMS
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSingleton<SiteLinkService>();
 
             //  services.AddDatabaseDeveloperPageExceptionFilter();
 
