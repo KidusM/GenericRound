@@ -16,11 +16,12 @@
 
                     @if (ViewBag.Message != null && ViewBag.RoundCreated != true && ViewBag.RoundDeleted != true)
                     {
-                        <div class="alert alert-info mt-3">
-                            @ViewBag.Message
+                        var alertType = ViewBag.MessageType ?? "info";
+
+                        <div class="alert alert-@alertType mt-3">
+                            <strong>@ViewBag.Message</strong>
                         </div>
                     }
-
 
 
 
@@ -372,7 +373,8 @@
                                 </ul>
 
                                 <p>
-                                    The system will refuse to delete the round if any document exists anywhere inside the document folder.
+                                    The system will refuse to delete the round if any surveys are assigned
+                                    to the round or if any documents exist anywhere inside the document folder.
                                 </p>
 
                                 <p>

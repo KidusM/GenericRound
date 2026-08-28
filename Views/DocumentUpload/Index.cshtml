@@ -33,180 +33,347 @@
                 </div>
             }
 
-            <!-- DynamicPartials Download / Upload -->
+       
+            <!-- ADMINISTRATION ACCORDION -->
 
-            <div class="card border-warning mb-4">
+            <div class="accordion mb-4" id="documentManagementAccordion">
 
-                <div class="card-header bg-warning text-dark">
-                    <h3>Update Welcome HTML pages </h3>
-                </div>
-
-                <div class="card-body">
-
-                    <p>
-                        This section allows site admins to update welcome pages such as Staff Welcome page, Survey Coordinator Overview Page for all groups of duty stations.
-                    </p>
-
-
-
-                    <div class="alert alert-info">
-
-                        <h3>Important:</h3>
-
-                        <ul class="mb-0">
-                            <li>This step should be done right after a new round is created.</li>
-                            <li>Creating a new round will copy all welcome pages from the current round to the new round.</li>
-                            <li>This step will download the newly copied welcome pages.</li>
-                            <li>The site admin should make modifications relevant to the new round and upload them again.</li>
-                            <li>Only ZIP files are accepted when uploading.</li>
-                        </ul>
-                    </div>
-                        <p>
-                            <h3>Please follow these steps:</h3>
-                            <ol>
-                                <li>Download ZIP file</li>
-                                <li>Exctract the downloaded ZIP file</li>
-                                <li>Modify the individual HTML pages</li>
-                                <li>Compress the files back into a ZIP file</li>
-                                <li>Upload the ZIP file using the form below</li>
-                            </ol>
-                        </p>
-                  
-
-                    <a asp-action="DownloadDynamicPartialsRound"
-                       asp-controller="DocumentUpload"
-                       class="btn btn-info mb-3">
-                        Download Welcome Pages
-                    </a>
-
-                    <form asp-action="UploadDynamicPartialsRound"
-                          asp-controller="DocumentUpload"
-                          method="post"
-                          enctype="multipart/form-data">
-
-                        @Html.AntiForgeryToken()
-
-                        <div class="form-group mb-3">
-
-                            <label class="form-label fw-bold">
-                                Upload Modified Round ZIP File
-                            </label>
-
-                            <input type="file"
-                                   name="dynamicPartialsZipFile"
-                                   class="form-control"
-                                   accept=".zip" />
-
-                        </div>
-
-                        <button type="submit"
-                                class="btn btn-primary">
-
-                            Upload Modified Files
-
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </div>
-            
-            <hr />
-            <div class="card-header bg-warning text-dark">
-                <h3>Update Survey Documents </h3>
-            </div>
-            <br />
-
-            <!-- Existing Instructions -->
-
-            <div class="accordion mb-4" id="uploadInfoAccordion">
+                <!-- ===================================================== -->
+                <!-- UPDATE WELCOME HTML PAGES -->
+                <!-- ===================================================== -->
 
                 <div class="accordion-item">
 
-                    <h2 class="accordion-header" id="headingUploadInfo">
+                    <h2 class="accordion-header" id="headingWelcomePages">
 
                         <button class="accordion-button collapsed"
                                 type="button"
                                 data-bs-toggle="collapse"
-                                data-bs-target="#collapseUploadInfo"
+                                data-bs-target="#collapseWelcomePages"
                                 aria-expanded="false"
-                                aria-controls="collapseUploadInfo">
+                                aria-controls="collapseWelcomePages">
 
-                            <b>Instructions & File Naming Rules </b>(click to expand)
+                            <strong>Update Welcome HTML Pages</strong>
 
                         </button>
 
                     </h2>
 
-                    <div id="collapseUploadInfo"
+                    <div id="collapseWelcomePages"
                          class="accordion-collapse collapse"
-                         aria-labelledby="headingUploadInfo"
-                         data-bs-parent="#uploadInfoAccordion">
+                         aria-labelledby="headingWelcomePages"
+                         data-bs-parent="#documentManagementAccordion">
 
                         <div class="accordion-body">
 
-                            <div class="alert alert-info mb-4">
+                            <p>
+                                This section allows site admins to update welcome pages such as
+                                Staff Welcome page, Survey Coordinator Overview Page for all
+                                groups of duty stations.
+                            </p>
 
-                                <h5 class="alert-heading">
-                                    How this upload works
-                                </h5>
 
-                                <p>
-                                    This form uploads documents to their correct folder based on the code written inside the file name.
-                                </p>
+                            <div class="alert alert-info">
 
-                                <p class="mb-0">
-                                    Multiple files can be uploaded at the same time.
-                                </p>
+                                <h3>Important:</h3>
+
+                                <ul class="mb-0">
+                                    <li>This step should be done right after a new round is created.</li>
+                                    <li>Creating a new round will copy all welcome pages from the current round to the new round.</li>
+                                    <li>This step will download the newly copied welcome pages.</li>
+                                    <li>The site admin should make modifications relevant to the new round and upload them again.</li>
+                                    <li>Only ZIP files are accepted when uploading.</li>
+                                </ul>
+
+                            </div>
+
+
+                            <h3>Please follow these steps:</h3>
+
+                            <ol>
+                                <li>Download ZIP file</li>
+                                <li>Extract the downloaded ZIP file</li>
+                                <li>Modify the individual HTML pages</li>
+                                <li>Compress the files back into a ZIP file</li>
+                                <li>Upload the ZIP file using the form below</li>
+                            </ol>
+
+
+                            <a asp-action="DownloadDynamicPartialsRound"
+                               asp-controller="DocumentUpload"
+                               class="btn btn-info mb-3">
+
+                                Download Welcome Pages
+
+                            </a>
+
+
+                            <form asp-action="UploadDynamicPartialsRound"
+                                  asp-controller="DocumentUpload"
+                                  method="post"
+                                  enctype="multipart/form-data">
+
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-group mb-3">
+
+                                    <label class="form-label fw-bold">
+                                        Upload Modified Round ZIP File
+                                    </label>
+
+                                    <input type="file"
+                                           name="dynamicPartialsZipFile"
+                                           class="form-control"
+                                           accept=".zip" />
+
+                                </div>
+
+
+                                <button type="submit"
+                                        class="btn btn-primary">
+
+                                    Upload Modified Files
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ===================================================== -->
+                <!-- UPDATE SURVEY DOCUMENTS -->
+                <!-- ===================================================== -->
+
+                <div class="accordion-item">
+
+                    <h2 class="accordion-header" id="headingSurveyDocuments">
+
+                        <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseSurveyDocuments"
+                                aria-expanded="false"
+                                aria-controls="collapseSurveyDocuments">
+
+                            <strong>Update Survey Documents</strong>
+
+                        </button>
+
+                    </h2>
+
+
+                    <div id="collapseSurveyDocuments"
+                         class="accordion-collapse collapse"
+                         aria-labelledby="headingSurveyDocuments"
+                         data-bs-parent="#documentManagementAccordion">
+
+                        <div class="accordion-body">
+
+
+                            <!-- Instructions Accordion -->
+
+                            <div class="accordion mb-4" id="uploadInfoAccordion">
+
+                                <div class="accordion-item">
+
+                                    <h2 class="accordion-header" id="headingUploadInfo">
+
+                                        <button class="accordion-button collapsed"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseUploadInfo"
+                                                aria-expanded="false"
+                                                aria-controls="collapseUploadInfo">
+
+                                            <b>Instructions & File Naming Rules</b>
+                                            &nbsp;(click to expand)
+
+                                        </button>
+
+                                    </h2>
+
+
+                                    <div id="collapseUploadInfo"
+                                         class="accordion-collapse collapse"
+                                         aria-labelledby="headingUploadInfo"
+                                         data-bs-parent="#uploadInfoAccordion">
+
+                                        <div class="accordion-body">
+
+
+                                            <div class="alert alert-info mb-4">
+
+                                                <h5 class="alert-heading">
+                                                    How this upload works
+                                                </h5>
+
+                                                <p>
+                                                    This form uploads documents to their correct folder
+                                                    based on the code written inside the file name.
+                                                </p>
+
+                                                <p class="mb-0">
+                                                    Multiple files can be uploaded at the same time.
+                                                </p>
+
+                                            </div>
+
+
+                                            <div class="card border-secondary">
+
+                                                <div class="card-header bg-light">
+                                                    <strong>File Name Logic</strong>
+                                                </div>
+
+
+                                                <div class="card-body">
+
+                                                    <p>
+                                                        Expected file name format:
+                                                    </p>
+
+                                                    <div class="bg-light border rounded p-3 mb-3">
+                                                        <code>[2026-HQ-PP-SC] 01 File Name.pdf</code>
+                                                    </div>
+
+
+                                                    <p>
+                                                        The system reads the part inside the brackets:
+                                                    </p>
+
+                                                    <div class="bg-light border rounded p-3 mb-3">
+                                                        <code>2026-HQ-PP-SC</code>
+                                                    </div>
+
+
+                                                    <p>
+                                                        Then it creates or uses this folder path:
+                                                    </p>
+
+                                                    <div class="bg-light border rounded p-3 mb-3">
+                                                        <code>Documents/2026/HQ/PP/SC</code>
+                                                    </div>
+
+
+                                                    <p class="mb-0">
+                                                        The bracket code is removed from the saved file name,
+                                                        so the final uploaded file becomes:
+                                                    </p>
+
+                                                    <div class="bg-light border rounded p-3 mt-3">
+                                                        <code>01 File Name.pdf</code>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
 
                             </div>
 
-                            <div class="card border-secondary">
 
-                                <div class="card-header bg-light">
-                                    <strong>File Name Logic</strong>
-                                </div>
+                            <!-- Document Upload Form -->
 
-                                <div class="card-body">
+                            <form asp-action="Index"
+                                  asp-controller="DocumentUpload"
+                                  method="post"
+                                  enctype="multipart/form-data">
 
-                                    <p>
-                                        Expected file name format:
-                                    </p>
-
-                                    <div class="bg-light border rounded p-3 mb-3">
-                                        <code>[2026-HQ-PP-SC] 01 File Name.pdf</code>
-                                    </div>
-
-                                    <p>
-                                        The system reads the part inside the brackets:
-                                    </p>
-
-                                    <div class="bg-light border rounded p-3 mb-3">
-                                        <code>2026-HQ-PP-SC</code>
-                                    </div>
-
-                                    <p>
-                                        Then it creates or uses this folder path:
-                                    </p>
-
-                                    <div class="bg-light border rounded p-3 mb-3">
-                                        <code>Documents/2026/HQ/PP/SC</code>
-                                    </div>
-
-                                    <p class="mb-0">
-                                        The bracket code is removed from the saved file name, so the final uploaded file becomes:
-                                    </p>
-
-                                    <div class="bg-light border rounded p-3 mt-3">
-                                        <code>01 File Name.pdf</code>
-                                    </div>
+                                @Html.AntiForgeryToken()
 
 
+                                <div class="form-group mb-3">
+
+                                    <label asp-for="Files"
+                                           class="form-label fw-bold">
+
+                                        Select File
+
+                                    </label>
+
+                                    (Read the instructions before continuing 🠝)
+
+
+                                    <input type="file"
+                                           id="Files"
+                                           name="Files"
+                                           class="form-control"
+                                           accept=".xlsx,.xls,.pdf,.doc,.docx"
+                                           multiple />
+
+
+                                    <span asp-validation-for="Files"
+                                          class="text-danger">
+                                    </span>
+
+
+                                    <small class="form-text text-muted">
+                                        Allowed file types: Excel, PDF, Word documents.
+                                    </small>
 
                                 </div>
 
-                            </div>
+
+                                <div class="mb-3">
+
+                                    <label class="form-label fw-bold">
+                                        Selected Files
+                                    </label>
+
+
+                                    <ul id="fileList"
+                                        class="list-group">
+
+                                        <li class="list-group-item text-muted">
+                                            No files selected.
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+
+                                <button type="submit"
+                                        class="btn btn-primary">
+
+                                    Upload
+
+                                </button>
+
+
+                                <div>
+
+                                    <hr />
+
+                                    To upload a specific document to a specific folder,
+                                    click the button below.
+
+                                </div>
+
+
+                                <br />
+
+
+                                <a asp-action="Delete"
+                                   asp-controller="DocumentUpload"
+                                   class="btn btn-info">
+
+                                    Manage Existing Documents
+
+                                </a>
+
+                            </form>
 
                         </div>
 
@@ -216,76 +383,9 @@
 
             </div>
 
-            <!-- Existing Upload Form -->
-
-            <form asp-action="Index"
-                  asp-controller="DocumentUpload"
-                  method="post"
-                  enctype="multipart/form-data">
-
-                @Html.AntiForgeryToken()
-
-                <div class="form-group mb-3">
-
-                    <label asp-for="Files" class="form-label fw-bold">
-                        Select File
-                    </label> (Read the instructions before continuing 🠝)
-
-                    <input type="file"
-                           id="Files"
-                           name="Files"
-                           class="form-control"
-                           accept=".xlsx,.xls,.pdf,.doc,.docx"
-                           multiple />
-
-                    <span asp-validation-for="Files" class="text-danger"></span>
-
-                    <small class="form-text text-muted">
-                        Allowed file types: Excel, PDF, Word documents.
-                    </small>
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label fw-bold">
-                        Selected Files
-                    </label>
-
-                    <ul id="fileList" class="list-group">
-
-                        <li class="list-group-item text-muted">
-                            No files selected.
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <button type="submit"
-                        class="btn btn-primary">
-
-                    Upload
-
-                </button>
-                <div>
-                    <hr />
-                    To upload a specific documen to a specific folder click the button below.
-                    
-                </div>
-                <br />
-                <a asp-action="Delete"
-                   asp-controller="DocumentUpload"
-                   class="btn btn-info">
-                    Manage Existing Documents
-                </a>
-                
-            </form>
-
+            <!-- ADMINISTRATION ACCORDION ENDS -->
         </div>
-
     </div>
-
 </div>
 
 <script>

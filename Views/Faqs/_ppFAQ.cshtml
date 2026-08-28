@@ -1,107 +1,153 @@
-﻿@using Microsoft.AspNetCore.Http;
+﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 @model IEnumerable<CSMS.Models.Faq>
 
-@*<div class="card-title" style="@(dsSurveyType != "H"? "display:block" : "display:none")">
-    @dsSurveyType PP*@
-    <!-- PP -->
-    <div class="card">
-        <div class="card-body">
+@{
+    bool isSiteAdmin =
+        HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
 
+    bool hq =
+        HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";
+}
 
+<div class="card">
+    <div class="card-body">
 
-            <div class="row">
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-10">
+        <div class="row">
 
-                @{
-                    bool role = @HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
-                    bool hq = @HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay") == "0";
-                }
-                @if (role)
+            <div class="col-md-1">
+            </div>
+
+            <div class="col-md-10">
+
+                @if (isSiteAdmin)
                 {
                     <div>
-                        <a asp-action="Create" class="btn btn-sm btn-primary">Add New Question</a>
+                        <a asp-action="Create"
+                           class="btn btn-sm btn-primary">
+                            Add New Question
+                        </a>
                     </div>
+
+                    <br />
                 }
-                    <accordion>
 
+                <accordion>
 
-                        <br />
-
-
-
-                        @foreach (var category in Model.Select(x => x.Category).Distinct())
+                    @foreach (var category in Model
+                                        .Select(x => x.Category)
+                                        .Where(x => !string.IsNullOrWhiteSpace(x))
+                                        .Distinct())
+                    {
+                        if (category != "Geneva-specific questions" || hq)
                         {
-                            if (!category.Equals("Geneva-specific questions") || hq )
+                            var categoryItems = Model
+                            .Where(x =>
+                            x.Category == category &&
+                            (x.GroupId.ToString() == "0" ||
+                            x.GroupId.ToString() == "12") &&
+                            (
+                            isSiteAdmin ||
+                            x.Qtype.ToString() != "4" ||
+                            hq
+                            ))
+                            .ToList();
+
+                            if (categoryItems.Any())
                             {
-                            bool noRecordExists = !Model.Any(a => a.Category == category && a.GroupId != 1);
-                            
-                            if(!noRecordExists){
                                 <br />
-                                <h3 class="card-title">@category</h3>
+
+                                <h3 class="card-title">
+                                    @category
+                                </h3>
+
                                 <br />
-                                }
+
                                 var ii = 1;
 
-                                @foreach (var item in Model)
+                                foreach (var item in categoryItems)
                                 {
-                                    string chck = category + ii.ToString();
+                                    string chck =
+                                    "pp-" +
+                                    item.Pk.ToString();
 
-                                    //if (item.Qtype.ToString().Equals("1") && !(item.GroupId.ToString().Equals("0") && (item.Category.Equals(category))))
-                                    //if (item.Qtype.ToString().Equals("1") && (item.Category.Equals(category)))
-                                if (item.Category.Equals(category) && !item.GroupId.ToString().Equals("1"))
+                                    if (isSiteAdmin)
                                     {
+                                        <div>
 
-                                        if (role)
-                                        {
-                                            <div>
-                                                <a asp-action="Edit" asp-route-pk="@item.Pk" class="btn btn-sm btn-primary">Edit</a>
-                                                <a asp-action="Details" asp-route-id="@item.Pk" class="btn btn-sm btn-info">Details</a>
-                                                <a asp-action="Delete" asp-route-id="@item.Pk" class="btn btn-sm btn-danger" style="float:right">Delete</a>
-                                            </div>
-                                        }
+                                            <a asp-action="Edit"
+                                               asp-route-pk="@item.Pk"
+                                               class="btn btn-sm btn-primary">
+                                                Edit
+                                            </a>
 
-                                        <div class="tabs">
-                                            <div class="tab">
-                                                <input type="checkbox" id="@chck">
+                                            <a asp-action="Details"
+                                               asp-route-id="@item.Pk"
+                                               class="btn btn-sm btn-info">
+                                                Details
+                                            </a>
 
-                                                <label class="tab-label" style="font-weight: normal; font-size:medium;" for="@chck">@item.ID -  @Html.Raw(item.Question) </label>
-                                                <div class="tab-content">
-                                                    @Html.Raw(item.Answer)
-                                                </div>
+                                            <a asp-action="Delete"
+                                               asp-route-id="@item.Pk"
+                                               class="btn btn-sm btn-danger"
+                                               style="float:right">
+                                                Delete
+                                            </a>
 
-                                            </div>
                                         </div>
-                                        ii = ii + 1;
                                     }
 
+                                    <div class="tabs">
+
+                                        <div class="tab">
+
+                                            <input type="checkbox"
+                                                   id="@chck">
+
+                                            <label class="tab-label"
+                                                   style="font-weight:normal; font-size:medium;"
+                                                   for="@chck">
+
+                                                @ii - @Html.Raw(item.Question)
+
+                                            </label>
+
+                                            <div class="tab-content">
+                                                @Html.Raw(item.Answer)
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    ii++;
                                 }
                             }
-
-                           
-
-
-
                         }
+                    }
 
+                </accordion>
 
+                <br />
 
-
-                    </accordion>
-                @if (role)
-                {<br />
-                    
+                @if (isSiteAdmin)
+                {
                     <div>
-                        <a asp-action="Create" class="btn btn-sm btn-primary">Add New Question</a>
+
+                        <a asp-action="Create"
+                           class="btn btn-sm btn-primary">
+                            Add New Question
+                        </a>
+
                     </div>
                 }
 
-                </div>
-                <div class="col-md-1">
-                </div>
             </div>
-        </div>
-    </div>
 
+            <div class="col-md-1">
+            </div>
+
+        </div>
+
+    </div>
+</div>

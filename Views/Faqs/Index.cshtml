@@ -1,45 +1,85 @@
-﻿@using Microsoft.AspNetCore.Http;
+﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 @model IEnumerable<CSMS.Models.Faq>
 
 @{
     ViewData["Title"] = "Frequently Asked Questions";
     Layout = "~/Views/Shared/_accordionLayout.cshtml";
+
+    var dsSurveyType =
+        HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay");
+
+    var isSiteAdmin =
+        HttpContextAccessor.HttpContext.Session.GetString("_userRole") == "SiteAdmin";
 }
 
 <br />
 
-<div style="background-image: url(cold/assets/images/Banner.png);background-color:#203752;">
+<div style="
+    background-image: url(cold/assets/images/Banner.png);
+    background-color:#203752;">
 
     <div class="row">
         <div class="col-xl-12">
             <div class="text-center">
-                <h2 class="card-title text-white" style="padding:40px 0 5px 0">Frequently Asked Questions</h2>
-                <h4 class="card-title text-center text-white">@HttpContextAccessor.HttpContext.Session.GetString("_dsNameToDisplay")</h4>
+
+                <h2 class="card-title text-white"
+                    style="padding:40px 0 5px 0">
+                    Frequently Asked Questions
+                </h2>
+
+                <h4 class="card-title text-center text-white">
+                    @HttpContextAccessor.HttpContext.Session.GetString("_dsNameToDisplay")
+                </h4>
+
             </div>
+
             <br />
         </div>
     </div>
 </div>
 
+<div class="card">
+    <div class="card-body">
 
-                                    
-@{
-    var dsSurveyType = @HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay");
-}
+        <div class="row">
 
+            <div class="col-md-1">
+            </div>
 
+            <div class="col-md-10">
 
+                @if (isSiteAdmin)
+                {
+                    <h2>Place-to-Place Survey Questions</h2>
 
-    @if (dsSurveyType == "H")
-        {
-            <partial name="_housingFAQ" />      
-        }
-    else
-        {
-            <partial name="_ppFAQ" />
-        }
- 
-    
+                    <partial name="_ppFAQ"
+                             model="Model" />
 
+                    <br />
 
+                    <h2>Housing Survey Questions</h2>
+
+                    <partial name="_housingFAQ"
+                             model="Model" />
+                }
+                else if (dsSurveyType == "H")
+                {
+                    <partial name="_housingFAQ"
+                             model="Model" />
+                }
+                else
+                {
+                    <partial name="_ppFAQ"
+                             model="Model" />
+                }
+
+            </div>
+
+            <div class="col-md-1">
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -55,10 +55,10 @@
                                                 Survey Begin
                                                 @*@Html.DisplayNameFor(model => model.SurveyMonth)*@
                                             </th>
-                                            @*<th>
-                                                    @Html.DisplayNameFor(model => model.SurveyYear)
+                                            <th>Survey Year
+                                                    @* @Html.DisplayNameFor(model => model.SurveyYear) *@
 
-                                                </th>*@
+                                                </th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -79,9 +79,9 @@
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.SurveyBegin)
                                                 </td>
-                                                @*<td>
+                                                <td>
                                                         @Html.DisplayFor(modelItem => item.SurveyYear)
-                                                    </td>*@
+                                                    </td>
 
                                                 <td>
                                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>

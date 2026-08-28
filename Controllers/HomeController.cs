@@ -248,7 +248,15 @@ namespace CSMS.Controllers
                     {
                         var DSList = _context.Surveys.Include(a => a.Ds)
 
-                            .Select(aa => new { aa.Dsid, aa.Ds.Country, aa.SurveyBegin, aa.SurveyEnd, aa.Round })
+                            .Select(aa => new
+                            {
+                                aa.Dsid,
+                                aa.Ds.Country,
+                                aa.SurveyBegin,
+                                aa.SurveyEnd,
+                                aa.Round,
+                                aa.SurveyType
+                            })
                             .Where(x => x.SurveyEnd.Value.Year - todaysDate.Year >= -2)
                             .OrderBy(x => x.SurveyBegin).ThenBy(x => x.Country)
                             .Distinct().ToList();
@@ -258,7 +266,15 @@ namespace CSMS.Controllers
 
 
                         var query = from x in DSList
-                                    select new { Dsid = x.Dsid, Country = x.Country, round = x.Round, SurveyBegin = x.SurveyBegin, SurveyEnd = x.SurveyEnd };
+                                    select new
+                                    {
+                                        Dsid = x.Dsid,
+                                        Country = x.Country,
+                                        round = x.Round,
+                                        SurveyBegin = x.SurveyBegin,
+                                        SurveyEnd = x.SurveyEnd,
+                                        SurveyType = x.SurveyType
+                                    };
 
                         var testt = query.Select(x => x.SurveyEnd.Value.Year - todaysDate.Year);
 
@@ -286,7 +302,7 @@ namespace CSMS.Controllers
                             .ToList();
 
                         var activeRoundDropdown = new List<SelectListItem>();
-                        foreach (var roundGroup in activeListByRound.GroupBy(x => x.round).OrderBy(x => x.Key))
+                        foreach (var roundGroup in activeListByRound.GroupBy(x => x.round).OrderByDescending(x => x.Key))
                         {
                             activeRoundDropdown.Add(new SelectListItem
                             {
@@ -299,7 +315,7 @@ namespace CSMS.Controllers
                             {
                                 activeRoundDropdown.Add(new SelectListItem
                                 {
-                                    Text = survey.Country,
+                                    Text = survey.Country + " - " + (survey.SurveyType.ToString().Trim() == "H" ? "H" : "PP"),
                                     Value = survey.Dsid + "0"
                                 });
                             }
@@ -312,7 +328,7 @@ namespace CSMS.Controllers
                             .ToList();
 
                         var upcomingRoundDropdown = new List<SelectListItem>();
-                        foreach (var roundGroup in upcomingListByRound.GroupBy(x => x.round).OrderBy(x => x.Key))
+                        foreach (var roundGroup in upcomingListByRound.GroupBy(x => x.round).OrderByDescending(x => x.Key))
                         {
                             upcomingRoundDropdown.Add(new SelectListItem
                             {
@@ -325,7 +341,7 @@ namespace CSMS.Controllers
                             {
                                 upcomingRoundDropdown.Add(new SelectListItem
                                 {
-                                    Text = survey.Country,
+                                    Text = survey.Country + " - " + (survey.SurveyType.ToString().Trim() == "H" ? "H" : "PP"),
                                     Value = survey.Dsid + "1"
                                 });
                             }
@@ -351,7 +367,7 @@ namespace CSMS.Controllers
                             {
                                 pastRoundDropdown.Add(new SelectListItem
                                 {
-                                    Text = survey.Country,
+                                    Text = survey.Country + " - " + (survey.SurveyType.ToString().Trim() == "H" ? "H" : "PP"),
                                     Value = survey.Dsid + "2"
                                 });
                             }

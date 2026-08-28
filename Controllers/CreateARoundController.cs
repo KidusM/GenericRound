@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using CSMS.Data;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -10,10 +11,14 @@ namespace CSMS.Controllers
     public class CreateARoundController : Controller
     {
         private readonly IWebHostEnvironment _environment;
+        private readonly ApplicationDbContext _context;
 
-        public CreateARoundController(IWebHostEnvironment environment)
+        public CreateARoundController(
+            IWebHostEnvironment environment,
+            ApplicationDbContext context)
         {
             _environment = environment;
+            _context = context;
         }
 
         private string GetRealFolderName(string parentPath, string folderName)
@@ -135,6 +140,22 @@ namespace CSMS.Controllers
             }
 
             yearToDelete = yearToDelete.Trim();
+
+            bool hasSurveys = _context.Surveys
+                .AsEnumerable()
+                .Any(s => s.Round != null &&
+                          s.Round.ToString().Trim() == yearToDelete);
+
+            if (hasSurveys)
+            {
+                ViewBag.Message =
+                    $"Cannot delete Round {yearToDelete}. One or more surveys are assigned to this round.";
+
+                ViewBag.MessageType = "danger";
+
+                LoadAvailableRounds();
+                return View("Index");
+            }
 
             string documentsRoot = GetDocumentsRoot();
             string roundPath = GetRealFolderName(documentsRoot, yearToDelete);
