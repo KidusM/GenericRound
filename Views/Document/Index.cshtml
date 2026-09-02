@@ -7,7 +7,15 @@
 
 }
 <div class="container">
-    <div style="background-image: url(cold/assets/images/Banner.png);background-color:#203752;">
+    @*<div style="background-image: url(cold/assets/images/Banner.png);background-color:#203752;">*@
+    <div style="
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(32, 55, 82, 1) 0%,
+            rgba(32, 55, 82, 0.5) 100%
+        ),
+        url('@Url.Content("~/assets/images/Banner.png")');">
 
         <div class="row">
             <div class="col-xl-12">
@@ -17,11 +25,11 @@
                     <h2 class="card-title text-white" style="padding:40px 0 5px 0">Documents </h2>
 
                     @{
-                            bool display = @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") != null && @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") != "";
-                            bool selectedDS = @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsGroup") != null && @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsGroup") != "";
+                        bool display = @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") != null && @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") != "";
+                        bool selectedDS = @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsGroup") != null && @HttpContextAccessor.HttpContext.Session.GetString("_SelectedDsGroup") != "";
 
-                            if (display)
-                            {
+                        if (display)
+                        {
                             <h4 class="card-title text-center text-white">
                                 @*<h4 style="@(display? "disply:block" : "display:none")" class="card-title text-center text-white">*@
                                 @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") - @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCity")
