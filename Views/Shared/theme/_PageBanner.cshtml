@@ -1,0 +1,42 @@
+﻿@model string
+
+<div style="
+    min-height: 135px;
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(32, 55, 82, 0.8) 0%,
+            rgba(32, 55, 82, 0.8) 100%
+        ),
+        url('@Url.Content("~/assets/images/Banner.png")');
+    background-color: #203752;
+    background-size: cover;
+">
+</div>
+@* 
+
+<div style="background-image:
+    linear-gradient( to right,
+        rgba(32, 55, 82, 0.8) 0%,
+        rgba(32, 55, 82, 0.8) 100% ),
+        url('@Url.Content("~/assets/images/Banner.png")');
+        background-color: #203752;
+        background-size: cover;
+    background-position: center;
+
+    "> *@
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="text-center">
+
+                <h2 class="card-title text-white"
+                    style="padding:40px 0 40px 0">
+                    @Model
+                </h2>
+
+            </div>
+        </div>
+    </div>
+
+</div>

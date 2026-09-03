@@ -7,11 +7,18 @@
 <script src="~/theme/assets/node_modules/jquery/dist/jquery.min.js"></script>
 
 <h4 class="text-center card-title">@HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCountry") - @HttpContextAccessor.HttpContext.Session.GetString("_loggedInUserCity")</h4>
-
+@{
+    var monitoringDsid = ViewData["MonitoringDsid"]?.ToString();
+    var monitoringNumber = ViewData["MonitoringNumber"]?.ToString();
+    var monitoringRound = ViewData["MonitoringRound"]?.ToString();
+}
 
 @{
     var dsiddd = this.Context.Request.Query.FirstOrDefault(x => x.Key.Equals("dsid"));
     var numberr = this.Context.Request.Query.FirstOrDefault(x => x.Key.Equals("number"));
+    var roundd = this.Context.Request.Query.FirstOrDefault(x => x.Key.Equals("round"));
+
+    
     if (dsiddd.Value == "" || dsiddd.Key == null)
     {
         @*<div id="myDSID" style="display:none">@HttpContextAccessor.HttpContext.Session.GetString("_focalPointMonitoringDSID")</div>*@
@@ -22,6 +29,8 @@
         <div id="myDSID" style="display:none">@dsiddd.Value</div>
     }
 }
+
+<div id="surveyRound" style="display:none">@roundd.Value</div>
 
 @*@if (@HttpContextAccessor.HttpContext.Session.GetString("_focalPointMonitoringDSID") != "")
     {
@@ -39,9 +48,11 @@
 
 
         var myTest = document.getElementById("myDSID").innerText;
+        var surveyRound = document.getElementById("surveyRound").innerText.trim();
 
        // alert("getScMonitoringReport?dsid=" + "'" + myTest + "'");
-        $.getJSON("getScMonitoringReport?dsid=" + "'"+ myTest + "'" ,
+        //$.getJSON("getScMonitoringReport?dsid=" + "'"+ myTest + "'" ,
+        $.getJSON("getScMonitoringReport?dsid=" + "'" + myTest + "'" + "&SurveyRound=" + encodeURIComponent(surveyRound),
             function (json) {
                 var responseRate;
                 var tr;

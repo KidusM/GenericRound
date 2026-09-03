@@ -553,8 +553,27 @@ namespace CSMS.Controllers
         {
             return View();
         }
+        //public IActionResult MonitoringTool()
+        //{
+        //    return View();
+        //}
+
+
+        //public IActionResult MonitoringTool(string dsid, string number, string round)
+        //{
+        //    ViewBag.MonitoringDsid = dsid;
+        //    ViewBag.MonitoringNumber = number;
+        //    ViewBag.MonitoringRound = round;
+
+        //    return View();
+        //}
+
         public IActionResult MonitoringTool()
         {
+            //ViewBag.MonitoringDsid = dsid;
+            //ViewBag.MonitoringNumber = number;
+            //ViewBag.MonitoringRound = round;
+
             return View();
         }
 
@@ -563,13 +582,19 @@ namespace CSMS.Controllers
             return View();
         }
 
-        public IActionResult getScMonitoringReport(string dsid)
+        public IActionResult getScMonitoringReport(string dsid, int SurveyRound)
         {
             var dsidd = dsid.Replace("'", "");
 
 
             SqlParameter dsidParameter = new SqlParameter("@ds", dsid);
-            if (HttpContext.Session.GetString("_dsSurveyRoundToDisplay") == "2021")
+
+            //string testt = HttpContext.Session.GetString("_dsSurveyRoundToDisplay");
+            //    bool Survey21= (HttpContext.Session.GetString("_dsSurveyRoundToDisplay")?.Trim() == "2021") ;
+
+            bool Survey21 = SurveyRound == 2021;
+
+            if (Survey21)
             {
                 if (dsid == "'ITA001'" || dsid == "'POL005'" || dsid == "'CAN004'" || dsid == "'CAN001'" || dsid == "'CAN006'" || dsid == "'FRA001'" || dsid == "'FRA002'")
                 {
@@ -600,6 +625,7 @@ namespace CSMS.Controllers
                     dsid = dsid.Substring(0, 4) + "'";
                     var test = _context.scMontoringReport
                     // .FromSqlRaw("execute ICC_COLD_SURVEYS_2021.dbo.cold_web_report1 " + dsid)
+
                     .FromSqlRaw("execute Webcd2026.dbo.cold_web_report2 " + dsid)
                     .ToList();
 

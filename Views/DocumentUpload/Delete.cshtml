@@ -134,14 +134,16 @@
 
                 @foreach (var file in Model.UploadedFiles)
                 {
-                    var fileUrl = "/assets/documents";
+                    var relativePath = "assets/documents";
 
                     if (!string.IsNullOrEmpty(Model.CurrentPath))
                     {
-                        fileUrl += "/" + Model.CurrentPath.Replace("\\", "/");
+                        relativePath += "/" + Model.CurrentPath.Replace("\\", "/");
                     }
 
-                    fileUrl += "/" + file;
+                    relativePath += "/" + file;
+
+                    var fileUrl = Url.Content("~/" + relativePath);
 
                     <tr>
 

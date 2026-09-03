@@ -1,7 +1,6 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http
 @model IEnumerable<CSMS.Models.ScChecklist>
-
 @{
     bool role =
         HttpContextAccessor.HttpContext.Session.GetString("_userRole")
@@ -15,12 +14,11 @@
                 x.DsGroup
                     .Split(',', StringSplitOptions.RemoveEmptyEntries)
                     .Select(g => g.Trim())
-                    .Contains("G1"))
+                    .Contains("HQ"))
             .ToList();
 
     int i = 1;
 }
-
 <br />
 
 @if (role)
@@ -48,7 +46,7 @@
 
     @foreach (var item in checklistItems.Where(x => x.Time == category))
     {
-        string chck = "g1chck" + i.ToString();
+        string chck = "hqchck" + i.ToString();
 
         if (role)
         {

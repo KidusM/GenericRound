@@ -51,13 +51,22 @@
                                 }
                             @*</tr>*@
                 <tr>
+
                     
                     <td></td>
                     <td style="@(@activeSurvey ? "color:green; font-weight:bold" : "" )">@Html.DisplayFor(modelItem => item.Ds.Country)</td>
                     <td style="@(@activeSurvey ? "color:green; font-weight:bold" : "" )">@Html.DisplayFor(modelItem => item.SurveyType)</td>
                     <td style="@(@activeSurvey ? "color:green; font-weight:bold" : "" )">@Html.DisplayFor(modelItem => item.SurveyMonth) - @Html.DisplayFor(modelItem => item.SurveyYear)</td>
 
-                    <td><a type="button" class="btn btn-outline-secondary btn-block" style="display:block" href="~/Home/MonitoringTool?dsid=@item.Dsid&number=@item.NoOfStaff  "> Response Rate </a></td>
+                                <td>
+                                    <a type="button"
+                                       class="btn btn-outline-secondary btn-block"
+                                       style="display:block"
+                                       href="@Url.Action("MonitoringTool", "Home", new { dsid = item.Dsid, number = item.NoOfStaff, round = item.Round })">
+                                        Response Rate
+                                    </a>
+                                </td>
+                    @* <td><a type="button" class="btn btn-outline-secondary btn-block" style="display:block" href="~/Home/MonitoringTool?dsid=@item.Dsid&number=@item.NoOfStaff&round=@item.Round  "> Response Rate </a></td> *@
                     @*<td>@Html.DisplayFor(modelItem => item.Sm.FirstName) @Html.DisplayFor(modelItem => item.Sm.LastName)</td>*@
                 </tr>
 

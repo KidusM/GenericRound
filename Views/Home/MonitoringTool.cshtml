@@ -3,8 +3,11 @@
 @{
     ViewData["Title"] = "MonitoringTool";
     Layout = "~/Views/Shared/theme/_ThemeLayoutDataTables.cshtml";
-}
 
+    ViewData["MonitoringDsid"] = ViewBag.MonitoringDsid;
+    ViewData["MonitoringNumber"] = ViewBag.MonitoringNumber;
+    ViewData["MonitoringRound"] = ViewBag.MonitoringRound;
+}
 <div class="card">
     <div class="card-body">
         <br /><br />
@@ -15,10 +18,19 @@
 </div>
 <div class="card">
     <div class="card-body">
-        
+
         <div id="divPartial">
             <partial name="_MonitoringReport" />
         </div>
+        @*         <div id="divPartial">
+            <partial name="_MonitoringReport"
+                     view-data='new ViewDataDictionary(ViewData)
+                     {
+                         ["MonitoringDsid"] = ViewBag.MonitoringDsid,
+                         ["MonitoringNumber"] = ViewBag.MonitoringNumber,
+                         ["MonitoringRound"] = ViewBag.MonitoringRound
+                     }' />
+        </div> *@
 
         <div class="modal long-modal" tabindex="-1" role="dialog" aria-labelledby="longmodal" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">

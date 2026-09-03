@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CSMS.Data;
+using CSMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CSMS.Data;
-using CSMS.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace CSMS.Controllers
 {
@@ -55,7 +56,7 @@ namespace CSMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,Time,Task,DetailTask,CbId,DetailTaskG1,GroupId")] ScChecklist scChecklist)
+        public async Task<IActionResult> Create([Bind("Id,Number,Time,Task,DetailTask,CbId,DetailTaskG1,GroupId,DsGroup")] ScChecklist scChecklist)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +88,7 @@ namespace CSMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Time,Task,DetailTask,CbId,DetailTaskG1,GroupId")] ScChecklist scChecklist)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Time,Task,DetailTask,CbId,DetailTaskG1,GroupId,DsGroup")] ScChecklist scChecklist)
         {
             if (id != scChecklist.Id)
             {

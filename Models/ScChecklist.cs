@@ -26,8 +26,13 @@ namespace CSMS.Models
         public string CbId { get; set; }
         [Column("Detail_taskG1")]
         public string DetailTaskG1 { get; set; }
+
         [Column("GroupID")]
         [StringLength(255)]
         public string GroupId { get; set; }
+
+        [Column("DsGroup")]
+        [StringLength(50)]
+        public string DsGroup { get; set; }
     }
 }

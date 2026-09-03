@@ -7,8 +7,18 @@
     Layout = "~/Views/Shared/_accordionLayout.cshtml";
 }
 
-<div style="background-image: url(cold/assets/images/Banner.png);background-color:#203752;">
-
+<div style="
+    min-height: 135px;
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(32, 55, 82, 0.8) 0%,
+            rgba(32, 55, 82, 0.8) 100%
+        ),
+        url('@Url.Content("~/assets/images/Banner.png")');
+    background-color: #203752;
+    background-size: cover;
+">
     <div class="row">
         <div class="col-xl-12">
             <div class="text-center">
@@ -27,8 +37,12 @@
         <a asp-action="Create">Create New</a>
     </p>*@
 
-@{var surveyType = HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay");}
-@{string dsGroup = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay"); }
+@{
+    var surveyType = HttpContextAccessor.HttpContext.Session.GetString("_dsSurveyTypeToDisplay");
+}
+@{
+    string dsGroup = HttpContextAccessor.HttpContext.Session.GetString("_dsGroupToDisplay");
+}
 
 <div class="card">
     <div class="card-body">
@@ -39,7 +53,7 @@
             <div class="col-md-10">
 
                 <!--Insert Partial view here-->
-                @if (dsGroup != "2" && surveyType != "H")
+                @*  @if (dsGroup != "2" && surveyType != "H")
                 {
                     <partial name="_G1Checklist" />
                 }
@@ -50,7 +64,30 @@
                 else if (surveyType == "H") 
                 {
                     <partial name="_HChecklist" />
+                } *@
+
+
+                @* <partial name="_HQChecklist" /> *@
+
+
+                @if (surveyType == "H")
+                {
+                    <partial name="_HChecklist" />
                 }
+                else if (dsGroup == "0")
+                {
+                    <partial name="_HQChecklist" />
+                }
+
+                else if (dsGroup == "2")
+                {
+                    <partial name="_G2Checklist" />
+                }
+                else
+                {
+                    <partial name="_G1Checklist" />
+                }
+
             </div>
             <div class="col-md-1">
             </div>
