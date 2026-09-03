@@ -12,53 +12,68 @@
 
             
             <dl class="dl-horizontal">
-                <dt>
+                @*<dt>
                     @Html.DisplayNameFor(model => model.Number)
                 </dt>
-                <dd><textarea readonly class="form-control" style="color:black;background:white" rows="1">@Html.DisplayFor(model => model.Number)</textarea> 
-                </dd>
+                <dd>
+                    <textarea readonly class="form-control" style="color:black;background:white" rows="1">@Html.DisplayFor(model => model.Number)</textarea>
+                </dd>*@
                 <dt>
                     @Html.DisplayNameFor(model => model.Time)
                 </dt>
                 <dd>
                     <textarea readonly class="form-control" style="color:black;background:white" rows="1">@Html.DisplayFor(model => model.Time)</textarea>
-                    
+
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Task)
                 </dt>
                 <dd>
-                    <textarea  readonly class="form-control" style="color:black;background:white" rows="3">@Html.DisplayFor(model => model.Task)</textarea>
-                    
+                    <textarea readonly class="form-control" style="color:black;background:white" rows="3">@Html.DisplayFor(model => model.Task)</textarea>
+
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.DetailTask)
                 </dt>
                 <dd>
-                    <textarea  readonly class="form-control" style="color:black;background:white" rows="10">@Html.DisplayFor(model => model.DetailTask)</textarea>
-                    
+                    <textarea readonly class="form-control" style="color:black;background:white" rows="10">@Html.DisplayFor(model => model.DetailTask)</textarea>
+
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.CbId)
+                    Applicable to:
+                    @*@Html.DisplayNameFor(model => model.DsGroup)*@
                 </dt>
                 <dd>
-                    <textarea  readonly class="form-control" style="color:black;background:white" rows="1">@Html.DisplayFor(model => model.CbId)</textarea>
-                    
+                    <textarea readonly class="form-control" style="color:black;background:white" rows="1">@Html.DisplayFor(model => model.DsGroup)</textarea>
+
                 </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.DetailTaskG1)
-                </dt>
-                <dd>
-                    <textarea readonly  class="form-control" style="color:black;background:white" rows="10">@Html.DisplayFor(model => model.DetailTaskG1)</textarea>
-                    
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.GroupId)
-                </dt>
-                <dd>
-                    <textarea  readonly class="form-control" style="color:black;background:white" rows="1">@Html.DisplayFor(model => model.GroupId)</textarea>
-                    
-                </dd>
+
+
+                @*<dd>
+            <textarea  readonly class="form-control" style="color:black;background:white" rows="10">@Html.DisplayFor(model => model.DetailTask)</textarea>
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CbId)
+        </dt>
+        <dd>
+            <textarea  readonly class="form-control" style="color:black;background:white" rows="1">@Html.DisplayFor(model => model.CbId)</textarea>
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DetailTaskG1)
+        </dt>
+        <dd>
+            <textarea readonly  class="form-control" style="color:black;background:white" rows="10">@Html.DisplayFor(model => model.DetailTaskG1)</textarea>
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupId)
+        </dt>
+        <dd>
+            <textarea  readonly class="form-control" style="color:black;background:white" rows="1">@Html.DisplayFor(model => model.GroupId)</textarea>
+
+        </dd>*@
             </dl>
         </div>
         <div>

@@ -5,12 +5,12 @@
   },
   "PAManualUrl": "https://unicsc.org/Resources/COLD/Booklets/PABooklet.pdf",
   "ElectroniDiaryEnglishURL": {
-    "2026": "TestEnglish2026",
-    "2021": "TestEnglish2021"
+    "2026": "https://surveys.unicsc.org/COLD/Assets/Documents/2026/HQ/PP/ST/01.20Electronic%20Diary%20English.xlsx",
+    "2021": "https://surveys.unicsc.org/COLD/Assets/Documents/2021/GII/PP/ST/01%20Electronic%20Diary%20(English)%20G-II.xlsm"
   },
   "ElectroniDiaryFrenchURL": {
-    "2026": "TestFrench2026",
-    "2021": "TestFrench2021"
+    "2026": "https://surveys.unicsc.org/COLD/Assets/Documents/2026/HQ/PP/ST/02.%20Electronic%20Diary%20Francais.xlsx",
+    "2021": "https://surveys.unicsc.org/COLD/Assets/Documents/2021/GII/PP/ST/01%20Electronic%20Diary%20(Fran%C3%A7ais)%20G-II.xlsm"
   }
 
 }

@@ -12,19 +12,31 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Number" class="control-label"></label>
                 <input asp-for="Number" class="form-control" />
                 <span asp-validation-for="Number" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
+                <label asp-for="Time" class="control-label"><b>Survey Timing</b></label>
+
+                <select asp-for="Time"class="form-control">
+                    <option value="">-- Select Survey Timing --</option>
+                    <option value="Before the Survey" data-code="1">Before the Survey</option>
+                    <option value="During the Survey" data-code="2">During the Survey</option>
+                    <option value="After the Survey" data-code="3">After the Survey</option>
+                </select>
+
+                @*<span asp-validation-for="Time" class="text-danger"></span>*@
+            </div>
+            @*<div class="form-group">
                 <label asp-for="Time" class="control-label"></label>
                 <input asp-for="Time" class="form-control" />
                 <span asp-validation-for="Time" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Task" class="control-label"></label>
-                <textarea asp-for="Task" class="form-control" rows="10"></textarea>
+                <textarea asp-for="Task" class="form-control" rows="4"></textarea>
                 <span asp-validation-for="Task" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,22 +44,40 @@
                 <textarea asp-for="DetailTask" class="form-control" rows="10"></textarea>
                 <span asp-validation-for="DetailTask" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="CbId" class="control-label"></label>
-                <input asp-for="CbId" class="form-control" />
-                <span asp-validation-for="CbId" class="text-danger"></span>
+                <label asp-for="DsGroup" class="control-label">Applicable to:</label>
+                <ul>
+                    <li>For housing surveys input HH</li>
+                    <li>For Headquarters input HQ</li>
+                    <li>Group I input G1</li>
+                    <li>Group II input G2</li>
+                    <li>If its applicable to more than 1 group then input the code separated by a comma. <strong> eg. (HQ,G1,G2,HH)</strong></li>
+
+                </ul>
+
+
+                <input asp-for="DsGroup" class="form-control" />
+                <span asp-validation-for="DsGroup" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DetailTaskG1" class="control-label"></label>
-                @*<input asp-for="DetailTaskG1" class="form-control" />*@
-                <textarea asp-for="DetailTaskG1" class="form-control" rows="10"></textarea>
-                <span asp-validation-for="DetailTaskG1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GroupId" class="control-label"></label>
-                <input asp-for="GroupId" class="form-control" />
-                <span asp-validation-for="GroupId" class="text-danger"></span>
-            </div>
+
+
+            <!--<div class="form-group">
+        <label asp-for="CbId" class="control-label"></label>
+        <input asp-for="CbId" class="form-control" />
+        <span asp-validation-for="CbId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DetailTaskG1" class="control-label"></label>-->
+            @*<input asp-for="DetailTaskG1" class="form-control" />*@
+            <!--<textarea asp-for="DetailTaskG1" class="form-control" rows="10"></textarea>
+        <span asp-validation-for="DetailTaskG1" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GroupId" class="control-label"></label>
+        <input asp-for="GroupId" class="form-control" />
+        <span asp-validation-for="GroupId" class="text-danger"></span>
+    </div>-->
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

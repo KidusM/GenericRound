@@ -44,7 +44,7 @@
     </h4>
 
     <br />
-
+    int j = 1;
     @foreach (var item in checklistItems.Where(x => x.Time == category))
     {
         string chck = "hhchck" + i.ToString();
@@ -82,7 +82,7 @@
                 <label class="tab-label"
                        for="@chck"
                        style="font-weight:normal; font-size:medium;">
-                    @Html.Raw(item.Task)
+                    @j. @Html.Raw(item.Task)
                 </label>
 
                 <div class="tab-content">
@@ -93,5 +93,6 @@
         </div>
 
         i++;
+        j++;
     }
 }
